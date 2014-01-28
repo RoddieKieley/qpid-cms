@@ -21,11 +21,10 @@
 
 // Static Connection factory for implementation independence
 cms::ConnectionFactory* cms::ConnectionFactory::createCMSConnectionFactory(const std::string& brokerURI) {
-    return new qpid::messaging::cmsimpl::QpidConnectionFactory( brokerURI );
+    return new qpid::cmsimpl::QpidConnectionFactory( brokerURI );
 }
 
 namespace qpid {
-namespace messaging {
 namespace cmsimpl {
 
 QpidConnectionFactory::QpidConnectionFactory(const std::string& brokerURI)
@@ -88,6 +87,5 @@ cms::Connection* QpidConnectionFactory::createConnection()
 
 }
 
-}
 }
 }

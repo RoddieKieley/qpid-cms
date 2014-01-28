@@ -21,7 +21,6 @@
 #include "cms/ConnectionFactory.h"
 
 namespace qpid {
-namespace messaging {
 namespace cmsimpl {
 
 class QpidConnectionFactory : public cms::ConnectionFactory
@@ -43,7 +42,6 @@ private:
     virtual cms::Connection* createConnection(const std::string& username, const std::string& password);
     virtual cms::Connection* createConnection();
 };
-}
 }
 }
 

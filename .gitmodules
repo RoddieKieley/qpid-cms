@@ -1,0 +1,4 @@
+[submodule "activemq-cpp"]
+	path = activemq-cpp
+	url = https://git-wip-us.apache.org/repos/asf/activemq-cpp.git
+	branch = 3.8.x

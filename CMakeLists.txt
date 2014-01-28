@@ -77,9 +77,15 @@ set (cms_implementation_files
   cms/Xid.cpp
 )
 
+set (qpidmessaging_cms_files
+  qpidmessaging/QpidConnectionFactory.cpp
+)
+
 include_directories (.)
 
-add_library (qpid-cms SHARED ${cms_implementation_files})
+add_library (qpid-cms SHARED
+             ${cms_implementation_files}
+             ${qpidmessaging_cms_files})
 
 target_link_libraries (qpid-cms qpidmessaging qpidtypes)
 

@@ -80,6 +80,7 @@ set (cms_implementation_files
 set (qpidmessaging_cms_files
   qpidmessaging/QpidConnection.cpp
   qpidmessaging/QpidConnectionFactory.cpp
+  qpidmessaging/QpidSession.cpp
 )
 
 include_directories (.)

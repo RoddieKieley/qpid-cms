@@ -31,6 +31,8 @@ public:
     ~QpidConnection();
     QpidConnection& operator=(const QpidConnection& other);
     bool operator==(const QpidConnection& other);
+
+private:
     virtual cms::MessageTransformer* getMessageTransformer();
     virtual void setMessageTransformer(cms::MessageTransformer* transformer);
     virtual void setExceptionListener(cms::ExceptionListener* listener);

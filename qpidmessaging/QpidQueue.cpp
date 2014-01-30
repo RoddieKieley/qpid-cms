@@ -15,57 +15,62 @@
  *
  */
 
-#include "QpidDestination.h"
+#include "QpidQueue.h"
 
 namespace qpid {
 namespace cmsimpl {
 
-QpidDestination::QpidDestination()
+QpidQueue::QpidQueue()
 {
 
 }
 
-QpidDestination::QpidDestination(const QpidDestination& other)
+QpidQueue::QpidQueue(const QpidQueue& other)
 {
 
 }
 
-QpidDestination::~QpidDestination()
+QpidQueue::~QpidQueue()
 {
 
 }
 
-QpidDestination& QpidDestination::operator=(const QpidDestination& other)
+QpidQueue& QpidQueue::operator=(const QpidQueue& other)
 {
 
 }
 
-bool QpidDestination::operator==(const QpidDestination& other)
+bool QpidQueue::operator==(const QpidQueue& other)
 {
 
 }
 
-const cms::CMSProperties& QpidDestination::getCMSProperties()
+std::string QpidQueue::getQueueName()
 {
 
 }
 
-bool QpidDestination::equals(const cms::Destination& other)
+const cms::CMSProperties& QpidQueue::getCMSProperties()
 {
 
 }
 
-void QpidDestination::copy(const cms::Destination& source)
+bool QpidQueue::equals(const cms::Destination& other)
 {
 
 }
 
-cms::Destination* QpidDestination::clone()
+void QpidQueue::copy(const cms::Destination& source)
 {
 
 }
 
-cms::Destination::DestinationType QpidDestination::getDestinationType()
+cms::Destination* QpidQueue::clone()
+{
+
+}
+
+cms::Destination::DestinationType QpidQueue::getDestinationType()
 {
 
 }

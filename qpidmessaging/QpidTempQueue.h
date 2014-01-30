@@ -15,24 +15,26 @@
  *
  */
 
-#ifndef QPID_CMSIMPL_QPIDDESTINATION_H
-#define QPID_CMSIMPL_QPIDDESTINATION_H
+#ifndef QPID_CMSIMPL_QPIDTEMPQUEUE_H
+#define QPID_CMSIMPL_QPIDTEMPQUEUE_H
 
-#include "cms/Destination.h"
+#include "cms/TemporaryQueue.h"
 
 namespace qpid {
 namespace cmsimpl {
 
-class QpidDestination :  cms::Destination
+class QpidTempQueue :  cms::TemporaryQueue
 {
 public:
-    QpidDestination();
-    QpidDestination(const QpidDestination& other);
-    ~QpidDestination();
-    QpidDestination& operator=(const QpidDestination& other);
-    bool operator==(const QpidDestination& other);
+    QpidTempQueue();
+    QpidTempQueue(const QpidTempQueue& other);
+    ~QpidTempQueue();
+    QpidTempQueue& operator=(const QpidTempQueue& other);
+    bool operator==(const QpidTempQueue& other);
 
 private:
+    virtual void destroy();
+    virtual std::string getQueueName();
     virtual const cms::CMSProperties& getCMSProperties();
     virtual bool equals(const cms::Destination& other);
     virtual void copy(const cms::Destination& source);
@@ -42,4 +44,4 @@ private:
 }
 }
 
-#endif // QPID_CMSIMPL_QPIDDESTINATION_H
+#endif // QPID_CMSIMPL_QPIDTEMPQUEUE_H

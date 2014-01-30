@@ -78,13 +78,22 @@ set (cms_implementation_files
 )
 
 set (qpidmessaging_cms_files
+  qpidmessaging/QpidBytesMessage.cpp
   qpidmessaging/QpidConnection.cpp
   qpidmessaging/QpidConnectionFactory.cpp
-  qpidmessaging/QpidDestination.cpp
+  qpidmessaging/QpidMapMessage.cpp
   qpidmessaging/QpidMessage.cpp
   qpidmessaging/QpidMessageConsumer.cpp
   qpidmessaging/QpidMessageProducer.cpp
+  qpidmessaging/QpidProps.cpp
+  qpidmessaging/QpidQueue.cpp
+  qpidmessaging/QpidQueueBrowser.cpp
   qpidmessaging/QpidSession.cpp
+  qpidmessaging/QpidStreamMessage.cpp
+  qpidmessaging/QpidTempQueue.cpp
+  qpidmessaging/QpidTempTopic.cpp
+  qpidmessaging/QpidTextMessage.cpp
+  qpidmessaging/QpidTopic.cpp
 )
 
 include_directories (.)

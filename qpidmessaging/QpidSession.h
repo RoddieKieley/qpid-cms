@@ -18,7 +18,7 @@
 #ifndef QPID_CMSIMPL_QPIDSESSION_H
 #define QPID_CMSIMPL_QPIDSESSION_H
 
-#include <../activemq-cpp/activemq-cpp/src/main/cms/Session.h>
+#include "cms/Session.h"
 
 namespace qpid {
 namespace cmsimpl {

@@ -18,7 +18,7 @@
 #ifndef QPID_CMSIMPL_QPIDMESSAGECONSUMER_H
 #define QPID_CMSIMPL_QPIDMESSAGECONSUMER_H
 
-#include <../activemq-cpp/activemq-cpp/src/main/cms/MessageConsumer.h>
+#include "cms/MessageConsumer.h"
 
 namespace qpid {
 namespace cmsimpl {

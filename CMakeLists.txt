@@ -80,6 +80,8 @@ set (cms_implementation_files
 set (qpidmessaging_cms_files
   qpidmessaging/QpidConnection.cpp
   qpidmessaging/QpidConnectionFactory.cpp
+  qpidmessaging/QpidDestination.cpp
+  qpidmessaging/QpidMessage.cpp
   qpidmessaging/QpidMessageConsumer.cpp
   qpidmessaging/QpidMessageProducer.cpp
   qpidmessaging/QpidSession.cpp

@@ -18,7 +18,7 @@
 #ifndef QPID_CMSIMP_QPIDMESSAGEPRODUCER_H
 #define QPID_CMSIMP_QPIDMESSAGEPRODUCER_H
 
-#include <../activemq-cpp/activemq-cpp/src/main/cms/MessageProducer.h>
+#include "cms/MessageProducer.h"
 
 namespace qpid {
 namespace cmsimpl {

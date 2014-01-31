@@ -113,3 +113,5 @@ install (TARGETS qpid-cms
          LIBRARY DESTINATION "lib"
          ARCHIVE DESTINATION "lib")
 
+
+add_subdirectory(examples)

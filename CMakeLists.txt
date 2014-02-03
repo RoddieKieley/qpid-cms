@@ -81,6 +81,7 @@ set (qpidmessaging_cms_files
   qpidmessaging/QpidBytesMessage.cpp
   qpidmessaging/QpidConnection.cpp
   qpidmessaging/QpidConnectionFactory.cpp
+  qpidmessaging/QpidExceptions.cpp
   qpidmessaging/QpidMapMessage.cpp
   qpidmessaging/QpidMessage.cpp
   qpidmessaging/QpidMessageConsumer.cpp
@@ -97,6 +98,7 @@ set (qpidmessaging_cms_files
 )
 
 include_directories (.)
+add_compile_options(-Wall -Werror)
 
 add_library (qpid-cms SHARED
              ${cms_implementation_files}

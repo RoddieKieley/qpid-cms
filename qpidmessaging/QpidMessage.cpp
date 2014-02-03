@@ -17,6 +17,8 @@
 
 #include "QpidMessage.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -37,12 +39,12 @@ QpidMessage::~QpidMessage()
 
 QpidMessage& QpidMessage::operator=(const QpidMessage& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidMessage::operator==(const QpidMessage& other)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSType(const std::string& type)
@@ -52,7 +54,7 @@ void QpidMessage::setCMSType(const std::string& type)
 
 std::string QpidMessage::getCMSType()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSTimestamp(long long int timeStamp)
@@ -62,7 +64,7 @@ void QpidMessage::setCMSTimestamp(long long int timeStamp)
 
 long long int QpidMessage::getCMSTimestamp()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSReplyTo(const cms::Destination* destination)
@@ -72,7 +74,7 @@ void QpidMessage::setCMSReplyTo(const cms::Destination* destination)
 
 const cms::Destination* QpidMessage::getCMSReplyTo()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSRedelivered(bool redelivered)
@@ -82,7 +84,7 @@ void QpidMessage::setCMSRedelivered(bool redelivered)
 
 bool QpidMessage::getCMSRedelivered()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSPriority(int priority)
@@ -92,7 +94,7 @@ void QpidMessage::setCMSPriority(int priority)
 
 int QpidMessage::getCMSPriority()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSMessageID(const std::string& id)
@@ -102,7 +104,7 @@ void QpidMessage::setCMSMessageID(const std::string& id)
 
 std::string QpidMessage::getCMSMessageID()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSExpiration(long long int expireTime)
@@ -112,7 +114,7 @@ void QpidMessage::setCMSExpiration(long long int expireTime)
 
 long long int QpidMessage::getCMSExpiration()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSDestination(const cms::Destination* destination)
@@ -122,7 +124,7 @@ void QpidMessage::setCMSDestination(const cms::Destination* destination)
 
 const cms::Destination* QpidMessage::getCMSDestination()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSDeliveryMode(int mode)
@@ -132,7 +134,7 @@ void QpidMessage::setCMSDeliveryMode(int mode)
 
 int QpidMessage::getCMSDeliveryMode()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setCMSCorrelationID(const std::string& correlationId)
@@ -142,7 +144,7 @@ void QpidMessage::setCMSCorrelationID(const std::string& correlationId)
 
 std::string QpidMessage::getCMSCorrelationID()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::setStringProperty(const std::string& name, const std::string& value)
@@ -187,57 +189,57 @@ void QpidMessage::setBooleanProperty(const std::string& name, bool value)
 
 std::string QpidMessage::getStringProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 short int QpidMessage::getShortProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 long long int QpidMessage::getLongProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 int QpidMessage::getIntProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 float QpidMessage::getFloatProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 double QpidMessage::getDoubleProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 unsigned char QpidMessage::getByteProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidMessage::getBooleanProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Message::ValueType QpidMessage::getPropertyValueType(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidMessage::propertyExists(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 std::vector< std::string> QpidMessage::getPropertyNames()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessage::clearProperties()
@@ -257,7 +259,7 @@ void QpidMessage::acknowledge()
 
 cms::Message* QpidMessage::clone()
 {
-
+    throw NotImplementedYet();
 }
 
 }

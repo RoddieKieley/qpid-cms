@@ -17,6 +17,8 @@
 
 #include "QpidTempQueue.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -37,12 +39,12 @@ QpidTempQueue::~QpidTempQueue()
 
 QpidTempQueue& QpidTempQueue::operator=(const QpidTempQueue& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidTempQueue::operator==(const QpidTempQueue& other)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidTempQueue::destroy()
@@ -52,17 +54,17 @@ void QpidTempQueue::destroy()
 
 std::string QpidTempQueue::getQueueName()
 {
-
+    throw NotImplementedYet();
 }
 
 const cms::CMSProperties& QpidTempQueue::getCMSProperties()
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidTempQueue::equals(const cms::Destination& other)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidTempQueue::copy(const cms::Destination& source)
@@ -72,12 +74,12 @@ void QpidTempQueue::copy(const cms::Destination& source)
 
 cms::Destination* QpidTempQueue::clone()
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Destination::DestinationType QpidTempQueue::getDestinationType()
 {
-
+    throw NotImplementedYet();
 }
 
 }

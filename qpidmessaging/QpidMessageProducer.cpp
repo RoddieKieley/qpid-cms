@@ -17,6 +17,8 @@
 
 #include "QpidMessageProducer.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid{
 namespace cmsimpl {
 
@@ -37,17 +39,17 @@ QpidMessageProducer::~QpidMessageProducer()
 
 QpidMessageProducer& QpidMessageProducer::operator=(const QpidMessageProducer& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidMessageProducer::operator==(const QpidMessageProducer& other)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::MessageTransformer* QpidMessageProducer::getMessageTransformer()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::setMessageTransformer(cms::MessageTransformer* transformer)
@@ -57,7 +59,7 @@ void QpidMessageProducer::setMessageTransformer(cms::MessageTransformer* transfo
 
 long long int QpidMessageProducer::getTimeToLive()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::setTimeToLive(long long int time)
@@ -67,7 +69,7 @@ void QpidMessageProducer::setTimeToLive(long long int time)
 
 int QpidMessageProducer::getPriority()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::setPriority(int priority)
@@ -77,7 +79,7 @@ void QpidMessageProducer::setPriority(int priority)
 
 bool QpidMessageProducer::getDisableMessageTimeStamp()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::setDisableMessageTimeStamp(bool value)
@@ -87,7 +89,7 @@ void QpidMessageProducer::setDisableMessageTimeStamp(bool value)
 
 bool QpidMessageProducer::getDisableMessageID()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::setDisableMessageID(bool value)
@@ -97,7 +99,7 @@ void QpidMessageProducer::setDisableMessageID(bool value)
 
 int QpidMessageProducer::getDeliveryMode()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::setDeliveryMode(int mode)

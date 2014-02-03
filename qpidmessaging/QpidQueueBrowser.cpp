@@ -17,6 +17,8 @@
 
 #include "QpidQueueBrowser.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -37,27 +39,27 @@ QpidQueueBrowser::~QpidQueueBrowser()
 
 QpidQueueBrowser& QpidQueueBrowser::operator=(const QpidQueueBrowser& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidQueueBrowser::operator==(const QpidQueueBrowser& other)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::MessageEnumeration* QpidQueueBrowser::getEnumeration()
 {
-
+    throw NotImplementedYet();
 }
 
 std::string QpidQueueBrowser::getMessageSelector()
 {
-
+    throw NotImplementedYet();
 }
 
 const cms::Queue* QpidQueueBrowser::getQueue()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidQueueBrowser::close()

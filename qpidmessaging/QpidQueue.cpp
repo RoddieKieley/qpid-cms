@@ -17,6 +17,8 @@
 
 #include "QpidQueue.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -37,27 +39,27 @@ QpidQueue::~QpidQueue()
 
 QpidQueue& QpidQueue::operator=(const QpidQueue& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidQueue::operator==(const QpidQueue& other)
 {
-
+    throw NotImplementedYet();
 }
 
 std::string QpidQueue::getQueueName()
 {
-
+    throw NotImplementedYet();
 }
 
 const cms::CMSProperties& QpidQueue::getCMSProperties()
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidQueue::equals(const cms::Destination& other)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidQueue::copy(const cms::Destination& source)
@@ -67,12 +69,12 @@ void QpidQueue::copy(const cms::Destination& source)
 
 cms::Destination* QpidQueue::clone()
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Destination::DestinationType QpidQueue::getDestinationType()
 {
-
+    throw NotImplementedYet();
 }
 
 }

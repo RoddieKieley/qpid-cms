@@ -33,7 +33,7 @@ using namespace cms;
 using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
-class SimpleProducer : public std::thread {
+class SimpleProducer {
 private:
 
     Connection* connection;

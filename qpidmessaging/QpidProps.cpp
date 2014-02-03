@@ -17,6 +17,8 @@
 
 #include "QpidProps.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -37,17 +39,17 @@ QpidProps::~QpidProps()
 
 QpidProps& QpidProps::operator=(const QpidProps& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidProps::operator==(const QpidProps& other)
 {
-
+    throw NotImplementedYet();
 }
 
 std::string QpidProps::toString()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidProps::clear()
@@ -57,7 +59,7 @@ void QpidProps::clear()
 
 cms::CMSProperties* QpidProps::clone()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidProps::copy(const cms::CMSProperties* source)
@@ -67,22 +69,22 @@ void QpidProps::copy(const cms::CMSProperties* source)
 
 std::vector< std::pair< std::string, std::string > > QpidProps::toArray()
 {
-
+    throw NotImplementedYet();
 }
 
 std::vector< std::string > QpidProps::propertyNames()
 {
-
+    throw NotImplementedYet();
 }
 
 std::string QpidProps::remove(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidProps::hasProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidProps::setProperty(const std::string& name, const std::string& value)
@@ -92,22 +94,22 @@ void QpidProps::setProperty(const std::string& name, const std::string& value)
 
 std::string QpidProps::getProperty(const std::string& name, const std::string& defaultValue)
 {
-
+    throw NotImplementedYet();
 }
 
 const char* QpidProps::getProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidProps::isEmpty()
 {
-
+    throw NotImplementedYet();
 }
 
 int QpidProps::size()
 {
-
+    throw NotImplementedYet();
 }
 
 }

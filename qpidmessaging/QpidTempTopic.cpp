@@ -17,6 +17,8 @@
 
 #include "QpidTempTopic.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -37,12 +39,12 @@ QpidTempTopic::~QpidTempTopic()
 
 QpidTempTopic& QpidTempTopic::operator=(const QpidTempTopic& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidTempTopic::operator==(const QpidTempTopic& other)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidTempTopic::destroy()
@@ -52,17 +54,17 @@ void QpidTempTopic::destroy()
 
 std::string QpidTempTopic::getTopicName()
 {
-
+    throw NotImplementedYet();
 }
 
 const cms::CMSProperties& QpidTempTopic::getCMSProperties()
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidTempTopic::equals(const cms::Destination& other)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidTempTopic::copy(const cms::Destination& source)
@@ -72,12 +74,12 @@ void QpidTempTopic::copy(const cms::Destination& source)
 
 cms::Destination* QpidTempTopic::clone()
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Destination::DestinationType QpidTempTopic::getDestinationType()
 {
-
+    throw NotImplementedYet();
 }
 
 }

@@ -17,6 +17,8 @@
 
 #include "QpidConnectionFactory.h"
 
+#include "QpidExceptions.h"
+
 #include <qpid/messaging/Connection.h>
 
 // Static Connection factory for implementation independence
@@ -44,17 +46,17 @@ QpidConnectionFactory::~QpidConnectionFactory()
 
 QpidConnectionFactory& QpidConnectionFactory::operator=(const QpidConnectionFactory& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidConnectionFactory::operator==(const QpidConnectionFactory& other)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::MessageTransformer* QpidConnectionFactory::getMessageTransformer() const
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidConnectionFactory::setMessageTransformer(cms::MessageTransformer* transformer)
@@ -64,7 +66,7 @@ void QpidConnectionFactory::setMessageTransformer(cms::MessageTransformer* trans
 
 cms::ExceptionListener* QpidConnectionFactory::getExceptionListener() const
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidConnectionFactory::setExceptionListener(cms::ExceptionListener* listener)
@@ -74,17 +76,17 @@ void QpidConnectionFactory::setExceptionListener(cms::ExceptionListener* listene
 
 cms::Connection* QpidConnectionFactory::createConnection(const std::string& username, const std::string& password, const std::string& clientId)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Connection* QpidConnectionFactory::createConnection(const std::string& username, const std::string& password)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Connection* QpidConnectionFactory::createConnection()
 {
-
+    throw NotImplementedYet();
 }
 
 }

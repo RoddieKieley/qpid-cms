@@ -17,6 +17,8 @@
 
 #include "QpidMessageConsumer.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -37,17 +39,17 @@ QpidMessageConsumer::~QpidMessageConsumer()
 
 QpidMessageConsumer& QpidMessageConsumer::operator=(const QpidMessageConsumer& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidMessageConsumer::operator==(const QpidMessageConsumer& other)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::MessageAvailableListener* QpidMessageConsumer::getMessageAvailableListener()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageConsumer::setMessageAvailableListener(cms::MessageAvailableListener* listener)
@@ -57,7 +59,7 @@ void QpidMessageConsumer::setMessageAvailableListener(cms::MessageAvailableListe
 
 cms::MessageTransformer* QpidMessageConsumer::getMessageTransformer()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageConsumer::setMessageTransformer(cms::MessageTransformer* transformer)
@@ -67,12 +69,12 @@ void QpidMessageConsumer::setMessageTransformer(cms::MessageTransformer* transfo
 
 std::string QpidMessageConsumer::getMessageSelector()
 {
-
+    throw NotImplementedYet();
 }
 
 cms::MessageListener* QpidMessageConsumer::getMessageListener()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageConsumer::setMessageListener(cms::MessageListener* listener)
@@ -82,17 +84,17 @@ void QpidMessageConsumer::setMessageListener(cms::MessageListener* listener)
 
 cms::Message* QpidMessageConsumer::receiveNoWait()
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Message* QpidMessageConsumer::receive(int millisecs)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Message* QpidMessageConsumer::receive()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageConsumer::close()

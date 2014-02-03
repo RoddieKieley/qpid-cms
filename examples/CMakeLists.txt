@@ -20,4 +20,7 @@
 add_compile_options(-std=gnu++11)
 
 add_executable(SimpleConsumer SimpleAsyncConsumer.cpp)
+target_link_libraries(SimpleConsumer qpid-cms)
+
 add_executable(SimpleProducer SimpleProducer.cpp)
+target_link_libraries(SimpleProducer qpid-cms)

@@ -17,6 +17,8 @@
 
 #include "QpidTopic.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -37,27 +39,27 @@ QpidTopic::~QpidTopic()
 
 QpidTopic& QpidTopic::operator=(const QpidTopic& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidTopic::operator==(const QpidTopic& other)
 {
-
+    throw NotImplementedYet();
 }
 
 std::string QpidTopic::getTopicName()
 {
-
+    throw NotImplementedYet();
 }
 
 const cms::CMSProperties& QpidTopic::getCMSProperties()
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidTopic::equals(const cms::Destination& other)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidTopic::copy(const cms::Destination& source)
@@ -67,12 +69,12 @@ void QpidTopic::copy(const cms::Destination& source)
 
 cms::Destination* QpidTopic::clone()
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Destination::DestinationType QpidTopic::getDestinationType()
 {
-
+    throw NotImplementedYet();
 }
 
 }

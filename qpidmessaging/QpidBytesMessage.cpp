@@ -17,6 +17,8 @@
 
 #include "QpidBytesMessage.h"
 
+#include "QpidExceptions.h"
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -37,12 +39,12 @@ QpidBytesMessage::~QpidBytesMessage()
 
 QpidBytesMessage& QpidBytesMessage::operator=(const QpidBytesMessage& other)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidBytesMessage::operator==(const QpidBytesMessage& other)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeUTF(const std::string& value)
@@ -52,7 +54,7 @@ void QpidBytesMessage::writeUTF(const std::string& value)
 
 std::string QpidBytesMessage::readUTF()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeString(const std::string& value)
@@ -62,7 +64,7 @@ void QpidBytesMessage::writeString(const std::string& value)
 
 std::string QpidBytesMessage::readString()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeLong(long long int value)
@@ -72,7 +74,7 @@ void QpidBytesMessage::writeLong(long long int value)
 
 long long int QpidBytesMessage::readLong()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeInt(int value)
@@ -82,7 +84,7 @@ void QpidBytesMessage::writeInt(int value)
 
 int QpidBytesMessage::readInt()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeUnsignedShort(short unsigned int value)
@@ -92,7 +94,7 @@ void QpidBytesMessage::writeUnsignedShort(short unsigned int value)
 
 short unsigned int QpidBytesMessage::readUnsignedShort()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeShort(short int value)
@@ -102,7 +104,7 @@ void QpidBytesMessage::writeShort(short int value)
 
 short int QpidBytesMessage::readShort()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeDouble(double value)
@@ -112,7 +114,7 @@ void QpidBytesMessage::writeDouble(double value)
 
 double QpidBytesMessage::readDouble()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeFloat(float value)
@@ -122,7 +124,7 @@ void QpidBytesMessage::writeFloat(float value)
 
 float QpidBytesMessage::readFloat()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeChar(char value)
@@ -132,7 +134,7 @@ void QpidBytesMessage::writeChar(char value)
 
 char QpidBytesMessage::readChar()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeBytes(const unsigned char* value, int offset, int length)
@@ -142,7 +144,7 @@ void QpidBytesMessage::writeBytes(const unsigned char* value, int offset, int le
 
 int QpidBytesMessage::readBytes(unsigned char* buffer, int length)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeBytes(const std::vector< unsigned int, std::allocator< void > >& value)
@@ -152,7 +154,7 @@ void QpidBytesMessage::writeBytes(const std::vector< unsigned int, std::allocato
 
 int QpidBytesMessage::readBytes(std::vector< unsigned int, std::allocator< void > >& value)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeByte(unsigned char value)
@@ -162,7 +164,7 @@ void QpidBytesMessage::writeByte(unsigned char value)
 
 unsigned char QpidBytesMessage::readByte()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeBoolean(bool value)
@@ -172,7 +174,7 @@ void QpidBytesMessage::writeBoolean(bool value)
 
 bool QpidBytesMessage::readBoolean()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::reset()
@@ -182,12 +184,12 @@ void QpidBytesMessage::reset()
 
 int QpidBytesMessage::getBodyLength()
 {
-
+    throw NotImplementedYet();
 }
 
 unsigned char* QpidBytesMessage::getBodyBytes()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setBodyBytes(const unsigned char* buffer, int numBytes)
@@ -202,7 +204,7 @@ void QpidBytesMessage::setCMSType(const std::string& type)
 
 std::string QpidBytesMessage::getCMSType()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setCMSTimestamp(long long int timeStamp)
@@ -212,7 +214,7 @@ void QpidBytesMessage::setCMSTimestamp(long long int timeStamp)
 
 long long int QpidBytesMessage::getCMSTimestamp()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setCMSReplyTo(const cms::Destination* destination)
@@ -222,7 +224,7 @@ void QpidBytesMessage::setCMSReplyTo(const cms::Destination* destination)
 
 const cms::Destination* QpidBytesMessage::getCMSReplyTo()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setCMSRedelivered(bool redelivered)
@@ -232,7 +234,7 @@ void QpidBytesMessage::setCMSRedelivered(bool redelivered)
 
 bool QpidBytesMessage::getCMSRedelivered()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setCMSPriority(int priority)
@@ -242,7 +244,7 @@ void QpidBytesMessage::setCMSPriority(int priority)
 
 int QpidBytesMessage::getCMSPriority()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setCMSMessageID(const std::string& id)
@@ -252,7 +254,7 @@ void QpidBytesMessage::setCMSMessageID(const std::string& id)
 
 std::string QpidBytesMessage::getCMSMessageID()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setCMSExpiration(long long int expireTime)
@@ -262,7 +264,7 @@ void QpidBytesMessage::setCMSExpiration(long long int expireTime)
 
 long long int QpidBytesMessage::getCMSExpiration()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setCMSDestination(const cms::Destination* destination)
@@ -272,7 +274,7 @@ void QpidBytesMessage::setCMSDestination(const cms::Destination* destination)
 
 const cms::Destination* QpidBytesMessage::getCMSDestination()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setCMSDeliveryMode(int mode)
@@ -282,7 +284,7 @@ void QpidBytesMessage::setCMSDeliveryMode(int mode)
 
 int QpidBytesMessage::getCMSDeliveryMode()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setCMSCorrelationID(const std::string& correlationId)
@@ -292,7 +294,7 @@ void QpidBytesMessage::setCMSCorrelationID(const std::string& correlationId)
 
 std::string QpidBytesMessage::getCMSCorrelationID()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::setStringProperty(const std::string& name, const std::string& value)
@@ -337,57 +339,57 @@ void QpidBytesMessage::setBooleanProperty(const std::string& name, bool value)
 
 std::string QpidBytesMessage::getStringProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 short int QpidBytesMessage::getShortProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 long long int QpidBytesMessage::getLongProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 int QpidBytesMessage::getIntProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 float QpidBytesMessage::getFloatProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 double QpidBytesMessage::getDoubleProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 unsigned char QpidBytesMessage::getByteProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidBytesMessage::getBooleanProperty(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Message::ValueType QpidBytesMessage::getPropertyValueType(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 bool QpidBytesMessage::propertyExists(const std::string& name)
 {
-
+    throw NotImplementedYet();
 }
 
 std::vector< std::string > QpidBytesMessage::getPropertyNames()
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::clearProperties()
@@ -407,7 +409,7 @@ void QpidBytesMessage::acknowledge()
 
 cms::Message* QpidBytesMessage::clone()
 {
-
+    throw NotImplementedYet();
 }
 
 }

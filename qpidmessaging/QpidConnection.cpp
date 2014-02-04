@@ -18,6 +18,7 @@
 #include "QpidConnection.h"
 
 #include "QpidExceptions.h"
+#include "QpidSession.h"
 
 namespace qpid {
 namespace cmsimpl {
@@ -47,7 +48,7 @@ bool QpidConnection::operator==(const QpidConnection& other)
     throw NotImplementedYet();
 }
 
-cms::MessageTransformer* QpidConnection::getMessageTransformer()
+cms::MessageTransformer* QpidConnection::getMessageTransformer() const
 {
     throw NotImplementedYet();
 }
@@ -62,7 +63,7 @@ void QpidConnection::setExceptionListener(cms::ExceptionListener* listener)
 
 }
 
-cms::ExceptionListener* QpidConnection::getExceptionListener()
+cms::ExceptionListener* QpidConnection::getExceptionListener() const
 {
     throw NotImplementedYet();
 }
@@ -72,22 +73,22 @@ void QpidConnection::setClientID(const std::string& clientID)
 
 }
 
-std::string QpidConnection::getClientID()
+std::string QpidConnection::getClientID() const
 {
     throw NotImplementedYet();
 }
 
 cms::Session* QpidConnection::createSession(cms::Session::AcknowledgeMode ackMode)
 {
-    throw NotImplementedYet();
+    return new QpidSession();
 }
 
 cms::Session* QpidConnection::createSession()
 {
-    throw NotImplementedYet();
+    return new QpidSession();
 }
 
-const cms::ConnectionMetaData* QpidConnection::getMetaData()
+const cms::ConnectionMetaData* QpidConnection::getMetaData() const
 {
     throw NotImplementedYet();
 }

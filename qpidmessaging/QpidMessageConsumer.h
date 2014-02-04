@@ -20,23 +20,33 @@
 
 #include "cms/MessageConsumer.h"
 
+namespace cms {
+
+class Destination;
+
+}
+
 namespace qpid {
 namespace cmsimpl {
 
-class QpidMessageConsumer :  cms::MessageConsumer
+class QpidMessageConsumer :  public cms::MessageConsumer
 {
 public:
     QpidMessageConsumer();
+    QpidMessageConsumer(const cms::Destination* destination);
+
     QpidMessageConsumer(const QpidMessageConsumer& other);
     ~QpidMessageConsumer();
     QpidMessageConsumer& operator=(const QpidMessageConsumer& other);
     bool operator==(const QpidMessageConsumer& other);
-    virtual cms::MessageAvailableListener* getMessageAvailableListener();
+
+private:
+    virtual cms::MessageAvailableListener* getMessageAvailableListener() const;
     virtual void setMessageAvailableListener(cms::MessageAvailableListener* listener);
-    virtual cms::MessageTransformer* getMessageTransformer();
+    virtual cms::MessageTransformer* getMessageTransformer() const;
     virtual void setMessageTransformer(cms::MessageTransformer* transformer);
-    virtual std::string getMessageSelector();
-    virtual cms::MessageListener* getMessageListener();
+    virtual std::string getMessageSelector() const;
+    virtual cms::MessageListener* getMessageListener() const;
     virtual void setMessageListener(cms::MessageListener* listener);
     virtual cms::Message* receiveNoWait();
     virtual cms::Message* receive(int millisecs);

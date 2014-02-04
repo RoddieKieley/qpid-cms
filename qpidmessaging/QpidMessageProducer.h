@@ -20,30 +20,38 @@
 
 #include "cms/MessageProducer.h"
 
+namespace cms {
+
+class Destination;
+
+}
+
 namespace qpid {
 namespace cmsimpl {
 
-class QpidMessageProducer :  cms::MessageProducer
+class QpidMessageProducer :  public cms::MessageProducer
 {
 public:
     QpidMessageProducer();
+    QpidMessageProducer(const cms::Destination* destination);
+
     QpidMessageProducer(const QpidMessageProducer& other);
     ~QpidMessageProducer();
     QpidMessageProducer& operator=(const QpidMessageProducer& other);
     bool operator==(const QpidMessageProducer& other);
 
 private:
-    virtual cms::MessageTransformer* getMessageTransformer();
+    virtual cms::MessageTransformer* getMessageTransformer() const;
     virtual void setMessageTransformer(cms::MessageTransformer* transformer);
-    virtual long long int getTimeToLive();
+    virtual long long int getTimeToLive() const;
     virtual void setTimeToLive(long long int time);
-    virtual int getPriority();
+    virtual int getPriority() const;
     virtual void setPriority(int priority);
-    virtual bool getDisableMessageTimeStamp();
+    virtual bool getDisableMessageTimeStamp() const;
     virtual void setDisableMessageTimeStamp(bool value);
-    virtual bool getDisableMessageID();
+    virtual bool getDisableMessageID() const;
     virtual void setDisableMessageID(bool value);
-    virtual int getDeliveryMode();
+    virtual int getDeliveryMode() const;
     virtual void setDeliveryMode(int mode);
     virtual void send(const cms::Destination* destination, cms::Message* message, int deliveryMode, int priority, long long int timeToLive, cms::AsyncCallback* onComplete);
     virtual void send(const cms::Destination* destination, cms::Message* message, int deliveryMode, int priority, long long int timeToLive);

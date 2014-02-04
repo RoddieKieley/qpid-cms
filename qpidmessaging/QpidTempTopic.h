@@ -23,7 +23,7 @@
 namespace qpid {
 namespace cmsimpl {
 
-class QpidTempTopic :  cms::TemporaryTopic
+class QpidTempTopic :  public cms::TemporaryTopic
 {
 public:
     QpidTempTopic();
@@ -34,12 +34,12 @@ public:
 
 private:
     virtual void destroy();
-    virtual std::string getTopicName();
-    virtual const cms::CMSProperties& getCMSProperties();
-    virtual bool equals(const cms::Destination& other);
+    virtual std::string getTopicName() const;
+    virtual const cms::CMSProperties& getCMSProperties() const;
+    virtual bool equals(const cms::Destination& other) const;
     virtual void copy(const cms::Destination& source);
-    virtual cms::Destination* clone();
-    virtual cms::Destination::DestinationType getDestinationType();
+    virtual cms::Destination* clone() const;
+    virtual cms::Destination::DestinationType getDestinationType() const;
 };
 }
 }

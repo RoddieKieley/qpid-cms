@@ -27,18 +27,20 @@ class QpidQueue : public cms::Queue
 {
 public:
     QpidQueue();
+    QpidQueue(const std::string& queueName);
+
     QpidQueue(const QpidQueue& other);
     ~QpidQueue();
     QpidQueue& operator=(const QpidQueue& other);
     bool operator==(const QpidQueue& other);
 
 private:
-    virtual std::string getQueueName();
-    virtual const cms::CMSProperties& getCMSProperties();
-    virtual bool equals(const cms::Destination& other);
+    virtual std::string getQueueName() const;
+    virtual const cms::CMSProperties& getCMSProperties() const;
+    virtual bool equals(const cms::Destination& other) const;
     virtual void copy(const cms::Destination& source);
-    virtual cms::Destination* clone();
-    virtual cms::Destination::DestinationType getDestinationType();
+    virtual cms::Destination* clone() const;
+    virtual cms::Destination::DestinationType getDestinationType() const;
 };
 }
 }

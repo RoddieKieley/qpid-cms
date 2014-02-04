@@ -27,6 +27,11 @@ QpidQueue::QpidQueue()
 
 }
 
+QpidQueue::QpidQueue(const std::string& queueName)
+{
+
+}
+
 QpidQueue::QpidQueue(const QpidQueue& other)
 {
 
@@ -47,17 +52,17 @@ bool QpidQueue::operator==(const QpidQueue& other)
     throw NotImplementedYet();
 }
 
-std::string QpidQueue::getQueueName()
+std::string QpidQueue::getQueueName() const
 {
     throw NotImplementedYet();
 }
 
-const cms::CMSProperties& QpidQueue::getCMSProperties()
+const cms::CMSProperties& QpidQueue::getCMSProperties() const
 {
     throw NotImplementedYet();
 }
 
-bool QpidQueue::equals(const cms::Destination& other)
+bool QpidQueue::equals(const cms::Destination& other) const
 {
     throw NotImplementedYet();
 }
@@ -67,12 +72,12 @@ void QpidQueue::copy(const cms::Destination& source)
 
 }
 
-cms::Destination* QpidQueue::clone()
+cms::Destination* QpidQueue::clone() const
 {
     throw NotImplementedYet();
 }
 
-cms::Destination::DestinationType QpidQueue::getDestinationType()
+cms::Destination::DestinationType QpidQueue::getDestinationType() const
 {
     throw NotImplementedYet();
 }

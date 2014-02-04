@@ -52,17 +52,17 @@ void QpidTempQueue::destroy()
 
 }
 
-std::string QpidTempQueue::getQueueName()
+std::string QpidTempQueue::getQueueName() const
 {
     throw NotImplementedYet();
 }
 
-const cms::CMSProperties& QpidTempQueue::getCMSProperties()
+const cms::CMSProperties& QpidTempQueue::getCMSProperties() const
 {
     throw NotImplementedYet();
 }
 
-bool QpidTempQueue::equals(const cms::Destination& other)
+bool QpidTempQueue::equals(const cms::Destination& other) const
 {
     throw NotImplementedYet();
 }
@@ -72,12 +72,12 @@ void QpidTempQueue::copy(const cms::Destination& source)
 
 }
 
-cms::Destination* QpidTempQueue::clone()
+cms::Destination* QpidTempQueue::clone() const
 {
     throw NotImplementedYet();
 }
 
-cms::Destination::DestinationType QpidTempQueue::getDestinationType()
+cms::Destination::DestinationType QpidTempQueue::getDestinationType() const
 {
     throw NotImplementedYet();
 }

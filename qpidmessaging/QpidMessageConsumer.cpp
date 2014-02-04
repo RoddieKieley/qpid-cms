@@ -27,6 +27,11 @@ QpidMessageConsumer::QpidMessageConsumer()
 
 }
 
+QpidMessageConsumer::QpidMessageConsumer(const cms::Destination* destination)
+{
+
+}
+
 QpidMessageConsumer::QpidMessageConsumer(const QpidMessageConsumer& other)
 {
 
@@ -47,7 +52,7 @@ bool QpidMessageConsumer::operator==(const QpidMessageConsumer& other)
     throw NotImplementedYet();
 }
 
-cms::MessageAvailableListener* QpidMessageConsumer::getMessageAvailableListener()
+cms::MessageAvailableListener* QpidMessageConsumer::getMessageAvailableListener() const
 {
     throw NotImplementedYet();
 }
@@ -57,7 +62,7 @@ void QpidMessageConsumer::setMessageAvailableListener(cms::MessageAvailableListe
 
 }
 
-cms::MessageTransformer* QpidMessageConsumer::getMessageTransformer()
+cms::MessageTransformer* QpidMessageConsumer::getMessageTransformer() const
 {
     throw NotImplementedYet();
 }
@@ -67,12 +72,12 @@ void QpidMessageConsumer::setMessageTransformer(cms::MessageTransformer* transfo
 
 }
 
-std::string QpidMessageConsumer::getMessageSelector()
+std::string QpidMessageConsumer::getMessageSelector() const
 {
     throw NotImplementedYet();
 }
 
-cms::MessageListener* QpidMessageConsumer::getMessageListener()
+cms::MessageListener* QpidMessageConsumer::getMessageListener() const
 {
     throw NotImplementedYet();
 }

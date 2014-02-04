@@ -27,6 +27,11 @@ QpidMessageProducer::QpidMessageProducer()
 
 }
 
+QpidMessageProducer::QpidMessageProducer(const cms::Destination* destination)
+{
+
+}
+
 QpidMessageProducer::QpidMessageProducer(const QpidMessageProducer& other)
 {
 
@@ -47,7 +52,7 @@ bool QpidMessageProducer::operator==(const QpidMessageProducer& other)
     throw NotImplementedYet();
 }
 
-cms::MessageTransformer* QpidMessageProducer::getMessageTransformer()
+cms::MessageTransformer* QpidMessageProducer::getMessageTransformer() const
 {
     throw NotImplementedYet();
 }
@@ -57,7 +62,7 @@ void QpidMessageProducer::setMessageTransformer(cms::MessageTransformer* transfo
 
 }
 
-long long int QpidMessageProducer::getTimeToLive()
+long long int QpidMessageProducer::getTimeToLive() const
 {
     throw NotImplementedYet();
 }
@@ -67,7 +72,7 @@ void QpidMessageProducer::setTimeToLive(long long int time)
 
 }
 
-int QpidMessageProducer::getPriority()
+int QpidMessageProducer::getPriority() const
 {
     throw NotImplementedYet();
 }
@@ -77,7 +82,7 @@ void QpidMessageProducer::setPriority(int priority)
 
 }
 
-bool QpidMessageProducer::getDisableMessageTimeStamp()
+bool QpidMessageProducer::getDisableMessageTimeStamp() const
 {
     throw NotImplementedYet();
 }
@@ -87,7 +92,7 @@ void QpidMessageProducer::setDisableMessageTimeStamp(bool value)
 
 }
 
-bool QpidMessageProducer::getDisableMessageID()
+bool QpidMessageProducer::getDisableMessageID() const
 {
     throw NotImplementedYet();
 }
@@ -97,7 +102,7 @@ void QpidMessageProducer::setDisableMessageID(bool value)
 
 }
 
-int QpidMessageProducer::getDeliveryMode()
+int QpidMessageProducer::getDeliveryMode() const
 {
     throw NotImplementedYet();
 }

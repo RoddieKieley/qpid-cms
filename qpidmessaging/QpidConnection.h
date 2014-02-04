@@ -23,7 +23,7 @@
 namespace qpid {
 namespace cmsimpl {
 
-class QpidConnection :  cms::Connection
+class QpidConnection :  public cms::Connection
 {
 public:
     QpidConnection();
@@ -33,15 +33,15 @@ public:
     bool operator==(const QpidConnection& other);
 
 private:
-    virtual cms::MessageTransformer* getMessageTransformer();
+    virtual cms::MessageTransformer* getMessageTransformer() const;
     virtual void setMessageTransformer(cms::MessageTransformer* transformer);
     virtual void setExceptionListener(cms::ExceptionListener* listener);
-    virtual cms::ExceptionListener* getExceptionListener();
+    virtual cms::ExceptionListener* getExceptionListener() const;
     virtual void setClientID(const std::string& clientID);
-    virtual std::string getClientID();
+    virtual std::string getClientID() const;
     virtual cms::Session* createSession(cms::Session::AcknowledgeMode ackMode);
     virtual cms::Session* createSession();
-    virtual const cms::ConnectionMetaData* getMetaData();
+    virtual const cms::ConnectionMetaData* getMetaData() const;
     virtual void close();
     virtual void start();
     virtual void stop();

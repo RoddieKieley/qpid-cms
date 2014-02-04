@@ -25,11 +25,15 @@ namespace cmsimpl {
 
 class QpidConnectionFactory : public cms::ConnectionFactory
 {
+    const std::string brokerURI_;
+
 public:
     QpidConnectionFactory(const std::string& brokerURI);
-
-    QpidConnectionFactory(const QpidConnectionFactory& other);
     ~QpidConnectionFactory();
+
+private:
+    // Prevent copying, assignment and comparison
+    QpidConnectionFactory(const QpidConnectionFactory& other);
     QpidConnectionFactory& operator=(const QpidConnectionFactory& other);
     bool operator==(const QpidConnectionFactory& other);
 

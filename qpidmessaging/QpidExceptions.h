@@ -23,7 +23,7 @@
 namespace qpid {
 namespace cmsimpl {
 
-class NotImplementedYet :  std::exception
+class NotImplementedYet :  public std::exception
 {
 public:
     NotImplementedYet();

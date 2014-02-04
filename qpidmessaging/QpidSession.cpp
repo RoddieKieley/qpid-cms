@@ -17,6 +17,17 @@
 
 #include "QpidSession.h"
 
+#include "QpidMessage.h"
+#include "QpidBytesMessage.h"
+#include "QpidMapMessage.h"
+#include "QpidStreamMessage.h"
+#include "QpidTextMessage.h"
+#include "QpidTempTopic.h"
+#include "QpidTopic.h"
+#include "QpidTempQueue.h"
+#include "QpidQueue.h"
+#include "QpidMessageProducer.h"
+#include "QpidMessageConsumer.h"
 #include "QpidExceptions.h"
 
 namespace qpid {
@@ -47,7 +58,7 @@ bool QpidSession::operator==(const QpidSession& other)
     throw NotImplementedYet();
 }
 
-cms::MessageTransformer* QpidSession::getMessageTransformer()
+cms::MessageTransformer* QpidSession::getMessageTransformer() const
 {
     throw NotImplementedYet();
 }
@@ -62,69 +73,69 @@ void QpidSession::unsubscribe(const std::string& name)
 
 }
 
-bool QpidSession::isTransacted()
+bool QpidSession::isTransacted() const
 {
     throw NotImplementedYet();
 }
 
-cms::Session::AcknowledgeMode QpidSession::getAcknowledgeMode()
+cms::Session::AcknowledgeMode QpidSession::getAcknowledgeMode() const
 {
     throw NotImplementedYet();
 }
 
 cms::MapMessage* QpidSession::createMapMessage()
 {
-    throw NotImplementedYet();
+    return new QpidMapMessage;
 }
 
 cms::TextMessage* QpidSession::createTextMessage(const std::string& text)
 {
-    throw NotImplementedYet();
+    return new QpidTextMessage(text);
 }
 
 cms::TextMessage* QpidSession::createTextMessage()
 {
-    throw NotImplementedYet();
+    return new QpidTextMessage;
 }
 
 cms::StreamMessage* QpidSession::createStreamMessage()
 {
-    throw NotImplementedYet();
+    return new QpidStreamMessage;
 }
 
 cms::BytesMessage* QpidSession::createBytesMessage(const unsigned char* bytes, int bytesSize)
 {
-    throw NotImplementedYet();
+    return new QpidBytesMessage(bytes, bytesSize);
 }
 
 cms::BytesMessage* QpidSession::createBytesMessage()
 {
-    throw NotImplementedYet();
+    return new QpidBytesMessage;
 }
 
 cms::Message* QpidSession::createMessage()
 {
-    throw NotImplementedYet();
+    return new QpidMessage;
 }
 
 cms::TemporaryTopic* QpidSession::createTemporaryTopic()
 {
-    throw NotImplementedYet();
+    return new QpidTempTopic;
 }
 
 cms::TemporaryQueue* QpidSession::createTemporaryQueue()
 {
-    throw NotImplementedYet();
+    return new QpidTempQueue;
 }
 
 cms::Topic* QpidSession::createTopic(const std::string& topicName)
 {
-    throw NotImplementedYet();
+    return new QpidTopic(topicName);
 }
 
 cms::Queue* QpidSession::createQueue(const std::string& queueName)
 {
-    throw NotImplementedYet();
+    return new QpidQueue(queueName);
 }
 
 cms::QueueBrowser* QpidSession::createBrowser(const cms::Queue* queue, const std::string& selector)
@@ -139,7 +150,7 @@ cms::QueueBrowser* QpidSession::createBrowser(const cms::Queue* queue)
 
 cms::MessageProducer* QpidSession::createProducer(const cms::Destination* destination)
 {
-    throw NotImplementedYet();
+    return new QpidMessageProducer(destination);
 }
 
 cms::MessageConsumer* QpidSession::createDurableConsumer(const cms::Topic* destination, const std::string& name, const std::string& selector, bool noLocal)
@@ -159,7 +170,7 @@ cms::MessageConsumer* QpidSession::createConsumer(const cms::Destination* destin
 
 cms::MessageConsumer* QpidSession::createConsumer(const cms::Destination* destination)
 {
-    throw NotImplementedYet();
+    return new QpidMessageConsumer(destination);
 }
 
 void QpidSession::recover()

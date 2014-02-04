@@ -27,6 +27,11 @@ QpidTextMessage::QpidTextMessage()
 
 }
 
+QpidTextMessage::QpidTextMessage(const std::string& text)
+{
+
+}
+
 QpidTextMessage::QpidTextMessage(const QpidTextMessage& other)
 {
 
@@ -57,7 +62,7 @@ void QpidTextMessage::setText(const char* msg)
 
 }
 
-std::string QpidTextMessage::getText()
+std::string QpidTextMessage::getText() const
 {
     throw NotImplementedYet();
 }
@@ -67,7 +72,7 @@ void QpidTextMessage::setCMSType(const std::string& type)
 
 }
 
-std::string QpidTextMessage::getCMSType()
+std::string QpidTextMessage::getCMSType() const
 {
     throw NotImplementedYet();
 }
@@ -77,7 +82,7 @@ void QpidTextMessage::setCMSTimestamp(long long int timeStamp)
 
 }
 
-long long int QpidTextMessage::getCMSTimestamp()
+long long int QpidTextMessage::getCMSTimestamp() const
 {
     throw NotImplementedYet();
 }
@@ -87,7 +92,7 @@ void QpidTextMessage::setCMSReplyTo(const cms::Destination* destination)
 
 }
 
-const cms::Destination* QpidTextMessage::getCMSReplyTo()
+const cms::Destination* QpidTextMessage::getCMSReplyTo() const
 {
     throw NotImplementedYet();
 }
@@ -97,7 +102,7 @@ void QpidTextMessage::setCMSRedelivered(bool redelivered)
 
 }
 
-bool QpidTextMessage::getCMSRedelivered()
+bool QpidTextMessage::getCMSRedelivered() const
 {
     throw NotImplementedYet();
 }
@@ -107,7 +112,7 @@ void QpidTextMessage::setCMSPriority(int priority)
 
 }
 
-int QpidTextMessage::getCMSPriority()
+int QpidTextMessage::getCMSPriority() const
 {
     throw NotImplementedYet();
 }
@@ -117,7 +122,7 @@ void QpidTextMessage::setCMSMessageID(const std::string& id)
 
 }
 
-std::string QpidTextMessage::getCMSMessageID()
+std::string QpidTextMessage::getCMSMessageID() const
 {
     throw NotImplementedYet();
 }
@@ -127,7 +132,7 @@ void QpidTextMessage::setCMSExpiration(long long int expireTime)
 
 }
 
-long long int QpidTextMessage::getCMSExpiration()
+long long int QpidTextMessage::getCMSExpiration() const
 {
     throw NotImplementedYet();
 }
@@ -137,7 +142,7 @@ void QpidTextMessage::setCMSDestination(const cms::Destination* destination)
 
 }
 
-const cms::Destination* QpidTextMessage::getCMSDestination()
+const cms::Destination* QpidTextMessage::getCMSDestination() const
 {
     throw NotImplementedYet();
 }
@@ -147,7 +152,7 @@ void QpidTextMessage::setCMSDeliveryMode(int mode)
 
 }
 
-int QpidTextMessage::getCMSDeliveryMode()
+int QpidTextMessage::getCMSDeliveryMode() const
 {
     throw NotImplementedYet();
 }
@@ -157,7 +162,7 @@ void QpidTextMessage::setCMSCorrelationID(const std::string& correlationId)
 
 }
 
-std::string QpidTextMessage::getCMSCorrelationID()
+std::string QpidTextMessage::getCMSCorrelationID() const
 {
     throw NotImplementedYet();
 }
@@ -202,57 +207,57 @@ void QpidTextMessage::setBooleanProperty(const std::string& name, bool value)
 
 }
 
-std::string QpidTextMessage::getStringProperty(const std::string& name)
+std::string QpidTextMessage::getStringProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-short int QpidTextMessage::getShortProperty(const std::string& name)
+short int QpidTextMessage::getShortProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-long long int QpidTextMessage::getLongProperty(const std::string& name)
+long long int QpidTextMessage::getLongProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-int QpidTextMessage::getIntProperty(const std::string& name)
+int QpidTextMessage::getIntProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-float QpidTextMessage::getFloatProperty(const std::string& name)
+float QpidTextMessage::getFloatProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-double QpidTextMessage::getDoubleProperty(const std::string& name)
+double QpidTextMessage::getDoubleProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-unsigned char QpidTextMessage::getByteProperty(const std::string& name)
+unsigned char QpidTextMessage::getByteProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-bool QpidTextMessage::getBooleanProperty(const std::string& name)
+bool QpidTextMessage::getBooleanProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-cms::Message::ValueType QpidTextMessage::getPropertyValueType(const std::string& name)
+cms::Message::ValueType QpidTextMessage::getPropertyValueType(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-bool QpidTextMessage::propertyExists(const std::string& name)
+bool QpidTextMessage::propertyExists(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-std::vector< std::string > QpidTextMessage::getPropertyNames()
+std::vector< std::string > QpidTextMessage::getPropertyNames() const
 {
     throw NotImplementedYet();
 }
@@ -267,12 +272,12 @@ void QpidTextMessage::clearBody()
 
 }
 
-void QpidTextMessage::acknowledge()
+void QpidTextMessage::acknowledge() const
 {
 
 }
 
-cms::Message* QpidTextMessage::clone()
+cms::Message* QpidTextMessage::clone() const
 {
     throw NotImplementedYet();
 }

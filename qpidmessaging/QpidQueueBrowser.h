@@ -23,7 +23,7 @@
 namespace qpid {
 namespace cmsimpl {
 
-class QpidQueueBrowser :  cms::QueueBrowser
+class QpidQueueBrowser :  public cms::QueueBrowser
 {
 public:
     QpidQueueBrowser();

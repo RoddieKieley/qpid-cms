@@ -17,6 +17,7 @@
 
 #include "QpidConnectionFactory.h"
 
+#include "QpidConnection.h"
 #include "QpidExceptions.h"
 
 #include <qpid/messaging/Connection.h>
@@ -29,29 +30,13 @@ cms::ConnectionFactory* cms::ConnectionFactory::createCMSConnectionFactory(const
 namespace qpid {
 namespace cmsimpl {
 
-QpidConnectionFactory::QpidConnectionFactory(const std::string& brokerURI)
+QpidConnectionFactory::QpidConnectionFactory(const std::string& brokerURI) :
+    brokerURI_(brokerURI)
 {
-
-}
-
-QpidConnectionFactory::QpidConnectionFactory(const QpidConnectionFactory& other)
-{
-
 }
 
 QpidConnectionFactory::~QpidConnectionFactory()
 {
-
-}
-
-QpidConnectionFactory& QpidConnectionFactory::operator=(const QpidConnectionFactory& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidConnectionFactory::operator==(const QpidConnectionFactory& other)
-{
-    throw NotImplementedYet();
 }
 
 cms::MessageTransformer* QpidConnectionFactory::getMessageTransformer() const
@@ -76,17 +61,17 @@ void QpidConnectionFactory::setExceptionListener(cms::ExceptionListener* listene
 
 cms::Connection* QpidConnectionFactory::createConnection(const std::string& username, const std::string& password, const std::string& clientId)
 {
-    throw NotImplementedYet();
+    return new QpidConnection();
 }
 
 cms::Connection* QpidConnectionFactory::createConnection(const std::string& username, const std::string& password)
 {
-    throw NotImplementedYet();
+    return new QpidConnection();
 }
 
 cms::Connection* QpidConnectionFactory::createConnection()
 {
-    throw NotImplementedYet();
+    return new QpidConnection();
 }
 
 }

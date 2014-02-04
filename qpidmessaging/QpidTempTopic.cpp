@@ -52,17 +52,17 @@ void QpidTempTopic::destroy()
 
 }
 
-std::string QpidTempTopic::getTopicName()
+std::string QpidTempTopic::getTopicName() const
 {
     throw NotImplementedYet();
 }
 
-const cms::CMSProperties& QpidTempTopic::getCMSProperties()
+const cms::CMSProperties& QpidTempTopic::getCMSProperties() const
 {
     throw NotImplementedYet();
 }
 
-bool QpidTempTopic::equals(const cms::Destination& other)
+bool QpidTempTopic::equals(const cms::Destination& other) const
 {
     throw NotImplementedYet();
 }
@@ -72,12 +72,12 @@ void QpidTempTopic::copy(const cms::Destination& source)
 
 }
 
-cms::Destination* QpidTempTopic::clone()
+cms::Destination* QpidTempTopic::clone() const
 {
     throw NotImplementedYet();
 }
 
-cms::Destination::DestinationType QpidTempTopic::getDestinationType()
+cms::Destination::DestinationType QpidTempTopic::getDestinationType() const
 {
     throw NotImplementedYet();
 }

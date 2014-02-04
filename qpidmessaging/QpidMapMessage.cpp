@@ -52,7 +52,7 @@ void QpidMapMessage::setString(const std::string& name, const std::string& value
 
 }
 
-std::string QpidMapMessage::getString(const std::string& name)
+std::string QpidMapMessage::getString(const std::string& name) const
 {
     throw NotImplementedYet();
 }
@@ -62,7 +62,7 @@ void QpidMapMessage::setShort(const std::string& name, short int value)
 
 }
 
-short int QpidMapMessage::getShort(const std::string& name)
+short int QpidMapMessage::getShort(const std::string& name) const
 {
     throw NotImplementedYet();
 }
@@ -72,7 +72,7 @@ void QpidMapMessage::setLong(const std::string& name, long long int value)
 
 }
 
-long long int QpidMapMessage::getLong(const std::string& name)
+long long int QpidMapMessage::getLong(const std::string& name) const
 {
     throw NotImplementedYet();
 }
@@ -82,7 +82,7 @@ void QpidMapMessage::setInt(const std::string& name, int value)
 
 }
 
-int QpidMapMessage::getInt(const std::string& name)
+int QpidMapMessage::getInt(const std::string& name) const
 {
     throw NotImplementedYet();
 }
@@ -92,7 +92,7 @@ void QpidMapMessage::setFloat(const std::string& name, float value)
 
 }
 
-float QpidMapMessage::getFloat(const std::string& name)
+float QpidMapMessage::getFloat(const std::string& name) const
 {
     throw NotImplementedYet();
 }
@@ -102,7 +102,7 @@ void QpidMapMessage::setDouble(const std::string& name, double value)
 
 }
 
-double QpidMapMessage::getDouble(const std::string& name)
+double QpidMapMessage::getDouble(const std::string& name) const
 {
     throw NotImplementedYet();
 }
@@ -112,17 +112,17 @@ void QpidMapMessage::setChar(const std::string& name, char value)
 
 }
 
-char QpidMapMessage::getChar(const std::string& name)
+char QpidMapMessage::getChar(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-void QpidMapMessage::setBytes(const std::string& name, const std::vector< unsigned int >& value)
+void QpidMapMessage::setBytes(const std::string& name, const std::vector< unsigned char >& value)
 {
 
 }
 
-std::vector< unsigned int > QpidMapMessage::getBytes(const std::string& name)
+std::vector< unsigned char > QpidMapMessage::getBytes(const std::string& name) const
 {
     throw NotImplementedYet();
 }
@@ -132,7 +132,7 @@ void QpidMapMessage::setByte(const std::string& name, unsigned char value)
 
 }
 
-unsigned char QpidMapMessage::getByte(const std::string& name)
+unsigned char QpidMapMessage::getByte(const std::string& name) const
 {
     throw NotImplementedYet();
 }
@@ -142,27 +142,27 @@ void QpidMapMessage::setBoolean(const std::string& name, bool value)
 
 }
 
-bool QpidMapMessage::getBoolean(const std::string& name)
+bool QpidMapMessage::getBoolean(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-cms::Message::ValueType QpidMapMessage::getValueType(const std::string& key)
+cms::Message::ValueType QpidMapMessage::getValueType(const std::string& key) const
 {
     throw NotImplementedYet();
 }
 
-bool QpidMapMessage::itemExists(const std::string& name)
+bool QpidMapMessage::itemExists(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-std::vector< std::string > QpidMapMessage::getMapNames()
+std::vector< std::string > QpidMapMessage::getMapNames() const
 {
     throw NotImplementedYet();
 }
 
-bool QpidMapMessage::isEmpty()
+bool QpidMapMessage::isEmpty() const
 {
     throw NotImplementedYet();
 }
@@ -172,7 +172,7 @@ void QpidMapMessage::setCMSType(const std::string& type)
 
 }
 
-std::string QpidMapMessage::getCMSType()
+std::string QpidMapMessage::getCMSType() const
 {
     throw NotImplementedYet();
 }
@@ -182,7 +182,7 @@ void QpidMapMessage::setCMSTimestamp(long long int timeStamp)
 
 }
 
-long long int QpidMapMessage::getCMSTimestamp()
+long long int QpidMapMessage::getCMSTimestamp() const
 {
     throw NotImplementedYet();
 }
@@ -192,7 +192,7 @@ void QpidMapMessage::setCMSReplyTo(const cms::Destination* destination)
 
 }
 
-const cms::Destination* QpidMapMessage::getCMSReplyTo()
+const cms::Destination* QpidMapMessage::getCMSReplyTo() const
 {
     throw NotImplementedYet();
 }
@@ -202,7 +202,7 @@ void QpidMapMessage::setCMSRedelivered(bool redelivered)
 
 }
 
-bool QpidMapMessage::getCMSRedelivered()
+bool QpidMapMessage::getCMSRedelivered() const
 {
     throw NotImplementedYet();
 }
@@ -212,7 +212,7 @@ void QpidMapMessage::setCMSPriority(int priority)
 
 }
 
-int QpidMapMessage::getCMSPriority()
+int QpidMapMessage::getCMSPriority() const
 {
     throw NotImplementedYet();
 }
@@ -222,7 +222,7 @@ void QpidMapMessage::setCMSMessageID(const std::string& id)
 
 }
 
-std::string QpidMapMessage::getCMSMessageID()
+std::string QpidMapMessage::getCMSMessageID() const
 {
     throw NotImplementedYet();
 }
@@ -232,7 +232,7 @@ void QpidMapMessage::setCMSExpiration(long long int expireTime)
 
 }
 
-long long int QpidMapMessage::getCMSExpiration()
+long long int QpidMapMessage::getCMSExpiration() const
 {
     throw NotImplementedYet();
 }
@@ -242,7 +242,7 @@ void QpidMapMessage::setCMSDestination(const cms::Destination* destination)
 
 }
 
-const cms::Destination* QpidMapMessage::getCMSDestination()
+const cms::Destination* QpidMapMessage::getCMSDestination() const
 {
     throw NotImplementedYet();
 }
@@ -252,7 +252,7 @@ void QpidMapMessage::setCMSDeliveryMode(int mode)
 
 }
 
-int QpidMapMessage::getCMSDeliveryMode()
+int QpidMapMessage::getCMSDeliveryMode() const
 {
     throw NotImplementedYet();
 }
@@ -262,7 +262,7 @@ void QpidMapMessage::setCMSCorrelationID(const std::string& correlationId)
 
 }
 
-std::string QpidMapMessage::getCMSCorrelationID()
+std::string QpidMapMessage::getCMSCorrelationID() const
 {
     throw NotImplementedYet();
 }
@@ -307,57 +307,57 @@ void QpidMapMessage::setBooleanProperty(const std::string& name, bool value)
 
 }
 
-std::string QpidMapMessage::getStringProperty(const std::string& name)
+std::string QpidMapMessage::getStringProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-short int QpidMapMessage::getShortProperty(const std::string& name)
+short int QpidMapMessage::getShortProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-long long int QpidMapMessage::getLongProperty(const std::string& name)
+long long int QpidMapMessage::getLongProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-int QpidMapMessage::getIntProperty(const std::string& name)
+int QpidMapMessage::getIntProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-float QpidMapMessage::getFloatProperty(const std::string& name)
+float QpidMapMessage::getFloatProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-double QpidMapMessage::getDoubleProperty(const std::string& name)
+double QpidMapMessage::getDoubleProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-unsigned char QpidMapMessage::getByteProperty(const std::string& name)
+unsigned char QpidMapMessage::getByteProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-bool QpidMapMessage::getBooleanProperty(const std::string& name)
+bool QpidMapMessage::getBooleanProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-cms::Message::ValueType QpidMapMessage::getPropertyValueType(const std::string& name)
+cms::Message::ValueType QpidMapMessage::getPropertyValueType(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-bool QpidMapMessage::propertyExists(const std::string& name)
+bool QpidMapMessage::propertyExists(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-std::vector< std::string > QpidMapMessage::getPropertyNames()
+std::vector< std::string > QpidMapMessage::getPropertyNames() const
 {
     throw NotImplementedYet();
 }
@@ -372,12 +372,12 @@ void QpidMapMessage::clearBody()
 
 }
 
-void QpidMapMessage::acknowledge()
+void QpidMapMessage::acknowledge() const
 {
 
 }
 
-cms::Message* QpidMapMessage::clone()
+cms::Message* QpidMapMessage::clone() const
 {
     throw NotImplementedYet();
 }

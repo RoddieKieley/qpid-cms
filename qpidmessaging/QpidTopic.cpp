@@ -27,6 +27,12 @@ QpidTopic::QpidTopic()
 
 }
 
+QpidTopic::QpidTopic(const std::string& topicName)
+{
+
+}
+
+
 QpidTopic::QpidTopic(const QpidTopic& other)
 {
 
@@ -47,17 +53,17 @@ bool QpidTopic::operator==(const QpidTopic& other)
     throw NotImplementedYet();
 }
 
-std::string QpidTopic::getTopicName()
+std::string QpidTopic::getTopicName() const
 {
     throw NotImplementedYet();
 }
 
-const cms::CMSProperties& QpidTopic::getCMSProperties()
+const cms::CMSProperties& QpidTopic::getCMSProperties() const
 {
     throw NotImplementedYet();
 }
 
-bool QpidTopic::equals(const cms::Destination& other)
+bool QpidTopic::equals(const cms::Destination& other) const
 {
     throw NotImplementedYet();
 }
@@ -67,12 +73,12 @@ void QpidTopic::copy(const cms::Destination& source)
 
 }
 
-cms::Destination* QpidTopic::clone()
+cms::Destination* QpidTopic::clone() const
 {
     throw NotImplementedYet();
 }
 
-cms::Destination::DestinationType QpidTopic::getDestinationType()
+cms::Destination::DestinationType QpidTopic::getDestinationType() const
 {
     throw NotImplementedYet();
 }

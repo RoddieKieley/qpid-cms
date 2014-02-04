@@ -32,24 +32,9 @@ QpidQueue::QpidQueue(const std::string& queueName)
 
 }
 
-QpidQueue::QpidQueue(const QpidQueue& other)
-{
-
-}
-
 QpidQueue::~QpidQueue()
 {
 
-}
-
-QpidQueue& QpidQueue::operator=(const QpidQueue& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidQueue::operator==(const QpidQueue& other)
-{
-    throw NotImplementedYet();
 }
 
 std::string QpidQueue::getQueueName() const

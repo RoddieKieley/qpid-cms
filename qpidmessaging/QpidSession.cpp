@@ -38,24 +38,9 @@ QpidSession::QpidSession()
 
 }
 
-QpidSession::QpidSession(const QpidSession& other)
-{
-
-}
-
 QpidSession::~QpidSession()
 {
 
-}
-
-QpidSession& QpidSession::operator=(const QpidSession& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidSession::operator==(const QpidSession& other)
-{
-    throw NotImplementedYet();
 }
 
 cms::MessageTransformer* QpidSession::getMessageTransformer() const

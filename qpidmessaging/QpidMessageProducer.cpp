@@ -32,24 +32,9 @@ QpidMessageProducer::QpidMessageProducer(const cms::Destination* destination)
 
 }
 
-QpidMessageProducer::QpidMessageProducer(const QpidMessageProducer& other)
-{
-
-}
-
 QpidMessageProducer::~QpidMessageProducer()
 {
 
-}
-
-QpidMessageProducer& QpidMessageProducer::operator=(const QpidMessageProducer& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidMessageProducer::operator==(const QpidMessageProducer& other)
-{
-    throw NotImplementedYet();
 }
 
 cms::MessageTransformer* QpidMessageProducer::getMessageTransformer() const

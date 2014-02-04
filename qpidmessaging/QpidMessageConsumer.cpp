@@ -32,24 +32,9 @@ QpidMessageConsumer::QpidMessageConsumer(const cms::Destination* destination)
 
 }
 
-QpidMessageConsumer::QpidMessageConsumer(const QpidMessageConsumer& other)
-{
-
-}
-
 QpidMessageConsumer::~QpidMessageConsumer()
 {
 
-}
-
-QpidMessageConsumer& QpidMessageConsumer::operator=(const QpidMessageConsumer& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidMessageConsumer::operator==(const QpidMessageConsumer& other)
-{
-    throw NotImplementedYet();
 }
 
 cms::MessageAvailableListener* QpidMessageConsumer::getMessageAvailableListener() const

@@ -27,10 +27,12 @@ class QpidConnection :  public cms::Connection
 {
 public:
     QpidConnection();
-    QpidConnection(const QpidConnection& other);
     ~QpidConnection();
+
+    // Hide copy constructor and assignment
+private:
+    QpidConnection(const QpidConnection& other);
     QpidConnection& operator=(const QpidConnection& other);
-    bool operator==(const QpidConnection& other);
 
 private:
     virtual cms::MessageTransformer* getMessageTransformer() const;

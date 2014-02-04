@@ -27,24 +27,9 @@ QpidMapMessage::QpidMapMessage()
 
 }
 
-QpidMapMessage::QpidMapMessage(const QpidMapMessage& other)
-{
-
-}
-
 QpidMapMessage::~QpidMapMessage()
 {
 
-}
-
-QpidMapMessage& QpidMapMessage::operator=(const QpidMapMessage& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidMapMessage::operator==(const QpidMapMessage& other)
-{
-    throw NotImplementedYet();
 }
 
 void QpidMapMessage::setString(const std::string& name, const std::string& value)

@@ -32,24 +32,9 @@ QpidBytesMessage::QpidBytesMessage(const unsigned char* bytes, int bytesSize)
 
 }
 
-QpidBytesMessage::QpidBytesMessage(const QpidBytesMessage& other)
-{
-
-}
-
 QpidBytesMessage::~QpidBytesMessage()
 {
 
-}
-
-QpidBytesMessage& QpidBytesMessage::operator=(const QpidBytesMessage& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidBytesMessage::operator==(const QpidBytesMessage& other)
-{
-    throw NotImplementedYet();
 }
 
 void QpidBytesMessage::writeUTF(const std::string& value)

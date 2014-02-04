@@ -28,24 +28,9 @@ QpidConnection::QpidConnection()
 
 }
 
-QpidConnection::QpidConnection(const QpidConnection& other)
-{
-
-}
-
 QpidConnection::~QpidConnection()
 {
 
-}
-
-QpidConnection& QpidConnection::operator=(const QpidConnection& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidConnection::operator==(const QpidConnection& other)
-{
-    throw NotImplementedYet();
 }
 
 cms::MessageTransformer* QpidConnection::getMessageTransformer() const

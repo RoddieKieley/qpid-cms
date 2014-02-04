@@ -27,10 +27,12 @@ class QpidStreamMessage :  public cms::StreamMessage
 {
 public:
     QpidStreamMessage();
-    QpidStreamMessage(const QpidStreamMessage& other);
     ~QpidStreamMessage();
+
+    // Hide copying and assignment
+private:
+    QpidStreamMessage(const QpidStreamMessage& other);
     QpidStreamMessage& operator=(const QpidStreamMessage& other);
-    bool operator==(const QpidStreamMessage& other);
 
 private:
     virtual void reset();

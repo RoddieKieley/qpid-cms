@@ -27,10 +27,12 @@ class QpidMapMessage :  public cms::MapMessage
 {
 public:
     QpidMapMessage();
-    QpidMapMessage(const QpidMapMessage& other);
     ~QpidMapMessage();
+
+    //Hide copying and assigment
+private:
+    QpidMapMessage(const QpidMapMessage& other);
     QpidMapMessage& operator=(const QpidMapMessage& other);
-    bool operator==(const QpidMapMessage& other);
 
 private:
     virtual void setString(const std::string& name, const std::string& value);

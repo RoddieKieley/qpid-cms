@@ -28,10 +28,12 @@ class QpidBytesMessage :  public cms::BytesMessage
 public:
     QpidBytesMessage();
     QpidBytesMessage(const unsigned char* bytes, int bytesSize);
-    QpidBytesMessage(const QpidBytesMessage& other);
     ~QpidBytesMessage();
+
+    // Hide copy constructor and assignment
+private:
+    QpidBytesMessage(const QpidBytesMessage& other);
     QpidBytesMessage& operator=(const QpidBytesMessage& other);
-    bool operator==(const QpidBytesMessage& other);
 
 private:
     virtual void writeUTF(const std::string& value);

@@ -27,10 +27,12 @@ class QpidQueueBrowser :  public cms::QueueBrowser
 {
 public:
     QpidQueueBrowser();
-    QpidQueueBrowser(const QpidQueueBrowser& other);
     ~QpidQueueBrowser();
+
+    // Hide assignment and copying
+private:
+    QpidQueueBrowser(const QpidQueueBrowser& other);
     QpidQueueBrowser& operator=(const QpidQueueBrowser& other);
-    bool operator==(const QpidQueueBrowser& other);
 
 private:
     virtual cms::MessageEnumeration* getEnumeration();

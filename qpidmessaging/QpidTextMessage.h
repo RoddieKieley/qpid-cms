@@ -28,11 +28,12 @@ class QpidTextMessage :  public cms::TextMessage
 public:
     QpidTextMessage();
     QpidTextMessage(const std::string& text);
-
-    QpidTextMessage(const QpidTextMessage& other);
     ~QpidTextMessage();
+
+    //Hide copying and assignment
+private:
+    QpidTextMessage(const QpidTextMessage& other);
     QpidTextMessage& operator=(const QpidTextMessage& other);
-    bool operator==(const QpidTextMessage& other);
 
 private:
     virtual void setText(const std::string& msg);

@@ -27,10 +27,12 @@ class QpidProps : public cms::CMSProperties
 {
 public:
     QpidProps();
-    QpidProps(const QpidProps& other);
     ~QpidProps();
+
+    // Hide copying and assignment
+private:
+    QpidProps(const QpidProps& other);
     QpidProps& operator=(const QpidProps& other);
-    bool operator==(const QpidProps& other);
 
 private:
     virtual std::string toString();

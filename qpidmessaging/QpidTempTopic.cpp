@@ -27,24 +27,9 @@ QpidTempTopic::QpidTempTopic()
 
 }
 
-QpidTempTopic::QpidTempTopic(const QpidTempTopic& other)
-{
-
-}
-
 QpidTempTopic::~QpidTempTopic()
 {
 
-}
-
-QpidTempTopic& QpidTempTopic::operator=(const QpidTempTopic& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidTempTopic::operator==(const QpidTempTopic& other)
-{
-    throw NotImplementedYet();
 }
 
 void QpidTempTopic::destroy()

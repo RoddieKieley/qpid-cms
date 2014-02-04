@@ -34,11 +34,12 @@ class QpidMessageConsumer :  public cms::MessageConsumer
 public:
     QpidMessageConsumer();
     QpidMessageConsumer(const cms::Destination* destination);
-
-    QpidMessageConsumer(const QpidMessageConsumer& other);
     ~QpidMessageConsumer();
+
+    // Hide copy constructor and assignment
+private:
+    QpidMessageConsumer(const QpidMessageConsumer& other);
     QpidMessageConsumer& operator=(const QpidMessageConsumer& other);
-    bool operator==(const QpidMessageConsumer& other);
 
 private:
     virtual cms::MessageAvailableListener* getMessageAvailableListener() const;

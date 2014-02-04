@@ -27,10 +27,12 @@ class QpidMessage :  public cms::Message
 {
 public:
     QpidMessage();
-    QpidMessage(const QpidMessage& other);
     ~QpidMessage();
+
+    // Hide copying and assignment
+private:
+    QpidMessage(const QpidMessage& other);
     QpidMessage& operator=(const QpidMessage& other);
-    bool operator==(const QpidMessage& other);
 
 private:
     virtual void setCMSType(const std::string& type);

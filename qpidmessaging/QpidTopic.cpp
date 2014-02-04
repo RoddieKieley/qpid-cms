@@ -32,25 +32,9 @@ QpidTopic::QpidTopic(const std::string& topicName)
 
 }
 
-
-QpidTopic::QpidTopic(const QpidTopic& other)
-{
-
-}
-
 QpidTopic::~QpidTopic()
 {
 
-}
-
-QpidTopic& QpidTopic::operator=(const QpidTopic& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidTopic::operator==(const QpidTopic& other)
-{
-    throw NotImplementedYet();
 }
 
 std::string QpidTopic::getTopicName() const

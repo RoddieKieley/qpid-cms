@@ -34,11 +34,12 @@ class QpidMessageProducer :  public cms::MessageProducer
 public:
     QpidMessageProducer();
     QpidMessageProducer(const cms::Destination* destination);
-
-    QpidMessageProducer(const QpidMessageProducer& other);
     ~QpidMessageProducer();
+
+    // Hide copying and assignment
+private:
+    QpidMessageProducer(const QpidMessageProducer& other);
     QpidMessageProducer& operator=(const QpidMessageProducer& other);
-    bool operator==(const QpidMessageProducer& other);
 
 private:
     virtual cms::MessageTransformer* getMessageTransformer() const;

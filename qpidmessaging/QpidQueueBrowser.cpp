@@ -27,24 +27,9 @@ QpidQueueBrowser::QpidQueueBrowser()
 
 }
 
-QpidQueueBrowser::QpidQueueBrowser(const QpidQueueBrowser& other)
-{
-
-}
-
 QpidQueueBrowser::~QpidQueueBrowser()
 {
 
-}
-
-QpidQueueBrowser& QpidQueueBrowser::operator=(const QpidQueueBrowser& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidQueueBrowser::operator==(const QpidQueueBrowser& other)
-{
-    throw NotImplementedYet();
 }
 
 cms::MessageEnumeration* QpidQueueBrowser::getEnumeration()

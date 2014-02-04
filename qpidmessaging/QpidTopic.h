@@ -28,11 +28,12 @@ class QpidTopic :  public cms::Topic
 public:
     QpidTopic();
     QpidTopic(const std::string& topicName);
-
-    QpidTopic(const QpidTopic& other);
     ~QpidTopic();
+
+    // Hide copying ans assignment
+private:
+    QpidTopic(const QpidTopic& other);
     QpidTopic& operator=(const QpidTopic& other);
-    bool operator==(const QpidTopic& other);
 
 private:
     virtual std::string getTopicName() const;

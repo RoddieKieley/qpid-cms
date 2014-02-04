@@ -27,24 +27,9 @@ QpidTempQueue::QpidTempQueue()
 
 }
 
-QpidTempQueue::QpidTempQueue(const QpidTempQueue& other)
-{
-
-}
-
 QpidTempQueue::~QpidTempQueue()
 {
 
-}
-
-QpidTempQueue& QpidTempQueue::operator=(const QpidTempQueue& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidTempQueue::operator==(const QpidTempQueue& other)
-{
-    throw NotImplementedYet();
 }
 
 void QpidTempQueue::destroy()

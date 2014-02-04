@@ -27,24 +27,9 @@ QpidProps::QpidProps()
 
 }
 
-QpidProps::QpidProps(const QpidProps& other)
-{
-
-}
-
 QpidProps::~QpidProps()
 {
 
-}
-
-QpidProps& QpidProps::operator=(const QpidProps& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidProps::operator==(const QpidProps& other)
-{
-    throw NotImplementedYet();
 }
 
 std::string QpidProps::toString()

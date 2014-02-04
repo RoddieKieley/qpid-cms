@@ -27,10 +27,12 @@ class QpidTempQueue :  public cms::TemporaryQueue
 {
 public:
     QpidTempQueue();
-    QpidTempQueue(const QpidTempQueue& other);
     ~QpidTempQueue();
+
+    // Hide copying ans assignment
+private:
+    QpidTempQueue(const QpidTempQueue& other);
     QpidTempQueue& operator=(const QpidTempQueue& other);
-    bool operator==(const QpidTempQueue& other);
 
 private:
     virtual void destroy();

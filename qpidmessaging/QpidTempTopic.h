@@ -27,10 +27,12 @@ class QpidTempTopic :  public cms::TemporaryTopic
 {
 public:
     QpidTempTopic();
-    QpidTempTopic(const QpidTempTopic& other);
     ~QpidTempTopic();
+
+    // Hide copying and assignment
+private:
+    QpidTempTopic(const QpidTempTopic& other);
     QpidTempTopic& operator=(const QpidTempTopic& other);
-    bool operator==(const QpidTempTopic& other);
 
 private:
     virtual void destroy();

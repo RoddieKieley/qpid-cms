@@ -27,10 +27,12 @@ class QpidSession :  public cms::Session
 {
 public:
     QpidSession();
-    QpidSession(const QpidSession& other);
     ~QpidSession();
+
+    // Hide copying and assignment
+private:
+    QpidSession(const QpidSession& other);
     QpidSession& operator=(const QpidSession& other);
-    bool operator==(const QpidSession& other);
 
 private:
     virtual cms::MessageTransformer* getMessageTransformer() const;

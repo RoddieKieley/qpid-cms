@@ -32,24 +32,9 @@ QpidTextMessage::QpidTextMessage(const std::string& text)
 
 }
 
-QpidTextMessage::QpidTextMessage(const QpidTextMessage& other)
-{
-
-}
-
 QpidTextMessage::~QpidTextMessage()
 {
 
-}
-
-QpidTextMessage& QpidTextMessage::operator=(const QpidTextMessage& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidTextMessage::operator==(const QpidTextMessage& other)
-{
-    throw NotImplementedYet();
 }
 
 void QpidTextMessage::setText(const std::string& msg)

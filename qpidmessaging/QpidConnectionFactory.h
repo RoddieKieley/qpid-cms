@@ -32,10 +32,9 @@ public:
     ~QpidConnectionFactory();
 
 private:
-    // Prevent copying, assignment and comparison
+    // Prevent copying, assignment
     QpidConnectionFactory(const QpidConnectionFactory& other);
     QpidConnectionFactory& operator=(const QpidConnectionFactory& other);
-    bool operator==(const QpidConnectionFactory& other);
 
 private:
     virtual cms::MessageTransformer* getMessageTransformer() const;

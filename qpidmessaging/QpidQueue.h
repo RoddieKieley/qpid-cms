@@ -28,11 +28,12 @@ class QpidQueue : public cms::Queue
 public:
     QpidQueue();
     QpidQueue(const std::string& queueName);
-
-    QpidQueue(const QpidQueue& other);
     ~QpidQueue();
+
+    // Hide copying and assignment
+private:
+    QpidQueue(const QpidQueue& other);
     QpidQueue& operator=(const QpidQueue& other);
-    bool operator==(const QpidQueue& other);
 
 private:
     virtual std::string getQueueName() const;

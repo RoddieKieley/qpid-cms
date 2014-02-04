@@ -27,24 +27,9 @@ QpidStreamMessage::QpidStreamMessage()
 
 }
 
-QpidStreamMessage::QpidStreamMessage(const QpidStreamMessage& other)
-{
-
-}
-
 QpidStreamMessage::~QpidStreamMessage()
 {
 
-}
-
-QpidStreamMessage& QpidStreamMessage::operator=(const QpidStreamMessage& other)
-{
-    throw NotImplementedYet();
-}
-
-bool QpidStreamMessage::operator==(const QpidStreamMessage& other)
-{
-    throw NotImplementedYet();
 }
 
 void QpidStreamMessage::reset()

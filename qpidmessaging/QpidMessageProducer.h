@@ -20,6 +20,8 @@
 
 #include "cms/MessageProducer.h"
 
+#include <qpid/messaging/Sender.h>
+
 namespace cms {
 
 class Destination;
@@ -31,9 +33,10 @@ namespace cmsimpl {
 
 class QpidMessageProducer :  public cms::MessageProducer
 {
+    qpid::messaging::Sender sender_;
+
 public:
-    QpidMessageProducer();
-    QpidMessageProducer(const cms::Destination* destination);
+    QpidMessageProducer(qpid::messaging::Session& session, const cms::Destination* destination);
     ~QpidMessageProducer();
 
     // Hide copying and assignment

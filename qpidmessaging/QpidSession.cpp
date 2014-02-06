@@ -137,7 +137,7 @@ cms::QueueBrowser* QpidSession::createBrowser(const cms::Queue* queue)
 
 cms::MessageProducer* QpidSession::createProducer(const cms::Destination* destination)
 {
-    return new QpidMessageProducer(destination);
+    return new QpidMessageProducer(session_, destination);
 }
 
 cms::MessageConsumer* QpidSession::createDurableConsumer(const cms::Topic* destination, const std::string& name, const std::string& selector, bool noLocal)

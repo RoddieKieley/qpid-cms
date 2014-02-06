@@ -17,16 +17,16 @@
 
 #include "QpidMessageProducer.h"
 
+#include "QpidDestination.h"
 #include "QpidExceptions.h"
+
+#include <qpid/messaging/Session.h>
 
 namespace qpid{
 namespace cmsimpl {
 
-QpidMessageProducer::QpidMessageProducer()
-{
-}
-
-QpidMessageProducer::QpidMessageProducer(const cms::Destination* destination)
+QpidMessageProducer::QpidMessageProducer(qpid::messaging::Session& session, const cms::Destination* destination) :
+    sender_(session.createSender(dynamic_cast<const QpidDestination*>(destination)->getAddress()))
 {
 }
 

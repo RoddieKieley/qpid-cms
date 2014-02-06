@@ -30,17 +30,19 @@
 #include "QpidMessageConsumer.h"
 #include "QpidExceptions.h"
 
+#include <qpid/messaging/Connection.h>
+
 namespace qpid {
 namespace cmsimpl {
 
-QpidSession::QpidSession()
+QpidSession::QpidSession(cms::Session::AcknowledgeMode acknowledgeMode, qpid::messaging::Connection& connection) :
+    acknowledgeMode_(acknowledgeMode),
+    session_(connection.createSession())
 {
-
 }
 
 QpidSession::~QpidSession()
 {
-
 }
 
 cms::MessageTransformer* QpidSession::getMessageTransformer() const
@@ -50,7 +52,7 @@ cms::MessageTransformer* QpidSession::getMessageTransformer() const
 
 void QpidSession::setMessageTransformer(cms::MessageTransformer* transformer)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidSession::unsubscribe(const std::string& name)
@@ -65,7 +67,7 @@ bool QpidSession::isTransacted() const
 
 cms::Session::AcknowledgeMode QpidSession::getAcknowledgeMode() const
 {
-    throw NotImplementedYet();
+    return acknowledgeMode_;
 }
 
 cms::MapMessage* QpidSession::createMapMessage()

@@ -20,13 +20,16 @@
 
 #include "cms/Queue.h"
 
+#include "QpidDestination.h"
+
 namespace qpid {
 namespace cmsimpl {
 
-class QpidQueue : public cms::Queue
+class QpidQueue : public cms::Queue, public QpidDestination
 {
+    std::string queueName_;
+
 public:
-    QpidQueue();
     QpidQueue(const std::string& queueName);
     ~QpidQueue();
 
@@ -35,6 +38,7 @@ private:
     QpidQueue(const QpidQueue& other);
     QpidQueue& operator=(const QpidQueue& other);
 
+    // Implement Interfaces
 private:
     virtual std::string getQueueName() const;
     virtual const cms::CMSProperties& getCMSProperties() const;

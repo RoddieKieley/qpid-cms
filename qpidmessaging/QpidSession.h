@@ -20,13 +20,18 @@
 
 #include "cms/Session.h"
 
+#include <qpid/messaging/Session.h>
+
 namespace qpid {
 namespace cmsimpl {
 
 class QpidSession :  public cms::Session
 {
+    cms::Session::AcknowledgeMode acknowledgeMode_;
+    qpid::messaging::Session session_;
+
 public:
-    QpidSession();
+    QpidSession(cms::Session::AcknowledgeMode acknowledgeMode, qpid::messaging::Connection& connection);
     ~QpidSession();
 
     // Hide copying and assignment
@@ -34,6 +39,7 @@ private:
     QpidSession(const QpidSession& other);
     QpidSession& operator=(const QpidSession& other);
 
+    // Implement interfaces
 private:
     virtual cms::MessageTransformer* getMessageTransformer() const;
     virtual void setMessageTransformer(cms::MessageTransformer* transformer);

@@ -22,24 +22,19 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidTopic::QpidTopic()
+QpidTopic::QpidTopic(const std::string& topicName) :
+    QpidDestination(topicName),
+    topicName_(topicName)
 {
-
-}
-
-QpidTopic::QpidTopic(const std::string& topicName)
-{
-
 }
 
 QpidTopic::~QpidTopic()
 {
-
 }
 
 std::string QpidTopic::getTopicName() const
 {
-    throw NotImplementedYet();
+    return topicName_;
 }
 
 const cms::CMSProperties& QpidTopic::getCMSProperties() const
@@ -54,7 +49,7 @@ bool QpidTopic::equals(const cms::Destination& other) const
 
 void QpidTopic::copy(const cms::Destination& source)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Destination* QpidTopic::clone() const
@@ -64,7 +59,7 @@ cms::Destination* QpidTopic::clone() const
 
 cms::Destination::DestinationType QpidTopic::getDestinationType() const
 {
-    throw NotImplementedYet();
+    return cms::Destination::TOPIC;
 }
 
 }

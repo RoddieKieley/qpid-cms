@@ -22,24 +22,19 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidQueue::QpidQueue()
+QpidQueue::QpidQueue(const std::string& queueName) :
+    QpidDestination(queueName),
+    queueName_(queueName)
 {
-
-}
-
-QpidQueue::QpidQueue(const std::string& queueName)
-{
-
 }
 
 QpidQueue::~QpidQueue()
 {
-
 }
 
 std::string QpidQueue::getQueueName() const
 {
-    throw NotImplementedYet();
+    return queueName_;
 }
 
 const cms::CMSProperties& QpidQueue::getCMSProperties() const
@@ -54,7 +49,7 @@ bool QpidQueue::equals(const cms::Destination& other) const
 
 void QpidQueue::copy(const cms::Destination& source)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Destination* QpidQueue::clone() const
@@ -64,7 +59,7 @@ cms::Destination* QpidQueue::clone() const
 
 cms::Destination::DestinationType QpidQueue::getDestinationType() const
 {
-    throw NotImplementedYet();
+    return cms::Destination::QUEUE;
 }
 
 }

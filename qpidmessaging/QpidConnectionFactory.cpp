@@ -46,7 +46,7 @@ cms::MessageTransformer* QpidConnectionFactory::getMessageTransformer() const
 
 void QpidConnectionFactory::setMessageTransformer(cms::MessageTransformer* transformer)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::ExceptionListener* QpidConnectionFactory::getExceptionListener() const
@@ -56,22 +56,22 @@ cms::ExceptionListener* QpidConnectionFactory::getExceptionListener() const
 
 void QpidConnectionFactory::setExceptionListener(cms::ExceptionListener* listener)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::Connection* QpidConnectionFactory::createConnection(const std::string& username, const std::string& password, const std::string& clientId)
 {
-    return new QpidConnection();
+    return new QpidConnection(brokerURI_, username, password, clientId);
 }
 
 cms::Connection* QpidConnectionFactory::createConnection(const std::string& username, const std::string& password)
 {
-    return new QpidConnection();
+    return new QpidConnection(brokerURI_, username, password);
 }
 
 cms::Connection* QpidConnectionFactory::createConnection()
 {
-    return new QpidConnection();
+    return new QpidConnection(brokerURI_);
 }
 
 }

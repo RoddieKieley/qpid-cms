@@ -20,13 +20,16 @@
 
 #include "cms/Topic.h"
 
+#include "QpidDestination.h"
+
 namespace qpid {
 namespace cmsimpl {
 
-class QpidTopic :  public cms::Topic
+class QpidTopic :  public cms::Topic, public QpidDestination
 {
+    std::string topicName_;
+
 public:
-    QpidTopic();
     QpidTopic(const std::string& topicName);
     ~QpidTopic();
 

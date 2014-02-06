@@ -24,17 +24,14 @@ namespace cmsimpl {
 
 QpidMessageProducer::QpidMessageProducer()
 {
-
 }
 
 QpidMessageProducer::QpidMessageProducer(const cms::Destination* destination)
 {
-
 }
 
 QpidMessageProducer::~QpidMessageProducer()
 {
-
 }
 
 cms::MessageTransformer* QpidMessageProducer::getMessageTransformer() const
@@ -44,7 +41,7 @@ cms::MessageTransformer* QpidMessageProducer::getMessageTransformer() const
 
 void QpidMessageProducer::setMessageTransformer(cms::MessageTransformer* transformer)
 {
-
+    throw NotImplementedYet();
 }
 
 long long int QpidMessageProducer::getTimeToLive() const

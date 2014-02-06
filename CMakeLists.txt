@@ -81,6 +81,7 @@ set (qpidmessaging_cms_files
   qpidmessaging/QpidBytesMessage.cpp
   qpidmessaging/QpidConnection.cpp
   qpidmessaging/QpidConnectionFactory.cpp
+  qpidmessaging/QpidDestination.cpp
   qpidmessaging/QpidExceptions.cpp
   qpidmessaging/QpidMapMessage.cpp
   qpidmessaging/QpidMessage.cpp

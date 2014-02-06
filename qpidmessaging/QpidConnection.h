@@ -20,13 +20,26 @@
 
 #include "cms/Connection.h"
 
+#include <qpid/messaging/Connection.h>
+
 namespace qpid {
 namespace cmsimpl {
 
 class QpidConnection :  public cms::Connection
 {
+    std::string uri_;
+    std::string username_;
+    std::string password_;
+    std::string clientId_;
+    qpid::messaging::Connection connection_;
+
+    std::string connectionURL();
+    std::string connectionOptions();
+
 public:
-    QpidConnection();
+    QpidConnection(const std::string& uri);
+    QpidConnection(const std::string& uri, const std::string& username, const std::string& password);
+    QpidConnection(const std::string& uri, const std::string& username, const std::string& password, const std::string& clientId);
     ~QpidConnection();
 
     // Hide copy constructor and assignment
@@ -34,6 +47,7 @@ private:
     QpidConnection(const QpidConnection& other);
     QpidConnection& operator=(const QpidConnection& other);
 
+    // Interface implementations
 private:
     virtual cms::MessageTransformer* getMessageTransformer() const;
     virtual void setMessageTransformer(cms::MessageTransformer* transformer);

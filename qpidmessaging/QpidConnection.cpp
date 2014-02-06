@@ -23,14 +23,58 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidConnection::QpidConnection()
+std::string QpidConnection::connectionURL()
 {
+    return uri_;
+}
 
+std::string QpidConnection::connectionOptions()
+{
+    std::string options("{");
+    bool needComma(false);
+    if ( !username_.empty() ) {
+        options += "username:";
+        options += username_;
+        needComma = true;
+    }
+    if ( !password_.empty() ) {
+        if (needComma) options += ",";
+        options += "password:";
+        options += password_;
+        needComma = true;
+    }
+    options += "}";
+    return options;
+}
+
+QpidConnection::QpidConnection(const std::string& uri) :
+    uri_(uri),
+    connection_(connectionURL(), connectionOptions())
+{
+    connection_.open();
+}
+
+QpidConnection::QpidConnection(const std::string& uri, const std::string& username, const std::string& password) :
+    uri_(uri),
+    username_(username),
+    password_(password),
+    connection_(connectionURL(), connectionOptions())
+{
+    connection_.open();
+}
+
+QpidConnection::QpidConnection(const std::string& uri, const std::string& username, const std::string& password, const std::string& clientId) :
+    uri_(uri),
+    username_(username),
+    password_(password),
+    clientId_(clientId),
+    connection_(connectionURL(), connectionOptions())
+{
+    connection_.open();
 }
 
 QpidConnection::~QpidConnection()
 {
-
 }
 
 cms::MessageTransformer* QpidConnection::getMessageTransformer() const
@@ -40,12 +84,12 @@ cms::MessageTransformer* QpidConnection::getMessageTransformer() const
 
 void QpidConnection::setMessageTransformer(cms::MessageTransformer* transformer)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidConnection::setExceptionListener(cms::ExceptionListener* listener)
 {
-
+    throw NotImplementedYet();
 }
 
 cms::ExceptionListener* QpidConnection::getExceptionListener() const
@@ -55,22 +99,22 @@ cms::ExceptionListener* QpidConnection::getExceptionListener() const
 
 void QpidConnection::setClientID(const std::string& clientID)
 {
-
+    clientId_ = clientID;
 }
 
 std::string QpidConnection::getClientID() const
 {
-    throw NotImplementedYet();
+    return clientId_;
 }
 
 cms::Session* QpidConnection::createSession(cms::Session::AcknowledgeMode ackMode)
 {
-    return new QpidSession();
+    return new QpidSession(ackMode, connection_);
 }
 
 cms::Session* QpidConnection::createSession()
 {
-    return new QpidSession();
+    return new QpidSession(cms::Session::AUTO_ACKNOWLEDGE, connection_);
 }
 
 const cms::ConnectionMetaData* QpidConnection::getMetaData() const
@@ -80,7 +124,7 @@ const cms::ConnectionMetaData* QpidConnection::getMetaData() const
 
 void QpidConnection::close()
 {
-
+    connection_.close();
 }
 
 void QpidConnection::start()

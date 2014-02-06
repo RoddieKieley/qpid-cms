@@ -21,12 +21,18 @@
 #include "QpidExceptions.h"
 
 #include <qpid/messaging/Session.h>
+#include <qpid/messaging/Message.h>
 
 namespace qpid{
 namespace cmsimpl {
 
 QpidMessageProducer::QpidMessageProducer(qpid::messaging::Session& session, const cms::Destination* destination) :
-    sender_(session.createSender(dynamic_cast<const QpidDestination*>(destination)->getAddress()))
+    sender_(session.createSender(dynamic_cast<const QpidDestination*>(destination)->getAddress())),
+    ttlDefault_(0),
+    priorityDefault_(4),
+    durableDefault_(true),
+    generateMessageID_(true),
+    generateTimestamp_(true)
 {
 }
 
@@ -46,52 +52,52 @@ void QpidMessageProducer::setMessageTransformer(cms::MessageTransformer* transfo
 
 long long int QpidMessageProducer::getTimeToLive() const
 {
-    throw NotImplementedYet();
+    return ttlDefault_.getMilliseconds();
 }
 
 void QpidMessageProducer::setTimeToLive(long long int time)
 {
-
+    ttlDefault_ = qpid::messaging::Duration(time);
 }
 
 int QpidMessageProducer::getPriority() const
 {
-    throw NotImplementedYet();
+    return priorityDefault_;
 }
 
 void QpidMessageProducer::setPriority(int priority)
 {
-
+    priorityDefault_ = priority;
 }
 
 bool QpidMessageProducer::getDisableMessageTimeStamp() const
 {
-    throw NotImplementedYet();
+    return !generateTimestamp_;
 }
 
 void QpidMessageProducer::setDisableMessageTimeStamp(bool value)
 {
-
+    generateTimestamp_ = false;
 }
 
 bool QpidMessageProducer::getDisableMessageID() const
 {
-    throw NotImplementedYet();
+    return !generateMessageID_;
 }
 
 void QpidMessageProducer::setDisableMessageID(bool value)
 {
-
+    generateMessageID_ = false;
 }
 
 int QpidMessageProducer::getDeliveryMode() const
 {
-    throw NotImplementedYet();
+    return durableDefault_ ? cms::DeliveryMode::PERSISTENT : cms::DeliveryMode::NON_PERSISTENT;
 }
 
 void QpidMessageProducer::setDeliveryMode(int mode)
 {
-
+    durableDefault_ = ( mode==cms::DeliveryMode::PERSISTENT );
 }
 
 void QpidMessageProducer::send(const cms::Destination* destination, cms::Message* message, int deliveryMode, int priority, long long int timeToLive, cms::AsyncCallback* onComplete)
@@ -136,7 +142,7 @@ void QpidMessageProducer::send(cms::Message* message)
 
 void QpidMessageProducer::close()
 {
-
+    sender_.close();
 }
 
 }

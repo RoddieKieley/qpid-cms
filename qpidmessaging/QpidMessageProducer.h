@@ -21,6 +21,7 @@
 #include "cms/MessageProducer.h"
 
 #include <qpid/messaging/Sender.h>
+#include <qpid/messaging/Duration.h>
 
 namespace cms {
 
@@ -34,6 +35,12 @@ namespace cmsimpl {
 class QpidMessageProducer :  public cms::MessageProducer
 {
     qpid::messaging::Sender sender_;
+    // Default Message parameters
+    qpid::messaging::Duration ttlDefault_;
+    uint8_t priorityDefault_;
+    bool durableDefault_;
+    bool generateMessageID_;
+    bool generateTimestamp_;
 
 public:
     QpidMessageProducer(qpid::messaging::Session& session, const cms::Destination* destination);

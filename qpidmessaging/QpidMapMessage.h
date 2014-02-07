@@ -59,6 +59,7 @@ private:
     virtual bool itemExists(const std::string& name) const;
     virtual std::vector< std::string > getMapNames() const;
     virtual bool isEmpty() const;
+
     virtual void setCMSType(const std::string& type);
     virtual std::string getCMSType() const;
     virtual void setCMSTimestamp(long long int timeStamp);

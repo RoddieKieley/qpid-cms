@@ -20,11 +20,15 @@
 
 #include "cms/TextMessage.h"
 
+#include <qpid/messaging/Message.h>
+
 namespace qpid {
 namespace cmsimpl {
 
 class QpidTextMessage :  public cms::TextMessage
 {
+    qpid::messaging::Message message_;
+
 public:
     QpidTextMessage();
     QpidTextMessage(const std::string& text);
@@ -39,6 +43,7 @@ private:
     virtual void setText(const std::string& msg);
     virtual void setText(const char* msg);
     virtual std::string getText() const;
+
     virtual void setCMSType(const std::string& type);
     virtual std::string getCMSType() const;
     virtual void setCMSTimestamp(long long int timeStamp);

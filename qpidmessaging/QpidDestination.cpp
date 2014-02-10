@@ -24,6 +24,11 @@ QpidDestination::QpidDestination(const std::string& address) :
 {
 }
 
+QpidDestination::QpidDestination(const QpidDestination& destination) :
+    destination_(destination.destination_)
+{
+}
+
 QpidDestination::~QpidDestination()
 {
 }

@@ -20,15 +20,13 @@
 
 #include "cms/TextMessage.h"
 
-#include <qpid/messaging/Message.h>
+#include "QpidMessage.h"
 
 namespace qpid {
 namespace cmsimpl {
 
-class QpidTextMessage :  public cms::TextMessage
+class QpidTextMessage :  public cms::TextMessage, public QpidMessage
 {
-    qpid::messaging::Message message_;
-
 public:
     QpidTextMessage();
     QpidTextMessage(const std::string& text);

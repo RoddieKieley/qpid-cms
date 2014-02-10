@@ -19,6 +19,7 @@
 
 #include "QpidDestination.h"
 #include "QpidExceptions.h"
+#include "QpidMessage.h"
 
 #include <qpid/messaging/Session.h>
 #include <qpid/messaging/Message.h>
@@ -137,7 +138,9 @@ void QpidMessageProducer::send(cms::Message* message, cms::AsyncCallback* onComp
 
 void QpidMessageProducer::send(cms::Message* message)
 {
-
+    QpidMessage* qm = dynamic_cast<QpidMessage*>(message);
+    if (!qm) throw cms::CMSException("Message not a QpidMessage");
+    sender_.send(qm->message_);
 }
 
 void QpidMessageProducer::close()

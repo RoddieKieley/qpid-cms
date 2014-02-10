@@ -20,21 +20,40 @@
 
 #include "cms/Message.h"
 
+#include <qpid/messaging/Message.h>
+
+#include <memory>
+
 namespace qpid {
 namespace cmsimpl {
 
-class QpidMessage :  public cms::Message
+class QpidDestination;
+
+class QpidMessage :  virtual public cms::Message
 {
+    friend class QpidMessageProducer;
+    friend class QpidMessageConsumer;
+
+    qpid::messaging::Message message_;
+    std::auto_ptr<cms::Destination> destination_;
+    std::auto_ptr<cms::Destination> replyTo_;
+
+protected:
+    QpidMessage(const std::string& text, const std::string& contentType);
+
 public:
     QpidMessage();
     ~QpidMessage();
+
+    void setContent(const std::string& content);
+    std::string getContent() const;
 
     // Hide copying and assignment
 private:
     QpidMessage(const QpidMessage& other);
     QpidMessage& operator=(const QpidMessage& other);
 
-private:
+protected:
     virtual void setCMSType(const std::string& type);
     virtual std::string getCMSType() const;
     virtual void setCMSTimestamp(long long int timeStamp);

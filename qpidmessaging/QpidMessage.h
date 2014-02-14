@@ -21,6 +21,7 @@
 #include "cms/Message.h"
 
 #include <qpid/messaging/Message.h>
+#include <qpid/messaging/Session.h>
 
 #include <memory>
 
@@ -34,15 +35,16 @@ class QpidMessage :  virtual public cms::Message
     friend class QpidMessageProducer;
     friend class QpidMessageConsumer;
 
-    qpid::messaging::Message message_;
+    qpid::messaging::Session& session_;
+    mutable qpid::messaging::Message message_;
     std::auto_ptr<cms::Destination> destination_;
     std::auto_ptr<cms::Destination> replyTo_;
 
 protected:
-    QpidMessage(const std::string& text, const std::string& contentType);
+    QpidMessage(qpid::messaging::Session& session, const std::string& text, const std::string& contentType);
 
 public:
-    QpidMessage();
+    QpidMessage(qpid::messaging::Session& session);
     ~QpidMessage();
 
     void setContent(const std::string& content);
@@ -54,6 +56,9 @@ private:
     QpidMessage& operator=(const QpidMessage& other);
 
 protected:
+    qpid::types::Variant getProperty(const std::string& name) const;
+
+    // Message interface
     virtual void setCMSType(const std::string& type);
     virtual std::string getCMSType() const;
     virtual void setCMSTimestamp(long long int timeStamp);

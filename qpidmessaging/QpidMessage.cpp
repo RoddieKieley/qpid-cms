@@ -25,19 +25,22 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidMessage::QpidMessage()
+QpidMessage::QpidMessage(qpid::messaging::Session& session) :
+    session_(session)
 {
 
 }
 
-QpidMessage::QpidMessage(const std::string& text, const std::string& contentType) :
+QpidMessage::QpidMessage(qpid::messaging::Session& session, const std::string& text, const std::string& contentType) :
+    session_(session),
     message_(text)
 {
     message_.setContentType(contentType);
 }
 
 
-QpidMessage::QpidMessage(const QpidMessage& other)
+QpidMessage::QpidMessage(const QpidMessage& other) :
+    session_(other.session_)
 {
 
 }
@@ -202,47 +205,53 @@ void QpidMessage::setBooleanProperty(const std::string& name, bool value)
     message_.setProperty(name, value);
 }
 
-std::string QpidMessage::getStringProperty(const std::string& name) const
+qpid::types::Variant QpidMessage::getProperty(const std::string& name) const
 {
     qpid::types::Variant::Map props = message_.getProperties();
     qpid::types::Variant::Map::const_iterator i=props.find(name);
     if ( i==props.end() ) throw cms::CMSException();
-    return i->second.asString();
+    return i->second;
+}
+
+std::string QpidMessage::getStringProperty(const std::string& name) const
+{
+
+    return getProperty(name).asString();
 }
 
 short int QpidMessage::getShortProperty(const std::string& name) const
 {
-    throw NotImplementedYet();
+    return getProperty(name).asInt16();
 }
 
 long long int QpidMessage::getLongProperty(const std::string& name) const
 {
-    throw NotImplementedYet();
+    return getProperty(name).asInt64();
 }
 
 int QpidMessage::getIntProperty(const std::string& name) const
 {
-    throw NotImplementedYet();
+    return getProperty(name).asInt32();
 }
 
 float QpidMessage::getFloatProperty(const std::string& name) const
 {
-    throw NotImplementedYet();
+    return getProperty(name).asFloat();
 }
 
 double QpidMessage::getDoubleProperty(const std::string& name) const
 {
-    throw NotImplementedYet();
+    return getProperty(name).asDouble();
 }
 
 unsigned char QpidMessage::getByteProperty(const std::string& name) const
 {
-    throw NotImplementedYet();
+    return getProperty(name).asUint8();
 }
 
 bool QpidMessage::getBooleanProperty(const std::string& name) const
 {
-    throw NotImplementedYet();
+    return getProperty(name).asBool();
 }
 
 cms::Message::ValueType QpidMessage::getPropertyValueType(const std::string& name) const
@@ -252,7 +261,9 @@ cms::Message::ValueType QpidMessage::getPropertyValueType(const std::string& nam
 
 bool QpidMessage::propertyExists(const std::string& name) const
 {
-    throw NotImplementedYet();
+    qpid::types::Variant::Map props = message_.getProperties();
+    qpid::types::Variant::Map::const_iterator i=props.find(name);
+    return ( i!=props.end() );
 }
 
 std::vector< std::string > QpidMessage::getPropertyNames() const
@@ -262,7 +273,7 @@ std::vector< std::string > QpidMessage::getPropertyNames() const
 
 void QpidMessage::clearProperties()
 {
-
+    message_.getProperties().clear();
 }
 
 void QpidMessage::clearBody()
@@ -272,7 +283,7 @@ void QpidMessage::clearBody()
 
 void QpidMessage::acknowledge() const
 {
-
+    session_.acknowledge(message_);
 }
 
 cms::Message* QpidMessage::clone() const

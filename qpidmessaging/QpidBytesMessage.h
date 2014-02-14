@@ -22,14 +22,16 @@
 
 #include "QpidMessageBase.h"
 
+#include <qpid/messaging/Session.h>
+
 namespace qpid {
 namespace cmsimpl {
 
 class QpidBytesMessage :  public QpidMessageBase<cms::BytesMessage>
 {
 public:
-    QpidBytesMessage();
-    QpidBytesMessage(const unsigned char* bytes, int bytesSize);
+    QpidBytesMessage(qpid::messaging::Session& session);
+    QpidBytesMessage(qpid::messaging::Session& session, const unsigned char* bytes, int bytesSize);
     ~QpidBytesMessage();
 
     // Hide copy constructor and assignment

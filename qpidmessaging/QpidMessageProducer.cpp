@@ -103,27 +103,27 @@ void QpidMessageProducer::setDeliveryMode(int mode)
 
 void QpidMessageProducer::send(const cms::Destination* destination, cms::Message* message, int deliveryMode, int priority, long long int timeToLive, cms::AsyncCallback* onComplete)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::send(const cms::Destination* destination, cms::Message* message, int deliveryMode, int priority, long long int timeToLive)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::send(const cms::Destination* destination, cms::Message* message, cms::AsyncCallback* onComplete)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::send(const cms::Destination* destination, cms::Message* message)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::send(cms::Message* message, int deliveryMode, int priority, long long int timeToLive, cms::AsyncCallback* onComplete)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::send(cms::Message* message, int deliveryMode, int priority, long long int timeToLive)
@@ -133,7 +133,7 @@ void QpidMessageProducer::send(cms::Message* message, int deliveryMode, int prio
 
 void QpidMessageProducer::send(cms::Message* message, cms::AsyncCallback* onComplete)
 {
-
+    throw NotImplementedYet();
 }
 
 void QpidMessageProducer::send(cms::Message* message)

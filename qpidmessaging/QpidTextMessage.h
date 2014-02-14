@@ -28,8 +28,8 @@ namespace cmsimpl {
 class QpidTextMessage :  public QpidMessageBase<cms::TextMessage>
 {
 public:
-    QpidTextMessage();
-    QpidTextMessage(const std::string& text);
+    QpidTextMessage(qpid::messaging::Session& session);
+    QpidTextMessage(qpid::messaging::Session& session, const std::string& text);
     ~QpidTextMessage();
 
     //Hide copying and assignment

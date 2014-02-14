@@ -72,37 +72,37 @@ cms::Session::AcknowledgeMode QpidSession::getAcknowledgeMode() const
 
 cms::MapMessage* QpidSession::createMapMessage()
 {
-    return new QpidMapMessage;
+    return new QpidMapMessage(session_);
 }
 
 cms::TextMessage* QpidSession::createTextMessage(const std::string& text)
 {
-    return new QpidTextMessage(text);
+    return new QpidTextMessage(session_, text);
 }
 
 cms::TextMessage* QpidSession::createTextMessage()
 {
-    return new QpidTextMessage;
+    return new QpidTextMessage(session_);
 }
 
 cms::StreamMessage* QpidSession::createStreamMessage()
 {
-    return new QpidStreamMessage;
+    return new QpidStreamMessage(session_);
 }
 
 cms::BytesMessage* QpidSession::createBytesMessage(const unsigned char* bytes, int bytesSize)
 {
-    return new QpidBytesMessage(bytes, bytesSize);
+    return new QpidBytesMessage(session_, bytes, bytesSize);
 }
 
 cms::BytesMessage* QpidSession::createBytesMessage()
 {
-    return new QpidBytesMessage;
+    return new QpidBytesMessage(session_);
 }
 
 cms::Message* QpidSession::createMessage()
 {
-    return new QpidMessage;
+    return new QpidMessage(session_);
 }
 
 cms::TemporaryTopic* QpidSession::createTemporaryTopic()

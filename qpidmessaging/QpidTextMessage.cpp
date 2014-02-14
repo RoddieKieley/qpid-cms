@@ -25,13 +25,13 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidTextMessage::QpidTextMessage() :
-    QpidMessageBase("", "text/plain")
+QpidTextMessage::QpidTextMessage(qpid::messaging::Session& session) :
+    QpidMessageBase(session, "", "text/plain")
 {
 }
 
-QpidTextMessage::QpidTextMessage(const std::string& text) :
-    QpidMessageBase(text, "text/plain")
+QpidTextMessage::QpidTextMessage(qpid::messaging::Session& session, const std::string& text) :
+    QpidMessageBase(session, text, "text/plain")
 {
 }
 

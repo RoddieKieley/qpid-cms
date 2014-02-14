@@ -22,13 +22,15 @@
 
 #include "QpidMessageBase.h"
 
+#include <qpid/messaging/Session.h>
+
 namespace qpid {
 namespace cmsimpl {
 
 class QpidStreamMessage :  public QpidMessageBase<cms::StreamMessage>
 {
 public:
-    QpidStreamMessage();
+    QpidStreamMessage(qpid::messaging::Session& session);
     ~QpidStreamMessage();
 
     // Hide copying and assignment

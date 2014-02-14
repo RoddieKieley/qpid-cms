@@ -22,13 +22,15 @@
 
 #include "QpidMessageBase.h"
 
+#include <qpid/messaging/Session.h>
+
 namespace qpid {
 namespace cmsimpl {
 
 class QpidMapMessage :  public  QpidMessageBase<cms::MapMessage>
 {
 public:
-    QpidMapMessage();
+    QpidMapMessage(qpid::messaging::Session& session);
     ~QpidMapMessage();
 
     //Hide copying and assigment

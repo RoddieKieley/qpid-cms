@@ -22,14 +22,14 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidBytesMessage::QpidBytesMessage() :
-    QpidMessageBase("","binary")
+QpidBytesMessage::QpidBytesMessage(qpid::messaging::Session& session) :
+    QpidMessageBase(session, "","binary")
 {
 
 }
 
-QpidBytesMessage::QpidBytesMessage(const unsigned char* bytes, int bytesSize) :
-    QpidMessageBase(std::string((const char*)(bytes), bytesSize), "binary")
+QpidBytesMessage::QpidBytesMessage(qpid::messaging::Session& session, const unsigned char* bytes, int bytesSize) :
+    QpidMessageBase(session, std::string((const char*)(bytes), bytesSize), "binary")
 {
 
 }

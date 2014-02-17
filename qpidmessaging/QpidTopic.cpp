@@ -54,7 +54,7 @@ void QpidTopic::copy(const cms::Destination& source)
 
 cms::Destination* QpidTopic::clone() const
 {
-    throw NotImplementedYet();
+    return new QpidTopic(topicName_);
 }
 
 cms::Destination::DestinationType QpidTopic::getDestinationType() const

@@ -22,13 +22,16 @@
 
 #include "cms/InvalidDestinationException.h"
 
+#include <qpid/types/Variant.h>
+
+#include <algorithm>
+
 namespace qpid {
 namespace cmsimpl {
 
 QpidMessage::QpidMessage(qpid::messaging::Session& session) :
     session_(session)
 {
-
 }
 
 QpidMessage::QpidMessage(qpid::messaging::Session& session, const std::string& text, const std::string& contentType) :
@@ -40,14 +43,15 @@ QpidMessage::QpidMessage(qpid::messaging::Session& session, const std::string& t
 
 
 QpidMessage::QpidMessage(const QpidMessage& other) :
-    session_(other.session_)
+    session_(other.session_),
+    message_(other.message_),
+    destination_(other.destination_->clone()),
+    replyTo_(other.replyTo_->clone())
 {
-
 }
 
 QpidMessage::~QpidMessage()
 {
-
 }
 
 void QpidMessage::setContent(const std::string& content)
@@ -254,9 +258,47 @@ bool QpidMessage::getBooleanProperty(const std::string& name) const
     return getProperty(name).asBool();
 }
 
+namespace {
+// This table must be in sorted order of qpid type
+// We cheat with the last element making an effective .end() return give UNKNOWN_TYPE
+struct TypeCorrespondance{
+    qpid::types::VariantType qtype;
+    cms::Message::ValueType ctype;
+} typeTranslation[] = {
+    {qpid::types::VAR_VOID, cms::Message::NULL_TYPE},      // 0 This element is .begin()
+    {qpid::types::VAR_BOOL, cms::Message::BOOLEAN_TYPE},   // 1
+    {qpid::types::VAR_UINT8, cms::Message::SHORT_TYPE},    // 2
+    {qpid::types::VAR_UINT16, cms::Message::INTEGER_TYPE}, // 3
+    {qpid::types::VAR_UINT32, cms::Message::LONG_TYPE},    // 4
+    {qpid::types::VAR_UINT64, cms::Message::LONG_TYPE},    // 5
+    {qpid::types::VAR_INT8, cms::Message::BYTE_TYPE},      // 6
+    {qpid::types::VAR_INT16, cms::Message::SHORT_TYPE},    // 7
+    {qpid::types::VAR_INT32, cms::Message::INTEGER_TYPE }, // 8
+    {qpid::types::VAR_INT64, cms::Message::LONG_TYPE},     // 9
+    {qpid::types::VAR_FLOAT, cms::Message::FLOAT_TYPE},    //10
+    {qpid::types::VAR_DOUBLE, cms::Message::DOUBLE_TYPE},  //11
+    {qpid::types::VAR_STRING, cms::Message::STRING_TYPE},  //12
+    {qpid::types::VAR_MAP, cms::Message::UNKNOWN_TYPE},    //13
+    {qpid::types::VAR_LIST, cms::Message::UNKNOWN_TYPE},   //14
+    {qpid::types::VAR_UUID, cms::Message::BYTE_ARRAY_TYPE},//15
+    {qpid::types::VAR_VOID, cms::Message::UNKNOWN_TYPE}    //16 This element is .end()
+};
+
+bool operator<(const struct TypeCorrespondance& l, qpid::types::VariantType r)
+{
+    return l.qtype<r;
+}
+
+bool operator<(qpid::types::VariantType l, const struct TypeCorrespondance& r)
+{
+    return l<r.qtype;
+}
+
+}
+
 cms::Message::ValueType QpidMessage::getPropertyValueType(const std::string& name) const
 {
-    throw NotImplementedYet();
+    return std::lower_bound(&typeTranslation[0], &typeTranslation[16], getProperty(name).getType())->ctype;
 }
 
 bool QpidMessage::propertyExists(const std::string& name) const
@@ -268,7 +310,12 @@ bool QpidMessage::propertyExists(const std::string& name) const
 
 std::vector< std::string > QpidMessage::getPropertyNames() const
 {
-    throw NotImplementedYet();
+    qpid::types::Variant::Map props = message_.getProperties();
+    std::vector<std::string> r(props.size());
+    for (qpid::types::Variant::Map::const_iterator i = props.begin(); i!=props.end(); ++i) {
+        r.push_back(i->first);
+    }
+    return r;
 }
 
 void QpidMessage::clearProperties()
@@ -288,7 +335,7 @@ void QpidMessage::acknowledge() const
 
 cms::Message* QpidMessage::clone() const
 {
-    throw NotImplementedYet();
+    return new QpidMessage(*this);
 }
 
 }

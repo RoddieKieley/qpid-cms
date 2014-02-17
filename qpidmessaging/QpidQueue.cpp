@@ -54,7 +54,7 @@ void QpidQueue::copy(const cms::Destination& source)
 
 cms::Destination* QpidQueue::clone() const
 {
-    throw NotImplementedYet();
+    return new QpidQueue(queueName_);
 }
 
 cms::Destination::DestinationType QpidQueue::getDestinationType() const

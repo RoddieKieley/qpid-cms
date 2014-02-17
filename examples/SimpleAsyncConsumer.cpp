@@ -221,13 +221,15 @@ int main(int /*argc*/, char* /*argv*/[]) {
     //    tcp://127.0.0.1:61613?wireFormat=stomp     use stomp instead
     //
     std::string brokerURI =
-        "failover:(tcp://127.0.0.1:61616"
+//        "failover:("
+        "tcp:127.0.0.1"
 //        "?wireFormat=openwire"
 //        "&connection.useAsyncSend=true"
 //        "&transport.commandTracingEnabled=true"
 //        "&transport.tcpTracingEnabled=true"
 //        "&wireFormat.tightEncodingEnabled=true"
-        ")";
+//        ")"
+        ;
 
     //============================================================
     // This is the Destination Name and URI options.  Use this to

@@ -22,16 +22,24 @@
 
 #include <qpid/messaging/Session.h>
 
+#include <thread>
+
 namespace qpid {
 namespace cmsimpl {
 
+class QpidConnection;
+
 class QpidSession :  public cms::Session
 {
+    friend QpidConnection;
+
+    QpidConnection& connection_;
     cms::Session::AcknowledgeMode acknowledgeMode_;
     qpid::messaging::Session session_;
+    std::thread sessionThread_;
 
 public:
-    QpidSession(cms::Session::AcknowledgeMode acknowledgeMode, qpid::messaging::Connection& connection);
+    QpidSession(qpid::cmsimpl::QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode);
     ~QpidSession();
 
     // Hide copying and assignment

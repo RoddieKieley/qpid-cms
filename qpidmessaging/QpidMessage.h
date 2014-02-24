@@ -37,8 +37,8 @@ class QpidMessage :  virtual public cms::Message
 
     qpid::messaging::Session& session_;
     mutable qpid::messaging::Message message_;
-    std::auto_ptr<cms::Destination> destination_;
-    std::auto_ptr<cms::Destination> replyTo_;
+    std::unique_ptr<cms::Destination> destination_;
+    std::unique_ptr<cms::Destination> replyTo_;
 
 protected:
     QpidMessage(qpid::messaging::Session& session, const std::string& text, const std::string& contentType);
@@ -46,6 +46,8 @@ protected:
 public:
     QpidMessage(qpid::messaging::Session& session);
     ~QpidMessage();
+
+    static QpidMessage* create(qpid::messaging::Session& session, messaging::Message& qm);
 
     void setContent(const std::string& content);
     std::string getContent() const;

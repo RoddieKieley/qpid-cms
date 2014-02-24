@@ -99,7 +99,7 @@ set (qpidmessaging_cms_files
 )
 
 include_directories (.)
-add_compile_options(-Wall -Werror)
+add_compile_options(-Wall -Werror -std=gnu++0x)
 
 add_library (qpid-cms SHARED
              ${cms_implementation_files}

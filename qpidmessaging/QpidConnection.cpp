@@ -79,22 +79,22 @@ QpidConnection::~QpidConnection()
 
 cms::MessageTransformer* QpidConnection::getMessageTransformer() const
 {
-    throw NotImplementedYet();
+    return messageTransformer_;
 }
 
 void QpidConnection::setMessageTransformer(cms::MessageTransformer* transformer)
 {
-    throw NotImplementedYet();
+    messageTransformer_ = transformer;
 }
 
 void QpidConnection::setExceptionListener(cms::ExceptionListener* listener)
 {
-    throw NotImplementedYet();
+    exceptionListener_ = listener;
 }
 
 cms::ExceptionListener* QpidConnection::getExceptionListener() const
 {
-    throw NotImplementedYet();
+    return exceptionListener_;
 }
 
 void QpidConnection::setClientID(const std::string& clientID)
@@ -109,12 +109,12 @@ std::string QpidConnection::getClientID() const
 
 cms::Session* QpidConnection::createSession(cms::Session::AcknowledgeMode ackMode)
 {
-    return new QpidSession(ackMode, connection_);
+    return new QpidSession(*this, ackMode);
 }
 
 cms::Session* QpidConnection::createSession()
 {
-    return new QpidSession(cms::Session::AUTO_ACKNOWLEDGE, connection_);
+    return new QpidSession(*this, cms::Session::AUTO_ACKNOWLEDGE);
 }
 
 const cms::ConnectionMetaData* QpidConnection::getMetaData() const
@@ -124,17 +124,24 @@ const cms::ConnectionMetaData* QpidConnection::getMetaData() const
 
 void QpidConnection::close()
 {
+    for (auto&& i = sessions_.cbegin(); i!=sessions_.cend(); ++i) {
+        (*i)->close();
+    }
     connection_.close();
 }
 
 void QpidConnection::start()
 {
-
+    for (auto&& i = sessions_.cbegin(); i!=sessions_.cend(); ++i) {
+        (*i)->start();
+    }
 }
 
 void QpidConnection::stop()
 {
-
+    for (auto&& i = sessions_.cbegin(); i!=sessions_.cend(); ++i) {
+        (*i)->stop();
+    }
 }
 
 }

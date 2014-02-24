@@ -20,6 +20,8 @@
 
 #include "cms/MessageConsumer.h"
 
+#include <qpid/messaging/Receiver.h>
+
 namespace cms {
 
 class Destination;
@@ -31,9 +33,13 @@ namespace cmsimpl {
 
 class QpidMessageConsumer :  public cms::MessageConsumer
 {
+  friend class QpidConnection;
+
+  qpid::messaging::Session& session_;
+  qpid::messaging::Receiver receiver_;
+
 public:
-    QpidMessageConsumer();
-    QpidMessageConsumer(const cms::Destination* destination);
+    QpidMessageConsumer(qpid::messaging::Session& session, const cms::Destination* destination);
     ~QpidMessageConsumer();
 
     // Hide copy constructor and assignment

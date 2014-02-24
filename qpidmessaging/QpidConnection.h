@@ -22,16 +22,26 @@
 
 #include <qpid/messaging/Connection.h>
 
+#include <vector>
+
 namespace qpid {
 namespace cmsimpl {
 
+class QpidSession;
+
 class QpidConnection :  public cms::Connection
 {
+    friend class QpidSession;
+
     std::string uri_;
     std::string username_;
     std::string password_;
     std::string clientId_;
+    cms::ExceptionListener* exceptionListener_;
+    cms::MessageTransformer* messageTransformer_;
+
     qpid::messaging::Connection connection_;
+    std::vector<QpidSession*> sessions_;
 
     std::string connectionURL();
     std::string connectionOptions();

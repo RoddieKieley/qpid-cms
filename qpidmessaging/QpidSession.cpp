@@ -19,6 +19,7 @@
 
 #include "QpidMessage.h"
 #include "QpidBytesMessage.h"
+#include "QpidConnection.h"
 #include "QpidMapMessage.h"
 #include "QpidStreamMessage.h"
 #include "QpidTextMessage.h"
@@ -35,9 +36,10 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidSession::QpidSession(cms::Session::AcknowledgeMode acknowledgeMode, qpid::messaging::Connection& connection) :
+QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode) :
+    connection_(connection),
     acknowledgeMode_(acknowledgeMode),
-    session_(connection.createSession())
+    session_(connection.connection_.createSession())
 {
 }
 
@@ -157,7 +159,7 @@ cms::MessageConsumer* QpidSession::createConsumer(const cms::Destination* destin
 
 cms::MessageConsumer* QpidSession::createConsumer(const cms::Destination* destination)
 {
-    return new QpidMessageConsumer(destination);
+    return new QpidMessageConsumer(session_, destination);
 }
 
 void QpidSession::recover()
@@ -177,17 +179,17 @@ void QpidSession::commit()
 
 void QpidSession::close()
 {
-
+    // TODO: close session - stop thread first, then what?
 }
 
 void QpidSession::start()
 {
-
+    // TODO: start up thread to service session
 }
 
 void QpidSession::stop()
 {
-
+    // TODO: stop thread servicing session
 }
 
 }

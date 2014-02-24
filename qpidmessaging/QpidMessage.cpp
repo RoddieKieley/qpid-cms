@@ -29,6 +29,11 @@
 namespace qpid {
 namespace cmsimpl {
 
+QpidMessage* QpidMessage::create(qpid::messaging::Session& session, messaging::Message& qm)
+{
+    return nullptr;
+}
+
 QpidMessage::QpidMessage(qpid::messaging::Session& session) :
     session_(session)
 {
@@ -88,7 +93,7 @@ void QpidMessage::setCMSReplyTo(const cms::Destination* destination)
 {
     const QpidDestination* qd = dynamic_cast<const QpidDestination*>(destination);
     if (!qd) throw cms::InvalidDestinationException("Destination not a QpidDestination");
-    replyTo_ = std::auto_ptr<cms::Destination>(destination->clone());
+    replyTo_ = std::unique_ptr<cms::Destination>(destination->clone());
     message_.setReplyTo(qd->getAddress());
 }
 
@@ -141,7 +146,7 @@ void QpidMessage::setCMSDestination(const cms::Destination* destination)
 {
     const QpidDestination* qd = dynamic_cast<const QpidDestination*>(destination);
     if (!qd) throw cms::InvalidDestinationException("Destination not a QpidDestination");
-    destination_ = std::auto_ptr<cms::Destination>(destination->clone());
+    destination_ = std::unique_ptr<cms::Destination>(destination->clone());
 }
 
 const cms::Destination* QpidMessage::getCMSDestination() const

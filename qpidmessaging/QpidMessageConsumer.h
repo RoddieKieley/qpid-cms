@@ -31,15 +31,19 @@ class Destination;
 namespace qpid {
 namespace cmsimpl {
 
+class QpidSession;
+
 class QpidMessageConsumer :  public cms::MessageConsumer
 {
   friend class QpidConnection;
 
-  qpid::messaging::Session& session_;
+  QpidSession& session_;
   qpid::messaging::Receiver receiver_;
+  cms::MessageAvailableListener* availableListener_;
+  cms::MessageListener* listener_;
 
 public:
-    QpidMessageConsumer(qpid::messaging::Session& session, const cms::Destination* destination);
+    QpidMessageConsumer(QpidSession& session, const cms::Destination* destination);
     ~QpidMessageConsumer();
 
     // Hide copy constructor and assignment

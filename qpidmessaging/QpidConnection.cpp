@@ -109,12 +109,16 @@ std::string QpidConnection::getClientID() const
 
 cms::Session* QpidConnection::createSession(cms::Session::AcknowledgeMode ackMode)
 {
-    return new QpidSession(*this, ackMode);
+    auto session = new QpidSession(*this, ackMode);
+    sessions_.push_back(session);
+    return session;
 }
 
 cms::Session* QpidConnection::createSession()
 {
-    return new QpidSession(*this, cms::Session::AUTO_ACKNOWLEDGE);
+    auto session = new QpidSession(*this, cms::Session::AUTO_ACKNOWLEDGE);
+    sessions_.push_back(session);
+    return session;
 }
 
 const cms::ConnectionMetaData* QpidConnection::getMetaData() const

@@ -19,9 +19,12 @@
 
 #include "QpidDestination.h"
 #include "QpidExceptions.h"
+#include "QpidSession.h"
+#include "QpidTextMessage.h"
 
 #include "cms/InvalidDestinationException.h"
 
+#include <qpid/messaging/Address.h>
 #include <qpid/types/Variant.h>
 
 #include <algorithm>
@@ -29,13 +32,26 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidMessage* QpidMessage::create(qpid::messaging::Session& session, messaging::Message& qm)
+QpidMessage* QpidMessage::create(QpidSession& session, const qpid::messaging::Message& qm)
 {
+    auto contentType = qm.getContentType();
+
+    if (contentType=="text/plain") {
+        return new QpidTextMessage(session.session_, qm);
+    }
     return nullptr;
 }
 
 QpidMessage::QpidMessage(qpid::messaging::Session& session) :
     session_(session)
+{
+}
+
+QpidMessage::QpidMessage(messaging::Session& session, const messaging::Message& qm) :
+    session_(session),
+    message_(qm)
+    // TODO: where does destination_ come from?
+    // TODO: need to create replyTo_ from message_.getReplyTo()
 {
 }
 

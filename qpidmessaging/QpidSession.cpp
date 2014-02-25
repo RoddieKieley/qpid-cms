@@ -32,9 +32,26 @@
 #include "QpidExceptions.h"
 
 #include <qpid/messaging/Connection.h>
+#include <qpid/messaging/Session.h>
 
 namespace qpid {
 namespace cmsimpl {
+
+class QpidSessionWorker {
+    QpidSession& session_;
+
+    QpidSessionWorker(QpidSession& session) :
+        session_(session)
+    {}
+
+    void operator()() {
+        do {
+            // TODO: XXXX Working here
+            auto r = session_.session_.nextReceiver();
+            r.getName();
+        } while (true);
+    }
+};
 
 QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode) :
     connection_(connection),
@@ -64,7 +81,7 @@ void QpidSession::unsubscribe(const std::string& name)
 
 bool QpidSession::isTransacted() const
 {
-    throw NotImplementedYet();
+    return false;;
 }
 
 cms::Session::AcknowledgeMode QpidSession::getAcknowledgeMode() const
@@ -139,7 +156,7 @@ cms::QueueBrowser* QpidSession::createBrowser(const cms::Queue* queue)
 
 cms::MessageProducer* QpidSession::createProducer(const cms::Destination* destination)
 {
-    return new QpidMessageProducer(session_, destination);
+    return new QpidMessageProducer(*this, destination);
 }
 
 cms::MessageConsumer* QpidSession::createDurableConsumer(const cms::Topic* destination, const std::string& name, const std::string& selector, bool noLocal)
@@ -159,7 +176,7 @@ cms::MessageConsumer* QpidSession::createConsumer(const cms::Destination* destin
 
 cms::MessageConsumer* QpidSession::createConsumer(const cms::Destination* destination)
 {
-    return new QpidMessageConsumer(session_, destination);
+    return new QpidMessageConsumer(*this, destination);
 }
 
 void QpidSession::recover()

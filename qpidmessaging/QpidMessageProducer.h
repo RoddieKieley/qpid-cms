@@ -32,6 +32,8 @@ class Destination;
 namespace qpid {
 namespace cmsimpl {
 
+class QpidSession;
+
 class QpidMessageProducer :  public cms::MessageProducer
 {
     qpid::messaging::Sender sender_;
@@ -43,7 +45,7 @@ class QpidMessageProducer :  public cms::MessageProducer
     bool generateTimestamp_;
 
 public:
-    QpidMessageProducer(qpid::messaging::Session& session, const cms::Destination* destination);
+    QpidMessageProducer(QpidSession& session, const cms::Destination* destination);
     ~QpidMessageProducer();
 
     // Hide copying and assignment

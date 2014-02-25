@@ -29,6 +29,7 @@ namespace qpid {
 namespace cmsimpl {
 
 class QpidDestination;
+class QpidSession;
 
 class QpidMessage :  virtual public cms::Message
 {
@@ -45,9 +46,10 @@ protected:
 
 public:
     QpidMessage(qpid::messaging::Session& session);
+    QpidMessage(qpid::messaging::Session& session, const qpid::messaging::Message& qm);
     ~QpidMessage();
 
-    static QpidMessage* create(qpid::messaging::Session& session, messaging::Message& qm);
+    static QpidMessage* create(QpidSession& session, const qpid::messaging::Message& qm);
 
     void setContent(const std::string& content);
     std::string getContent() const;

@@ -30,6 +30,11 @@ QpidTextMessage::QpidTextMessage(qpid::messaging::Session& session) :
 {
 }
 
+QpidTextMessage::QpidTextMessage(messaging::Session& session, const messaging::Message& qmessage) :
+    QpidMessageBase(session, qmessage)
+{
+}
+
 QpidTextMessage::QpidTextMessage(qpid::messaging::Session& session, const std::string& text) :
     QpidMessageBase(session, text, "text/plain")
 {

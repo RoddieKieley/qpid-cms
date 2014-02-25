@@ -31,7 +31,11 @@ class QpidConnection;
 
 class QpidSession :  public cms::Session
 {
-    friend QpidConnection;
+    friend class QpidConnection;
+    friend class QpidMessage;
+    friend class QpidMessageConsumer;
+    friend class QpidMessageProducer;
+    friend class QpidSessionWorker;
 
     QpidConnection& connection_;
     cms::Session::AcknowledgeMode acknowledgeMode_;

@@ -29,6 +29,7 @@ class QpidTextMessage :  public QpidMessageBase<cms::TextMessage>
 {
 public:
     QpidTextMessage(qpid::messaging::Session& session);
+    QpidTextMessage(qpid::messaging::Session& session, const qpid::messaging::Message& qmessage);
     QpidTextMessage(qpid::messaging::Session& session, const std::string& text);
     ~QpidTextMessage();
 

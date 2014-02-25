@@ -20,13 +20,14 @@
 #include "QpidDestination.h"
 #include "QpidExceptions.h"
 #include "QpidMessage.h"
+#include "QpidSession.h"
 
 namespace qpid {
 namespace cmsimpl {
 
-QpidMessageConsumer::QpidMessageConsumer(qpid::messaging::Session& session, const cms::Destination* destination) :
+QpidMessageConsumer::QpidMessageConsumer(QpidSession& session, const cms::Destination* destination) :
   session_(session),
-  receiver_(session.createReceiver(dynamic_cast<const QpidDestination*>(destination)->getAddress()))
+  receiver_(session.session_.createReceiver(dynamic_cast<const QpidDestination*>(destination)->getAddress()))
 {
 
 }
@@ -38,12 +39,12 @@ QpidMessageConsumer::~QpidMessageConsumer()
 
 cms::MessageAvailableListener* QpidMessageConsumer::getMessageAvailableListener() const
 {
-    throw NotImplementedYet();
+    return availableListener_;
 }
 
 void QpidMessageConsumer::setMessageAvailableListener(cms::MessageAvailableListener* listener)
 {
-
+    availableListener_ = listener;
 }
 
 cms::MessageTransformer* QpidMessageConsumer::getMessageTransformer() const
@@ -63,16 +64,16 @@ std::string QpidMessageConsumer::getMessageSelector() const
 
 cms::MessageListener* QpidMessageConsumer::getMessageListener() const
 {
-    throw NotImplementedYet();
+    return listener_;
 }
 
 void QpidMessageConsumer::setMessageListener(cms::MessageListener* listener)
 {
-
+    listener_ = listener;
 }
 
 namespace {
-cms::Message* receiveQpidMessage(qpid::messaging::Session& session, qpid::messaging::Receiver receiver, qpid::messaging::Duration timeout) {
+cms::Message* receiveQpidMessage(QpidSession& session, qpid::messaging::Receiver receiver, qpid::messaging::Duration timeout) {
     qpid::messaging::Message message;
     if (receiver.get(message, timeout)) {
         return QpidMessage::create(session, message);

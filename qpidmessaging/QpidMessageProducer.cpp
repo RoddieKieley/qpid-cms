@@ -20,6 +20,7 @@
 #include "QpidDestination.h"
 #include "QpidExceptions.h"
 #include "QpidMessage.h"
+#include "QpidSession.h"
 
 #include <qpid/messaging/Session.h>
 #include <qpid/messaging/Message.h>
@@ -27,8 +28,8 @@
 namespace qpid{
 namespace cmsimpl {
 
-QpidMessageProducer::QpidMessageProducer(qpid::messaging::Session& session, const cms::Destination* destination) :
-    sender_(session.createSender(dynamic_cast<const QpidDestination*>(destination)->getAddress())),
+QpidMessageProducer::QpidMessageProducer(QpidSession& session, const cms::Destination* destination) :
+    sender_(session.session_.createSender(dynamic_cast<const QpidDestination*>(destination)->getAddress())),
     ttlDefault_(0),
     priorityDefault_(4),
     durableDefault_(true),
@@ -128,7 +129,13 @@ void QpidMessageProducer::send(cms::Message* message, int deliveryMode, int prio
 
 void QpidMessageProducer::send(cms::Message* message, int deliveryMode, int priority, long long int timeToLive)
 {
-
+    QpidMessage* qm = dynamic_cast<QpidMessage*>(message);
+    if (!qm) throw cms::CMSException("Message not a QpidMessage");
+    // TODO: Is it really allowed to alter the message itself?
+    qm->message_.setPriority(priority);
+    qm->message_.setTtl(qpid::messaging::Duration(timeToLive));
+    qm->message_.setDurable(deliveryMode==cms::DeliveryMode::PERSISTENT);
+    sender_.send(qm->message_);
 }
 
 void QpidMessageProducer::send(cms::Message* message, cms::AsyncCallback* onComplete)

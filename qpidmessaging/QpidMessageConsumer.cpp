@@ -27,7 +27,9 @@ namespace cmsimpl {
 
 QpidMessageConsumer::QpidMessageConsumer(QpidSession& session, const cms::Destination* destination) :
   session_(session),
-  receiver_(session.session_.createReceiver(dynamic_cast<const QpidDestination*>(destination)->getAddress()))
+  receiver_(session.session_.createReceiver(dynamic_cast<const QpidDestination*>(destination)->getAddress())),
+  availableListener_(nullptr),
+  listener_(nullptr)
 {
 
 }
@@ -35,6 +37,20 @@ QpidMessageConsumer::QpidMessageConsumer(QpidSession& session, const cms::Destin
 QpidMessageConsumer::~QpidMessageConsumer()
 {
 
+}
+
+void QpidMessageConsumer::serviceMessages()
+{
+    // If this is called the session thinks that we have messages available
+    if (availableListener_) availableListener_->onMessageAvailable(this);
+
+    // Try to get message without waiting (there shold be one unless the onMessageAvailable() call snaffled it
+    if (listener_) {
+        qpid::messaging::Message m;
+        if (receiver_.get(m, qpid::messaging::Duration::IMMEDIATE)) {
+          listener_->onMessage(QpidMessage::create(session_, m));
+        }
+    }
 }
 
 cms::MessageAvailableListener* QpidMessageConsumer::getMessageAvailableListener() const
@@ -45,6 +61,7 @@ cms::MessageAvailableListener* QpidMessageConsumer::getMessageAvailableListener(
 void QpidMessageConsumer::setMessageAvailableListener(cms::MessageAvailableListener* listener)
 {
     availableListener_ = listener;
+    session_.addConsumerListener(receiver_.getName(), this);
 }
 
 cms::MessageTransformer* QpidMessageConsumer::getMessageTransformer() const
@@ -70,6 +87,7 @@ cms::MessageListener* QpidMessageConsumer::getMessageListener() const
 void QpidMessageConsumer::setMessageListener(cms::MessageListener* listener)
 {
     listener_ = listener;
+    session_.addConsumerListener(receiver_.getName(), this);
 }
 
 namespace {

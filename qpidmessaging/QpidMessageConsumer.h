@@ -36,6 +36,7 @@ class QpidSession;
 class QpidMessageConsumer :  public cms::MessageConsumer
 {
   friend class QpidConnection;
+  friend class QpidSession;
 
   QpidSession& session_;
   qpid::messaging::Receiver receiver_;
@@ -52,6 +53,9 @@ private:
     QpidMessageConsumer& operator=(const QpidMessageConsumer& other);
 
 private:
+    void serviceMessages();
+
+    // Implement interfaces
     virtual cms::MessageAvailableListener* getMessageAvailableListener() const;
     virtual void setMessageAvailableListener(cms::MessageAvailableListener* listener);
     virtual cms::MessageTransformer* getMessageTransformer() const;

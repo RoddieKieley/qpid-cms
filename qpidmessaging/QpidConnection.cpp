@@ -49,6 +49,9 @@ std::string QpidConnection::connectionOptions()
 
 QpidConnection::QpidConnection(const std::string& uri) :
     uri_(uri),
+    exceptionListener_(nullptr),
+    messageTransformer_(nullptr),
+    state_(STOPPED),
     connection_(connectionURL(), connectionOptions())
 {
     connection_.open();
@@ -58,6 +61,9 @@ QpidConnection::QpidConnection(const std::string& uri, const std::string& userna
     uri_(uri),
     username_(username),
     password_(password),
+    exceptionListener_(nullptr),
+    messageTransformer_(nullptr),
+    state_(STOPPED),
     connection_(connectionURL(), connectionOptions())
 {
     connection_.open();
@@ -68,6 +74,9 @@ QpidConnection::QpidConnection(const std::string& uri, const std::string& userna
     username_(username),
     password_(password),
     clientId_(clientId),
+    exceptionListener_(nullptr),
+    messageTransformer_(nullptr),
+    state_(STOPPED),
     connection_(connectionURL(), connectionOptions())
 {
     connection_.open();
@@ -111,14 +120,15 @@ cms::Session* QpidConnection::createSession(cms::Session::AcknowledgeMode ackMod
 {
     auto session = new QpidSession(*this, ackMode);
     sessions_.push_back(session);
+    if (state_==STARTED) {
+        session->start();
+    }
     return session;
 }
 
 cms::Session* QpidConnection::createSession()
 {
-    auto session = new QpidSession(*this, cms::Session::AUTO_ACKNOWLEDGE);
-    sessions_.push_back(session);
-    return session;
+    return createSession(cms::Session::AUTO_ACKNOWLEDGE);
 }
 
 const cms::ConnectionMetaData* QpidConnection::getMetaData() const
@@ -139,6 +149,7 @@ void QpidConnection::start()
     for (auto&& i = sessions_.cbegin(); i!=sessions_.cend(); ++i) {
         (*i)->start();
     }
+    state_ = STARTED;
 }
 
 void QpidConnection::stop()
@@ -146,6 +157,7 @@ void QpidConnection::stop()
     for (auto&& i = sessions_.cbegin(); i!=sessions_.cend(); ++i) {
         (*i)->stop();
     }
+    state_ = STOPPED;
 }
 
 }

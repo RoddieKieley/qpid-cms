@@ -39,6 +39,7 @@ class QpidConnection :  public cms::Connection
     std::string clientId_;
     cms::ExceptionListener* exceptionListener_;
     cms::MessageTransformer* messageTransformer_;
+    enum {STOPPED, STARTED} state_;
 
     qpid::messaging::Connection connection_;
     std::vector<QpidSession*> sessions_;

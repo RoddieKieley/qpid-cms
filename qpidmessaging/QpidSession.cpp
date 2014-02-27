@@ -37,21 +37,25 @@
 namespace qpid {
 namespace cmsimpl {
 
-class QpidSessionWorker {
-    QpidSession& session_;
-
-    QpidSessionWorker(QpidSession& session) :
-        session_(session)
-    {}
-
-    void operator()() {
-        do {
-            // TODO: XXXX Working here
-            auto r = session_.session_.nextReceiver();
-            r.getName();
-        } while (true);
+void QpidSession::threadWorker()
+{
+  do {
+    auto r = session_.nextReceiver();
+    auto n = r.getName();
+    {   std::lock_guard<std::mutex> lk(lock_);
+        auto i = consumers_.find(n);
+        if (i == consumers_.end() )
+            continue;
+        i->second->serviceMessages();
     }
-};
+  } while (true);
+}
+
+void QpidSession::addConsumerListener(const std::string& name, QpidMessageConsumer* consumer)
+{
+    std::lock_guard<std::mutex> lk(lock_);
+    consumers_[name] = consumer;
+}
 
 QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode) :
     connection_(connection),
@@ -201,7 +205,8 @@ void QpidSession::close()
 
 void QpidSession::start()
 {
-    // TODO: start up thread to service session
+    // Start up thread to service session
+    sessionThread_ = std::thread(std::bind(&QpidSession::threadWorker, this));
 }
 
 void QpidSession::stop()

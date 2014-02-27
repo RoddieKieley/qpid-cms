@@ -22,12 +22,16 @@
 
 #include <qpid/messaging/Session.h>
 
+#include <condition_variable>
+#include <map>
+#include <mutex>
 #include <thread>
 
 namespace qpid {
 namespace cmsimpl {
 
 class QpidConnection;
+class QpidMessageConsumer;
 
 class QpidSession :  public cms::Session
 {
@@ -40,6 +44,9 @@ class QpidSession :  public cms::Session
     QpidConnection& connection_;
     cms::Session::AcknowledgeMode acknowledgeMode_;
     qpid::messaging::Session session_;
+    std::condition_variable cv_;
+    std::mutex lock_;
+    std::map<std::string, QpidMessageConsumer*> consumers_;
     std::thread sessionThread_;
 
 public:
@@ -51,8 +58,12 @@ private:
     QpidSession(const QpidSession& other);
     QpidSession& operator=(const QpidSession& other);
 
-    // Implement interfaces
+
 private:
+    void threadWorker();
+    void addConsumerListener(const std::string& name, QpidMessageConsumer* consumer);
+
+    // Implement interfaces
     virtual cms::MessageTransformer* getMessageTransformer() const;
     virtual void setMessageTransformer(cms::MessageTransformer* transformer);
     virtual void unsubscribe(const std::string& name);

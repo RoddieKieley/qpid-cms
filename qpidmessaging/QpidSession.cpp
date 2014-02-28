@@ -204,12 +204,14 @@ void QpidSession::recover()
 
 void QpidSession::rollback()
 {
-
+    if ( isTransacted() ) session_.rollback();
+    else throw cms::IllegalStateException();
 }
 
 void QpidSession::commit()
 {
-
+    if ( isTransacted() ) session_.commit();
+    else throw cms::IllegalStateException();
 }
 
 void QpidSession::close()

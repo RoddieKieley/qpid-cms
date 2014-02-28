@@ -39,6 +39,15 @@ QpidMessageConsumer::~QpidMessageConsumer()
 
 }
 
+void QpidMessageConsumer::autoAcknowledge(messaging::Message& m)
+{
+    if ( session_.acknowledgeMode_==cms::Session::AUTO_ACKNOWLEDGE ) {
+        session_.session_.acknowledge(m, true);
+    } else if ( session_.acknowledgeMode_==cms::Session::DUPS_OK_ACKNOWLEDGE ) {
+        session_.session_.acknowledge(m);
+    }
+}
+
 void QpidMessageConsumer::serviceMessages()
 {
     // If this is called the session thinks that we have messages available
@@ -48,11 +57,8 @@ void QpidMessageConsumer::serviceMessages()
     if (listener_) {
         qpid::messaging::Message m;
         if (receiver_.get(m, qpid::messaging::Duration::IMMEDIATE)) {
-          listener_->onMessage(QpidMessage::create(session_, m));
-          if ( session_.acknowledgeMode_==cms::Session::AUTO_ACKNOWLEDGE ||
-               session_.acknowledgeMode_==cms::Session::DUPS_OK_ACKNOWLEDGE ) {
-              session_.session_.acknowledge(m);
-          }
+            listener_->onMessage(QpidMessage::create(session_, m));
+            autoAcknowledge(m);
         }
     }
 }
@@ -96,31 +102,31 @@ void QpidMessageConsumer::setMessageListener(cms::MessageListener* listener)
     session_.addConsumerListener(receiver_.getName(), this);
 }
 
-namespace {
-cms::Message* receiveQpidMessage(QpidSession& session, qpid::messaging::Receiver receiver, qpid::messaging::Duration timeout) {
+
+cms::Message* QpidMessageConsumer::receiveQpidMessage(messaging::Duration timeout)
+{
     qpid::messaging::Message message;
-    if (receiver.fetch(message, timeout)) {
-        return QpidMessage::create(session, message);
+    if (receiver_.fetch(message, timeout)) {
+        autoAcknowledge(message);
+        return QpidMessage::create(session_, message);
     } else {
         return nullptr;
     }
 }
 
-}
-
 cms::Message* QpidMessageConsumer::receiveNoWait()
 {
-    return receiveQpidMessage(session_, receiver_, qpid::messaging::Duration::IMMEDIATE);
+    return receiveQpidMessage(qpid::messaging::Duration::IMMEDIATE);
 }
 
 cms::Message* QpidMessageConsumer::receive(int millisecs)
 {
-    return receiveQpidMessage(session_, receiver_, qpid::messaging::Duration(millisecs));
+    return receiveQpidMessage(qpid::messaging::Duration(millisecs));
 }
 
 cms::Message* QpidMessageConsumer::receive()
 {
-    return receiveQpidMessage(session_, receiver_, qpid::messaging::Duration::FOREVER);
+    return receiveQpidMessage(qpid::messaging::Duration::FOREVER);
 }
 
 void QpidMessageConsumer::close()

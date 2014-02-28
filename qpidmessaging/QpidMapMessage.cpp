@@ -22,7 +22,7 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidMapMessage::QpidMapMessage(qpid::messaging::Session& session) :
+QpidMapMessage::QpidMapMessage(QpidSession& session) :
     QpidMessageBase(session, "","")
 {
 

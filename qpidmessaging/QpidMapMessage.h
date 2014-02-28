@@ -30,7 +30,7 @@ namespace cmsimpl {
 class QpidMapMessage :  public  QpidMessageBase<cms::MapMessage>
 {
 public:
-    QpidMapMessage(qpid::messaging::Session& session);
+    QpidMapMessage(QpidSession& session);
     ~QpidMapMessage();
 
     //Hide copying and assigment

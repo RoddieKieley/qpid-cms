@@ -37,17 +37,17 @@ QpidMessage* QpidMessage::create(QpidSession& session, const qpid::messaging::Me
     auto contentType = qm.getContentType();
 
     if (contentType=="text/plain") {
-        return new QpidTextMessage(session.session_, qm);
+        return new QpidTextMessage(session, qm);
     }
     return nullptr;
 }
 
-QpidMessage::QpidMessage(qpid::messaging::Session& session) :
+QpidMessage::QpidMessage(QpidSession& session) :
     session_(session)
 {
 }
 
-QpidMessage::QpidMessage(messaging::Session& session, const messaging::Message& qm) :
+QpidMessage::QpidMessage(QpidSession& session, const messaging::Message& qm) :
     session_(session),
     message_(qm)
     // TODO: where does destination_ come from?
@@ -55,7 +55,7 @@ QpidMessage::QpidMessage(messaging::Session& session, const messaging::Message& 
 {
 }
 
-QpidMessage::QpidMessage(qpid::messaging::Session& session, const std::string& text, const std::string& contentType) :
+QpidMessage::QpidMessage(QpidSession& session, const std::string& text, const std::string& contentType) :
     session_(session),
     message_(text)
 {
@@ -351,7 +351,17 @@ void QpidMessage::clearBody()
 
 void QpidMessage::acknowledge() const
 {
-    session_.acknowledge(message_);
+    switch (session_.acknowledgeMode_) {
+    case cms::Session::CLIENT_ACKNOWLEDGE:
+        session_.session_.acknowledgeUpTo(message_, true);
+        break;
+    case cms::Session::INDIVIDUAL_ACKNOWLEDGE:
+        session_.session_.acknowledge(message_, true);
+        break;
+    default:
+        // All other modes don't get acked per message
+        break;
+    }
 }
 
 cms::Message* QpidMessage::clone() const

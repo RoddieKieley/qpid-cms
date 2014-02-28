@@ -30,8 +30,8 @@ namespace cmsimpl {
 class QpidBytesMessage :  public QpidMessageBase<cms::BytesMessage>
 {
 public:
-    QpidBytesMessage(qpid::messaging::Session& session);
-    QpidBytesMessage(qpid::messaging::Session& session, const unsigned char* bytes, int bytesSize);
+    QpidBytesMessage(QpidSession& session);
+    QpidBytesMessage(QpidSession& session, const unsigned char* bytes, int bytesSize);
     ~QpidBytesMessage();
 
     // Hide copy constructor and assignment

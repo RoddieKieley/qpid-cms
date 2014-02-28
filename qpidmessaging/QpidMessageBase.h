@@ -30,8 +30,8 @@ template <class T>
 class QpidMessageBase :  public T, public QpidMessage
 {
 public:
-    QpidMessageBase(qpid::messaging::Session& session, const std::string& text, const std::string& contentType);
-    QpidMessageBase(qpid::messaging::Session& session, const qpid::messaging::Message& qm);
+    QpidMessageBase(QpidSession& session, const std::string& text, const std::string& contentType);
+    QpidMessageBase(QpidSession& session, const qpid::messaging::Message& qm);
     ~QpidMessageBase();
 
     //Hide copying and assignment
@@ -86,13 +86,13 @@ private:
 };
 
 template <class T>
-QpidMessageBase<T>::QpidMessageBase(qpid::messaging::Session& session, const std::string& text, const std::string& contentType) :
+QpidMessageBase<T>::QpidMessageBase(QpidSession& session, const std::string& text, const std::string& contentType) :
     QpidMessage(session, text, contentType)
 {
 }
 
 template <class T>
-QpidMessageBase<T>::QpidMessageBase(qpid::messaging::Session& session, const qpid::messaging::Message& qm) :
+QpidMessageBase<T>::QpidMessageBase(QpidSession& session, const qpid::messaging::Message& qm) :
     QpidMessage(session, qm)
 {
 }

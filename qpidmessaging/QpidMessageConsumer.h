@@ -53,6 +53,8 @@ private:
     QpidMessageConsumer& operator=(const QpidMessageConsumer& other);
 
 private:
+    void autoAcknowledge(qpid::messaging::Message& m);
+    cms::Message* receiveQpidMessage(qpid::messaging::Duration timeout);
     void serviceMessages();
 
     // Implement interfaces

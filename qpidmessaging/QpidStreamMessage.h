@@ -30,7 +30,7 @@ namespace cmsimpl {
 class QpidStreamMessage :  public QpidMessageBase<cms::StreamMessage>
 {
 public:
-    QpidStreamMessage(qpid::messaging::Session& session);
+    QpidStreamMessage(QpidSession& session);
     ~QpidStreamMessage();
 
     // Hide copying and assignment

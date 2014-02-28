@@ -36,17 +36,17 @@ class QpidMessage :  virtual public cms::Message
     friend class QpidMessageProducer;
     friend class QpidMessageConsumer;
 
-    qpid::messaging::Session& session_;
+    QpidSession& session_;
     mutable qpid::messaging::Message message_;
     std::unique_ptr<cms::Destination> destination_;
     std::unique_ptr<cms::Destination> replyTo_;
 
 protected:
-    QpidMessage(qpid::messaging::Session& session, const std::string& text, const std::string& contentType);
+    QpidMessage(QpidSession& session, const std::string& text, const std::string& contentType);
 
 public:
-    QpidMessage(qpid::messaging::Session& session);
-    QpidMessage(qpid::messaging::Session& session, const qpid::messaging::Message& qm);
+    QpidMessage(QpidSession& session);
+    QpidMessage(QpidSession& session, const qpid::messaging::Message& qm);
     ~QpidMessage();
 
     static QpidMessage* create(QpidSession& session, const qpid::messaging::Message& qm);

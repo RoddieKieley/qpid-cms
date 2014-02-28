@@ -49,6 +49,10 @@ void QpidMessageConsumer::serviceMessages()
         qpid::messaging::Message m;
         if (receiver_.get(m, qpid::messaging::Duration::IMMEDIATE)) {
           listener_->onMessage(QpidMessage::create(session_, m));
+          if ( session_.acknowledgeMode_==cms::Session::AUTO_ACKNOWLEDGE ||
+               session_.acknowledgeMode_==cms::Session::DUPS_OK_ACKNOWLEDGE ) {
+              session_.session_.acknowledge(m);
+          }
         }
     }
 }
@@ -61,6 +65,7 @@ cms::MessageAvailableListener* QpidMessageConsumer::getMessageAvailableListener(
 void QpidMessageConsumer::setMessageAvailableListener(cms::MessageAvailableListener* listener)
 {
     availableListener_ = listener;
+    receiver_.setCapacity(10);
     session_.addConsumerListener(receiver_.getName(), this);
 }
 
@@ -87,13 +92,14 @@ cms::MessageListener* QpidMessageConsumer::getMessageListener() const
 void QpidMessageConsumer::setMessageListener(cms::MessageListener* listener)
 {
     listener_ = listener;
+    receiver_.setCapacity(10);
     session_.addConsumerListener(receiver_.getName(), this);
 }
 
 namespace {
 cms::Message* receiveQpidMessage(QpidSession& session, qpid::messaging::Receiver receiver, qpid::messaging::Duration timeout) {
     qpid::messaging::Message message;
-    if (receiver.get(message, timeout)) {
+    if (receiver.fetch(message, timeout)) {
         return QpidMessage::create(session, message);
     } else {
         return nullptr;

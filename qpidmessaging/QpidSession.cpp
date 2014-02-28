@@ -31,6 +31,9 @@
 #include "QpidMessageConsumer.h"
 #include "QpidExceptions.h"
 
+#include "cms/CMSException.h"
+
+#include <qpid/Exception.h>
 #include <qpid/messaging/Connection.h>
 #include <qpid/messaging/Session.h>
 
@@ -40,13 +43,24 @@ namespace cmsimpl {
 void QpidSession::threadWorker()
 {
   do {
-    auto r = session_.nextReceiver();
-    auto n = r.getName();
-    {   std::lock_guard<std::mutex> lk(lock_);
-        auto i = consumers_.find(n);
-        if (i == consumers_.end() )
-            continue;
-        i->second->serviceMessages();
+    try {
+        qpid::messaging::Receiver r;
+        if (!session_.nextReceiver(r, qpid::messaging::Duration(100))) continue;
+        auto n = r.getName();
+        {   std::lock_guard<std::mutex> lk(lock_);
+            auto i = consumers_.find(n);
+            if (i == consumers_.end() )
+                continue;
+
+            i->second->serviceMessages();
+        }
+    } catch (qpid::ClosedException) {
+      // Session was closed - exit thread;
+      return;
+    } catch (cms::CMSException& e) {
+      connection_.exceptionListener_->onException(e);
+    } catch (std::exception& e) {
+      connection_.exceptionListener_->onException(cms::CMSException(e.what()));
     }
   } while (true);
 }
@@ -207,6 +221,7 @@ void QpidSession::start()
 {
     // Start up thread to service session
     sessionThread_ = std::thread(std::bind(&QpidSession::threadWorker, this));
+    sessionThread_.detach();
 }
 
 void QpidSession::stop()

@@ -105,7 +105,7 @@ add_library (qpid-cms SHARED
              ${cms_implementation_files}
              ${qpidmessaging_cms_files})
 
-target_link_libraries (qpid-cms qpidmessaging qpidtypes)
+target_link_libraries (qpid-cms qpidmessaging qpidtypes qpidcommon)
 
 set_target_properties (qpid-cms PROPERTIES
                        LINK_FLAGS "-Wl,--no-undefined"

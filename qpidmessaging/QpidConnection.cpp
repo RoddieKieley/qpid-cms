@@ -118,7 +118,7 @@ std::string QpidConnection::getClientID() const
 
 cms::Session* QpidConnection::createSession(cms::Session::AcknowledgeMode ackMode)
 {
-    auto session = new QpidSession(*this, ackMode);
+    QpidSession* session = new QpidSession(*this, ackMode);
     sessions_.push_back(session);
     if (state_==STARTED) {
         session->start();

@@ -28,6 +28,12 @@ QpidBytesMessage::QpidBytesMessage(QpidSession& session) :
 
 }
 
+QpidBytesMessage::QpidBytesMessage(QpidSession& session, const messaging::Message& qmessage) :
+    QpidMessageBase(session, qmessage)
+{
+
+}
+
 QpidBytesMessage::QpidBytesMessage(QpidSession& session, const unsigned char* bytes, int bytesSize) :
     QpidMessageBase(session, std::string((const char*)(bytes), bytesSize), "binary")
 {

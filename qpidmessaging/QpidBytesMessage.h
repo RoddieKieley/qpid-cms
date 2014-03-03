@@ -31,6 +31,7 @@ class QpidBytesMessage :  public QpidMessageBase<cms::BytesMessage>
 {
 public:
     QpidBytesMessage(QpidSession& session);
+    QpidBytesMessage(QpidSession& session, const qpid::messaging::Message& qmessage);
     QpidBytesMessage(QpidSession& session, const unsigned char* bytes, int bytesSize);
     ~QpidBytesMessage();
 

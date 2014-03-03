@@ -17,6 +17,8 @@
 
 #include "QpidMessage.h"
 
+#include "QpidBytesMessage.h"
+#include "QpidConnection.h"
 #include "QpidDestination.h"
 #include "QpidExceptions.h"
 #include "QpidSession.h"
@@ -38,18 +40,25 @@ QpidMessage* QpidMessage::create(QpidSession& session, const qpid::messaging::Me
 
     if (contentType=="text/plain") {
         return new QpidTextMessage(session, qm);
-    }
-    return nullptr;
+    } else if (contentType=="binary") {
+        return new QpidBytesMessage(session, qm);
+    } // TODO: Still need to handle MapMessage and StreamMessage
+
+    // If we didn't recognise the message type then return something
+    // that will still respond to the basic message methods
+    return new QpidMessage(session, qm);
 }
 
 QpidMessage::QpidMessage(QpidSession& session) :
-    session_(session)
+    session_(session),
+    acked_(false)
 {
 }
 
 QpidMessage::QpidMessage(QpidSession& session, const messaging::Message& qm) :
     session_(session),
-    message_(qm)
+    message_(qm),
+    acked_(false)
     // TODO: where does destination_ come from?
     // TODO: need to create replyTo_ from message_.getReplyTo()
 {
@@ -57,7 +66,8 @@ QpidMessage::QpidMessage(QpidSession& session, const messaging::Message& qm) :
 
 QpidMessage::QpidMessage(QpidSession& session, const std::string& text, const std::string& contentType) :
     session_(session),
-    message_(text)
+    message_(text),
+    acked_(false)
 {
     message_.setContentType(contentType);
 }
@@ -67,7 +77,8 @@ QpidMessage::QpidMessage(const QpidMessage& other) :
     session_(other.session_),
     message_(other.message_),
     destination_(other.destination_->clone()),
-    replyTo_(other.replyTo_->clone())
+    replyTo_(other.replyTo_->clone()),
+    acked_(other.acked_)
 {
 }
 
@@ -351,6 +362,7 @@ void QpidMessage::clearBody()
 
 void QpidMessage::acknowledge() const
 {
+    acked_=true;
     switch (session_.acknowledgeMode_) {
     case cms::Session::CLIENT_ACKNOWLEDGE:
         session_.session_.acknowledgeUpTo(message_, true);

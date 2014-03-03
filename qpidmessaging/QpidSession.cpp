@@ -74,7 +74,9 @@ void QpidSession::addConsumerListener(const std::string& name, QpidMessageConsum
 QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode) :
     connection_(connection),
     acknowledgeMode_(acknowledgeMode),
-    session_(connection.connection_.createSession())
+    session_(acknowledgeMode==SESSION_TRANSACTED
+             ? connection.connection_.createTransactionalSession()
+             : connection.connection_.createSession())
 {
 }
 
@@ -99,7 +101,7 @@ void QpidSession::unsubscribe(const std::string& name)
 
 bool QpidSession::isTransacted() const
 {
-    return false;;
+    return acknowledgeMode_==SESSION_TRANSACTED;
 }
 
 cms::Session::AcknowledgeMode QpidSession::getAcknowledgeMode() const

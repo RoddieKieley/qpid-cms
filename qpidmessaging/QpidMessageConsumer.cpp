@@ -55,10 +55,20 @@ void QpidMessageConsumer::serviceMessages()
 
     // Try to get message without waiting (there shold be one unless the onMessageAvailable() call snaffled it
     if (listener_) {
-        qpid::messaging::Message m;
-        if (receiver_.get(m, qpid::messaging::Duration::IMMEDIATE)) {
-            listener_->onMessage(QpidMessage::create(session_, m));
-            autoAcknowledge(m);
+        qpid::messaging::Message qm;
+        if (receiver_.get(qm, qpid::messaging::Duration::IMMEDIATE)) {
+            QpidMessage* m = QpidMessage::create(session_, qm);
+            listener_->onMessage(m);
+            if (!m->acked_) {
+              // The client didn't acknowledge, we might need to now
+              if (session_.acknowledgeMode_==cms::Session::INDIVIDUAL_ACKNOWLEDGE) {
+                  // The client didn't acknowledge and the mode is individual ack so release for redelivery
+                  session_.session_.release(qm);
+              } else {
+                  // Do whatever automatic ack might be necessary
+                  autoAcknowledge(qm);
+              }
+            }
         }
     }
 }

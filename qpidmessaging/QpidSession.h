@@ -48,6 +48,7 @@ class QpidSession :  public cms::Session
     std::mutex lock_;
     std::map<std::string, QpidMessageConsumer*> consumers_;
     std::thread sessionThread_;
+    enum {INIT, STOPPED, STARTED, CLOSING} state_;
 
 public:
     QpidSession(qpid::cmsimpl::QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode);

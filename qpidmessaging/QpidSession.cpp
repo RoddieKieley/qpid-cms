@@ -33,7 +33,6 @@
 
 #include "cms/CMSException.h"
 
-#include <qpid/Exception.h>
 #include <qpid/messaging/Connection.h>
 #include <qpid/messaging/Session.h>
 
@@ -47,19 +46,21 @@ void QpidSession::threadWorker()
         qpid::messaging::Receiver r;
         if (!session_.nextReceiver(r, qpid::messaging::Duration(100))) continue;
         auto n = r.getName();
+        QpidMessageConsumer* c;
         {   std::lock_guard<std::mutex> lk(lock_);
-            auto i = consumers_.find(n);
-            if (i == consumers_.end() )
-                continue;
+            if (state_==CLOSING) return;
 
-            i->second->serviceMessages();
+            auto i = consumers_.find(n);
+            if (i == consumers_.end() ) continue;
+            c = i->second;
         }
-    } catch (qpid::ClosedException) {
+        c->serviceMessages();
+    } catch (const qpid::messaging::SessionClosed&) {
       // Session was closed - exit thread;
       return;
-    } catch (cms::CMSException& e) {
+    } catch (const cms::CMSException& e) {
       connection_.exceptionListener_->onException(e);
-    } catch (std::exception& e) {
+    } catch (const std::exception& e) {
       connection_.exceptionListener_->onException(cms::CMSException(e.what()));
     }
   } while (true);
@@ -76,12 +77,14 @@ QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMo
     acknowledgeMode_(acknowledgeMode),
     session_(acknowledgeMode==SESSION_TRANSACTED
              ? connection.connection_.createTransactionalSession()
-             : connection.connection_.createSession())
+             : connection.connection_.createSession()),
+    state_(INIT)
 {
 }
 
 QpidSession::~QpidSession()
 {
+    close();
 }
 
 cms::MessageTransformer* QpidSession::getMessageTransformer() const
@@ -218,19 +221,37 @@ void QpidSession::commit()
 
 void QpidSession::close()
 {
-    // TODO: close session - stop thread first, then what?
+    {
+        std::lock_guard<std::mutex> lk(lock_);
+        if (state_==STOPPED) return;
+        state_ = CLOSING;
+    }
+    // Closing underlying session will cause worker thread to exit
+    session_.close();
+    std::lock_guard<std::mutex> lk(lock_);
+    if (state_==STOPPED) return;
+    sessionThread_.join();
+    state_ = STOPPED;
 }
 
 void QpidSession::start()
 {
     // Start up thread to service session
+    std::lock_guard<std::mutex> lk(lock_);
+    if (state_==STARTED) return;
+    if (state_==STOPPED) {
+        session_ =
+          qpid::messaging::Session(acknowledgeMode_==SESSION_TRANSACTED
+            ? connection_.connection_.createTransactionalSession()
+            : connection_.connection_.createSession());
+    }
     sessionThread_ = std::thread(std::bind(&QpidSession::threadWorker, this));
-    sessionThread_.detach();
+    state_ = STARTED;
 }
 
 void QpidSession::stop()
 {
-    // TODO: stop thread servicing session
+    close();
 }
 
 }

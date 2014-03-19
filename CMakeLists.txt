@@ -17,9 +17,11 @@
 # under the License.
 #
 
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+
 project(qpid-cms)
 
-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+find_package(Qpid 0.27 REQUIRED)
 
 set (cms_implementation_files
   cms/AsyncCallback.cpp
@@ -99,13 +101,15 @@ set (qpidmessaging_cms_files
 )
 
 include_directories (.)
+include_directories(${Qpid_INCLUDE_DIRS})
+
 add_compile_options(-Wall -Werror -std=gnu++0x)
 
 add_library (qpid-cms SHARED
              ${cms_implementation_files}
              ${qpidmessaging_cms_files})
 
-target_link_libraries (qpid-cms qpidmessaging qpidtypes qpidcommon)
+target_link_libraries (qpid-cms ${Qpid_LIBRARIES})
 
 set_target_properties (qpid-cms PROPERTIES
                        LINK_FLAGS "-Wl,--no-undefined"

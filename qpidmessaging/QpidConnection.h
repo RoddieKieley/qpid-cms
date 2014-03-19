@@ -40,6 +40,7 @@ class QpidConnection :  public cms::Connection
     cms::ExceptionListener* exceptionListener_;
     cms::MessageTransformer* messageTransformer_;
     enum {STOPPED, STARTED} state_;
+    bool useAMQP10_;
 
     qpid::messaging::Connection connection_;
     std::vector<QpidSession*> sessions_;

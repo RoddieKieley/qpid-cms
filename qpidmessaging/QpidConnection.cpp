@@ -23,6 +23,8 @@
 namespace qpid {
 namespace cmsimpl {
 
+static bool DefaultUseAMQP10 = true;
+
 std::string QpidConnection::connectionURL()
 {
     return uri_;
@@ -32,6 +34,10 @@ std::string QpidConnection::connectionOptions()
 {
     std::string options("{");
     bool needComma(false);
+    if ( useAMQP10_ ) {
+        options += "protocol:amqp1.0";
+        needComma = true;
+    }
     if ( !username_.empty() ) {
         options += "username:";
         options += username_;
@@ -52,6 +58,7 @@ QpidConnection::QpidConnection(const std::string& uri) :
     exceptionListener_(nullptr),
     messageTransformer_(nullptr),
     state_(STOPPED),
+    useAMQP10_(DefaultUseAMQP10),
     connection_(connectionURL(), connectionOptions())
 {
     connection_.open();
@@ -64,6 +71,7 @@ QpidConnection::QpidConnection(const std::string& uri, const std::string& userna
     exceptionListener_(nullptr),
     messageTransformer_(nullptr),
     state_(STOPPED),
+    useAMQP10_(DefaultUseAMQP10),
     connection_(connectionURL(), connectionOptions())
 {
     connection_.open();
@@ -77,6 +85,7 @@ QpidConnection::QpidConnection(const std::string& uri, const std::string& userna
     exceptionListener_(nullptr),
     messageTransformer_(nullptr),
     state_(STOPPED),
+    useAMQP10_(DefaultUseAMQP10),
     connection_(connectionURL(), connectionOptions())
 {
     connection_.open();

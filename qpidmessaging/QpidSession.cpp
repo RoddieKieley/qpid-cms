@@ -72,6 +72,12 @@ void QpidSession::addConsumerListener(const std::string& name, QpidMessageConsum
     consumers_[name] = consumer;
 }
 
+void QpidSession::delConsumerListener(const std::string& name)
+{
+    std::lock_guard<std::mutex> lk(lock_);
+    consumers_.erase(name);
+}
+
 QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode) :
     connection_(connection),
     acknowledgeMode_(acknowledgeMode),

@@ -63,6 +63,7 @@ private:
 private:
     void threadWorker();
     void addConsumerListener(const std::string& name, QpidMessageConsumer* consumer);
+    void delConsumerListener(const std::string& name);
 
     // Implement interfaces
     virtual cms::MessageTransformer* getMessageTransformer() const;

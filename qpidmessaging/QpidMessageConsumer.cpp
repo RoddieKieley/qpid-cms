@@ -81,8 +81,8 @@ cms::MessageAvailableListener* QpidMessageConsumer::getMessageAvailableListener(
 void QpidMessageConsumer::setMessageAvailableListener(cms::MessageAvailableListener* listener)
 {
     availableListener_ = listener;
-    receiver_.setCapacity(10);
     session_.addConsumerListener(receiver_.getName(), this);
+    start();
 }
 
 cms::MessageTransformer* QpidMessageConsumer::getMessageTransformer() const
@@ -108,8 +108,8 @@ cms::MessageListener* QpidMessageConsumer::getMessageListener() const
 void QpidMessageConsumer::setMessageListener(cms::MessageListener* listener)
 {
     listener_ = listener;
-    receiver_.setCapacity(10);
     session_.addConsumerListener(receiver_.getName(), this);
+    start();
 }
 
 
@@ -141,17 +141,19 @@ cms::Message* QpidMessageConsumer::receive()
 
 void QpidMessageConsumer::close()
 {
-
+    stop();
+    session_.delConsumerListener(receiver_.getName());
+    receiver_.close();
 }
 
 void QpidMessageConsumer::start()
 {
-
+    receiver_.setCapacity(10);
 }
 
 void QpidMessageConsumer::stop()
 {
-
+    receiver_.setCapacity(0);
 }
 
 }

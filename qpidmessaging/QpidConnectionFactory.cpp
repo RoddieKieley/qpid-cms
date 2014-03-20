@@ -31,7 +31,9 @@ namespace qpid {
 namespace cmsimpl {
 
 QpidConnectionFactory::QpidConnectionFactory(const std::string& brokerURI) :
-    brokerURI_(brokerURI)
+    brokerURI_(brokerURI),
+    exceptionListener_(nullptr),
+    messageTransformer_(nullptr)
 {
 }
 
@@ -41,37 +43,46 @@ QpidConnectionFactory::~QpidConnectionFactory()
 
 cms::MessageTransformer* QpidConnectionFactory::getMessageTransformer() const
 {
-    throw NotImplementedYet();
+    return messageTransformer_;
 }
 
 void QpidConnectionFactory::setMessageTransformer(cms::MessageTransformer* transformer)
 {
-    throw NotImplementedYet();
+    messageTransformer_ = transformer;
 }
 
 cms::ExceptionListener* QpidConnectionFactory::getExceptionListener() const
 {
-    throw NotImplementedYet();
+    return exceptionListener_;
 }
 
 void QpidConnectionFactory::setExceptionListener(cms::ExceptionListener* listener)
 {
-    throw NotImplementedYet();
+    exceptionListener_ = listener;
 }
 
 cms::Connection* QpidConnectionFactory::createConnection(const std::string& username, const std::string& password, const std::string& clientId)
 {
-    return new QpidConnection(brokerURI_, username, password, clientId);
+    cms::Connection* c = new QpidConnection(brokerURI_, username, password, clientId);
+    c->setExceptionListener(exceptionListener_);
+    c->setMessageTransformer(messageTransformer_);
+    return c;
 }
 
 cms::Connection* QpidConnectionFactory::createConnection(const std::string& username, const std::string& password)
 {
-    return new QpidConnection(brokerURI_, username, password);
+    cms::Connection* c = new QpidConnection(brokerURI_, username, password);
+    c->setExceptionListener(exceptionListener_);
+    c->setMessageTransformer(messageTransformer_);
+    return c;
 }
 
 cms::Connection* QpidConnectionFactory::createConnection()
 {
-    return new QpidConnection(brokerURI_);
+    cms::Connection* c = new QpidConnection(brokerURI_);
+    c->setExceptionListener(exceptionListener_);
+    c->setMessageTransformer(messageTransformer_);
+    return c;
 }
 
 }

@@ -26,6 +26,8 @@ namespace cmsimpl {
 class QpidConnectionFactory : public cms::ConnectionFactory
 {
     const std::string brokerURI_;
+    cms::ExceptionListener* exceptionListener_;
+    cms::MessageTransformer* messageTransformer_;
 
 public:
     QpidConnectionFactory(const std::string& brokerURI);

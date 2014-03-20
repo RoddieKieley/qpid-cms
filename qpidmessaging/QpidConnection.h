@@ -33,9 +33,9 @@ class QpidConnection :  public cms::Connection
 {
     friend class QpidSession;
 
-    std::string uri_;
-    std::string username_;
-    std::string password_;
+    const std::string uri_;
+    const std::string username_;
+    const std::string password_;
     std::string clientId_;
     cms::ExceptionListener* exceptionListener_;
     cms::MessageTransformer* messageTransformer_;

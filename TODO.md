@@ -1,72 +1,50 @@
 This List was initially copied from NOTES:
 
-* Test Code
-
-I'd say that to get to something useful for others:
-* We need to round out the message support more - with ByteMessage and
-  probably MapMessage as this is well used I think.
-* Fix message destination handling - this may need changes to
-  qpid::messaging.
-* Properly support topics and queues.
-* Audit/fix exception throwing to be sure we only throw cms exceptions
+These items are short term goals:
+- [ ] Test Code
+  - There seem to be no API level tests for CMS
+- [ ] Properly support topics and queues.
+  - No special handling for Queues/Topics to ensure that the semantics are correct
+  we just use the name as is.
+- [ ] Audit/fix exception throwing to be sure we only throw cms exceptions
   and that we throw in the correct circumstances.
 
-What's done:
-(Class by class)
-* ConnectionFactory
-- Finished
-* Connection
-- Finished except ConnectionMetaData;
-x No way to select 0-10 or 1.0 at runtime yet.
-* Session
-- Basic queue/topic and producer/consumer functionality
-- Worker thread
--- calls onException callouts.
--- delegates consumer processing to individual consumers
--- Will create transacted/untransacted session depending on acknowledge
-   mode (transacted sessions not support by qpid amqp1.0 support
-   currently).
-xx No factories for Browsers, DurableConsumer, Consumers with selectors.
-xx No unsubscribe(), recover()
-* MessageProducer
--- Send messages (optionally specifying delivery mode, priority & time
-   to live)
-xx No message sending with different destination from producer
-xxx This is not directly supported by qpid::messaging so needs a
-    protocol specific hack to make work
-xxx Could add a setDestination() to qpid::messaging::Message API.
-xx No message sending with asynchronous completion callback
-xxx This is gap in the qpid::messaging capabilities so will be very hard
+Missing features
+- Can't select AMQP 0-10 or 1.0 at the Connection level
+  - Probably do this with ConnectionMetaData property.
+- Finish Session factories
+  - Browser
+  - DurableConsumer
+  - Consumer factory with selector
+- No durable consumer support
+- No session recovery support
+- No sending messages with different destination than the MessageProducer
+  - This is not directly supported by qpid::messaging so needs a
+    protocol specific hack to make work or
+  - Could add a setDestination() to qpid::messaging::Message API.
+- No message sending with asynchronous completion callback
+  - This is gap in the qpid::messaging capabilities so will be very hard
     to add without adding this to the underlying qpid capabilities.
-xxx Most consonant way to add it to the API would be to add an extension
+
+    The Most consonant way to add it to the API would be to add an extension
     to Session::nextReceiver() which also gave back senders with waiting
     acknowledges, and then an API to get next ack for a sender.
-* MessageConsumer
-- Mostly complete
--- sync and Async receive
--- all acknowledge modes implemented
-xx No selectors
-* Message
--- Message common code (properties, send, acknowledge)
-xx destination and reply to not well handled
-xxx Cannot extract destination/reply to from a received message.
--- TextMessage finished
-xx BytesMessage bare bones there
-xx StreamMessage nothing implemented
-xxx not clear how this maps to qpid API
-xx MapMessage nothing implemented
-xxx not clear how this maps to qpid API
+- No selectors
+- Message destination and reply to not well handled
+  - Cannot extract destination/reply to from a received message.
+- BytesMessage bare bones implemented needs full set of writeXxxx()/readXxxx() functions
+- StreamMessage unimplemented
+  - not clear how this maps to AMQP Messages (content type, etc.)
+- MapMessage unimplemented
+  - not clear how this maps to AMQP Messages (content type, etc.)
 
-What features missing:
+Bigger features missing:
 * Any kind of test or example code
-- beyond simple producer and consumer
+  - beyond simple producer and consumer
 * MessageTransformer callouts.
-* Audit/translation of exceptions to make sure all thrown exceptions are cms::
 * XA Transactions (whole other connection factory).
 * Temporary queues/topics. Factories in session will try to create them but
   they currently just throw.
-* No special handling for Queues/Topics to ensure that the semantics are correct
-  we just use the name as is.
 * Enhanced Connection
 - This is used to get an interface to query destinations and to receive callbacks
   on destination events (creation/deletion)

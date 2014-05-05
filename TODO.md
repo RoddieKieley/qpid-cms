@@ -3,7 +3,7 @@ This List was initially copied from NOTES:
 These items are short term goals:
 - [ ] Test Code
   - There seem to be no API level tests for CMS
-- [ ] Properly support topics and queues.
+- [X] Properly support topics and queues.
   - No special handling for Queues/Topics to ensure that the semantics are correct
   we just use the name as is.
 - [ ] Audit/fix exception throwing to be sure we only throw cms exceptions

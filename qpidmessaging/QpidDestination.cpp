@@ -19,8 +19,8 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidDestination::QpidDestination(const std::string& address) :
-    destination_(address)
+QpidDestination::QpidDestination(const std::string& address, const std::string& type) :
+    destination_(address, "", qpid::types::Variant::Map(), type)
 {
 }
 

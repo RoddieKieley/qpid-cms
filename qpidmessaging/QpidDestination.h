@@ -28,7 +28,7 @@ class QpidDestination
     qpid::messaging::Address destination_;
 
 public:
-    QpidDestination(const std::string& address);
+    QpidDestination(const std::string& address, const std::string& type);
     QpidDestination(const QpidDestination& destination);
     ~QpidDestination();
 

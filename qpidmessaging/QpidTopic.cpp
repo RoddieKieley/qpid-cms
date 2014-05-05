@@ -23,7 +23,7 @@ namespace qpid {
 namespace cmsimpl {
 
 QpidTopic::QpidTopic(const std::string& topicName) :
-    QpidDestination(topicName),
+    QpidDestination(topicName, "topic"),
     topicName_(topicName)
 {
 }

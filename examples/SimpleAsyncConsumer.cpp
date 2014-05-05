@@ -243,7 +243,7 @@ int main(int /*argc*/, char* /*argv*/[]) {
     // Note in the code above that this causes createTopic or
     // createQueue to be used in the consumer.
     //============================================================
-    bool useTopics = false;
+    bool useTopics = true;
 
     //============================================================
     // set to true if you want the consumer to use client ack mode

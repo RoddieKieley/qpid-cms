@@ -217,7 +217,7 @@ int main(int /*argc*/, char* /*argv*/[]) {
     // Note in the code above that this causes createTopic or
     // createQueue to be used in the producer.
     //============================================================
-    bool useTopics = false;
+    bool useTopics = true;
 
     // Create the producer and run it.
     SimpleProducer producer( brokerURI, numMessages, destURI, useTopics );

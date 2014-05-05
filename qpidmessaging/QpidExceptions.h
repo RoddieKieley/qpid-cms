@@ -18,12 +18,12 @@
 #ifndef QPIDEXCEPTIONS_H
 #define QPIDEXCEPTIONS_H
 
-#include <exception>
+#include <cms/UnsupportedOperationException.h>
 
 namespace qpid {
 namespace cmsimpl {
 
-class NotImplementedYet :  public std::exception
+class NotImplementedYet :  public cms::UnsupportedOperationException
 {
 public:
     NotImplementedYet();

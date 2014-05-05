@@ -20,7 +20,8 @@
 namespace qpid {
 namespace cmsimpl {
 
-NotImplementedYet::NotImplementedYet()
+NotImplementedYet::NotImplementedYet() :
+    cms::UnsupportedOperationException("Qpid-cms does not implement this (yet)")
 {
 
 }

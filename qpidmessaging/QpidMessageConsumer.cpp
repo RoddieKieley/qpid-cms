@@ -98,7 +98,8 @@ void QpidMessageConsumer::setMessageTransformer(cms::MessageTransformer* transfo
 
 std::string QpidMessageConsumer::getMessageSelector() const
 {
-    throw NotImplementedYet();
+    // There can be no selector yet, as they aren't implemented
+    return "";
 }
 
 cms::MessageListener* QpidMessageConsumer::getMessageListener() const

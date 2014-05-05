@@ -357,7 +357,9 @@ void QpidMessageBase<T>::acknowledge() const
 template <class T>
 T* QpidMessageBase<T>::clone() const
 {
-    throw NotImplementedYet();
+    // This will work so long as all the concrete Message classes
+    // have no additional data members over QpidMessage
+    return static_cast<T*>(this->QpidMessage::clone());
 }
 
 }

@@ -32,7 +32,7 @@ QpidProps::~QpidProps()
 
 }
 
-std::string QpidProps::toString()
+std::string QpidProps::toString() const
 {
     throw NotImplementedYet();
 }
@@ -42,7 +42,7 @@ void QpidProps::clear()
 
 }
 
-cms::CMSProperties* QpidProps::clone()
+cms::CMSProperties* QpidProps::clone() const
 {
     throw NotImplementedYet();
 }
@@ -52,12 +52,12 @@ void QpidProps::copy(const cms::CMSProperties* source)
 
 }
 
-std::vector< std::pair< std::string, std::string > > QpidProps::toArray()
+std::vector< std::pair< std::string, std::string > > QpidProps::toArray() const
 {
     throw NotImplementedYet();
 }
 
-std::vector< std::string > QpidProps::propertyNames()
+std::vector< std::string > QpidProps::propertyNames() const
 {
     throw NotImplementedYet();
 }
@@ -67,7 +67,7 @@ std::string QpidProps::remove(const std::string& name)
     throw NotImplementedYet();
 }
 
-bool QpidProps::hasProperty(const std::string& name)
+bool QpidProps::hasProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
@@ -77,22 +77,22 @@ void QpidProps::setProperty(const std::string& name, const std::string& value)
 
 }
 
-std::string QpidProps::getProperty(const std::string& name, const std::string& defaultValue)
+std::string QpidProps::getProperty(const std::string& name, const std::string& defaultValue) const
 {
     throw NotImplementedYet();
 }
 
-const char* QpidProps::getProperty(const std::string& name)
+const char* QpidProps::getProperty(const std::string& name) const
 {
     throw NotImplementedYet();
 }
 
-bool QpidProps::isEmpty()
+bool QpidProps::isEmpty() const
 {
     throw NotImplementedYet();
 }
 
-int QpidProps::size()
+int QpidProps::size() const
 {
     throw NotImplementedYet();
 }

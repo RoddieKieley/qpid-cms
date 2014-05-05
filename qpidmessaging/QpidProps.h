@@ -35,19 +35,19 @@ private:
     QpidProps& operator=(const QpidProps& other);
 
 private:
-    virtual std::string toString();
+    virtual std::string toString() const;
     virtual void clear();
-    virtual cms::CMSProperties* clone();
+    virtual cms::CMSProperties* clone() const;
     virtual void copy(const cms::CMSProperties* source);
-    virtual std::vector< std::pair< std::string, std::string > > toArray();
-    virtual std::vector< std::string > propertyNames();
+    virtual std::vector< std::pair< std::string, std::string > > toArray() const;
+    virtual std::vector< std::string > propertyNames() const;
     virtual std::string remove(const std::string& name);
-    virtual bool hasProperty(const std::string& name);
+    virtual bool hasProperty(const std::string& name) const;
     virtual void setProperty(const std::string& name, const std::string& value);
-    virtual std::string getProperty(const std::string& name, const std::string& defaultValue);
-    virtual const char* getProperty(const std::string& name);
-    virtual bool isEmpty();
-    virtual int size();
+    virtual std::string getProperty(const std::string& name, const std::string& defaultValue) const;
+    virtual const char* getProperty(const std::string& name) const;
+    virtual bool isEmpty() const;
+    virtual int size() const;
 };
 }
 }

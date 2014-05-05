@@ -18,7 +18,12 @@
 #ifndef QPID_CMSIMPL_QPIDDESTINATION_H
 #define QPID_CMSIMPL_QPIDDESTINATION_H
 
+#include <qpidmessaging/QpidProps.h>
 #include <qpid/messaging/Address.h>
+
+namespace cms {
+class Destination;
+}
 
 namespace qpid {
 namespace cmsimpl {
@@ -26,11 +31,18 @@ namespace cmsimpl {
 class QpidDestination
 {
     qpid::messaging::Address destination_;
+    QpidProps properties_;
 
 public:
     QpidDestination(const std::string& address, const std::string& type);
     QpidDestination(const QpidDestination& destination);
     ~QpidDestination();
+
+    QpidDestination& operator=(const QpidDestination& source);
+
+    // Implementations that are common to all destinations
+    const cms::CMSProperties& getCMSProperties() const;
+    bool equals(const cms::Destination& other) const;
 
     qpid::messaging::Address getAddress() const;
 };

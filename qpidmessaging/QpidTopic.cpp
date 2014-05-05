@@ -17,7 +17,7 @@
 
 #include "QpidTopic.h"
 
-#include "QpidExceptions.h"
+#include <cms/InvalidDestinationException.h>
 
 namespace qpid {
 namespace cmsimpl {
@@ -39,17 +39,21 @@ std::string QpidTopic::getTopicName() const
 
 const cms::CMSProperties& QpidTopic::getCMSProperties() const
 {
-    throw NotImplementedYet();
+    return QpidDestination::getCMSProperties();
 }
 
 bool QpidTopic::equals(const cms::Destination& other) const
 {
-    throw NotImplementedYet();
+    return QpidDestination::equals(other);
 }
 
 void QpidTopic::copy(const cms::Destination& source)
 {
-    throw NotImplementedYet();
+    const QpidTopic* t = dynamic_cast<const QpidTopic*>(&source);
+    if (!t) {
+        throw cms::InvalidDestinationException("Not a QpidTopic");
+    }
+    QpidDestination::operator=(*t);
 }
 
 cms::Destination* QpidTopic::clone() const

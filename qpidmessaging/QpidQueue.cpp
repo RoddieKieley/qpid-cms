@@ -17,7 +17,7 @@
 
 #include "QpidQueue.h"
 
-#include "QpidExceptions.h"
+#include "cms/InvalidDestinationException.h"
 
 namespace qpid {
 namespace cmsimpl {
@@ -39,17 +39,21 @@ std::string QpidQueue::getQueueName() const
 
 const cms::CMSProperties& QpidQueue::getCMSProperties() const
 {
-    throw NotImplementedYet();
+    return QpidDestination::getCMSProperties();
 }
 
 bool QpidQueue::equals(const cms::Destination& other) const
 {
-    throw NotImplementedYet();
+    return QpidDestination::equals(other);
 }
 
 void QpidQueue::copy(const cms::Destination& source)
 {
-    throw NotImplementedYet();
+    const QpidQueue* t = dynamic_cast<const QpidQueue*>(&source);
+    if (!t) {
+        throw cms::InvalidDestinationException("Not a QpidTopic");
+    }
+    QpidDestination::operator=(*t);
 }
 
 cms::Destination* QpidQueue::clone() const

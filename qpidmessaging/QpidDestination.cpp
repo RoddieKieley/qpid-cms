@@ -16,6 +16,9 @@
  */
 
 #include "QpidDestination.h"
+
+#include <cms/Destination.h>
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -31,6 +34,23 @@ QpidDestination::QpidDestination(const QpidDestination& destination) :
 
 QpidDestination::~QpidDestination()
 {
+}
+
+QpidDestination& QpidDestination::operator=(const QpidDestination& source)
+{
+    destination_ = source.destination_;
+    return *this;
+}
+
+const cms::CMSProperties& QpidDestination::getCMSProperties() const
+{
+    return properties_;
+}
+
+bool QpidDestination::equals(const cms::Destination& other) const
+{
+    const QpidDestination* d = dynamic_cast<const QpidDestination*>(&other);
+    return d && destination_==d->destination_;
 }
 
 messaging::Address QpidDestination::getAddress() const

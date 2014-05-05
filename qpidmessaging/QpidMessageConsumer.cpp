@@ -27,9 +27,10 @@ namespace cmsimpl {
 
 QpidMessageConsumer::QpidMessageConsumer(QpidSession& session, const cms::Destination* destination) :
   session_(session),
-  receiver_(session.session_.createReceiver(dynamic_cast<const QpidDestination*>(destination)->getAddress())),
+  messageTransformer_(session_.messageTransformer_),
   availableListener_(nullptr),
-  listener_(nullptr)
+  listener_(nullptr),
+  receiver_(session.session_.createReceiver(dynamic_cast<const QpidDestination*>(destination)->getAddress()))
 {
 
 }
@@ -87,12 +88,12 @@ void QpidMessageConsumer::setMessageAvailableListener(cms::MessageAvailableListe
 
 cms::MessageTransformer* QpidMessageConsumer::getMessageTransformer() const
 {
-    throw NotImplementedYet();
+    return messageTransformer_;
 }
 
 void QpidMessageConsumer::setMessageTransformer(cms::MessageTransformer* transformer)
 {
-
+    messageTransformer_ = transformer;
 }
 
 std::string QpidMessageConsumer::getMessageSelector() const

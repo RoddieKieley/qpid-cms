@@ -37,6 +37,7 @@ class QpidSession;
 class QpidMessageProducer :  public cms::MessageProducer
 {
     qpid::messaging::Sender sender_;
+    cms::MessageTransformer* messageTransformer_;
     // Default Message parameters
     qpid::messaging::Duration ttlDefault_;
     uint8_t priorityDefault_;

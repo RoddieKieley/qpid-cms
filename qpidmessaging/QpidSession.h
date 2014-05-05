@@ -42,6 +42,7 @@ class QpidSession :  public cms::Session
     friend class QpidSessionWorker;
 
     QpidConnection& connection_;
+    cms::MessageTransformer* messageTransformer_;
     cms::Session::AcknowledgeMode acknowledgeMode_;
     qpid::messaging::Session session_;
     std::condition_variable cv_;

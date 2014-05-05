@@ -30,6 +30,7 @@ namespace cmsimpl {
 
 QpidMessageProducer::QpidMessageProducer(QpidSession& session, const cms::Destination* destination) :
     sender_(session.session_.createSender(dynamic_cast<const QpidDestination*>(destination)->getAddress())),
+    messageTransformer_(session.messageTransformer_),
     ttlDefault_(0),
     priorityDefault_(4),
     durableDefault_(true),
@@ -44,12 +45,12 @@ QpidMessageProducer::~QpidMessageProducer()
 
 cms::MessageTransformer* QpidMessageProducer::getMessageTransformer() const
 {
-    throw NotImplementedYet();
+    return messageTransformer_;
 }
 
 void QpidMessageProducer::setMessageTransformer(cms::MessageTransformer* transformer)
 {
-    throw NotImplementedYet();
+    messageTransformer_ = transformer;
 }
 
 long long int QpidMessageProducer::getTimeToLive() const

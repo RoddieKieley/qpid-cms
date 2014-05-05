@@ -80,6 +80,7 @@ void QpidSession::delConsumerListener(const std::string& name)
 
 QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode) :
     connection_(connection),
+    messageTransformer_(connection.messageTransformer_),
     acknowledgeMode_(acknowledgeMode),
     session_(acknowledgeMode==SESSION_TRANSACTED
              ? connection.connection_.createTransactionalSession()
@@ -95,12 +96,12 @@ QpidSession::~QpidSession()
 
 cms::MessageTransformer* QpidSession::getMessageTransformer() const
 {
-    throw NotImplementedYet();
+    return messageTransformer_;
 }
 
 void QpidSession::setMessageTransformer(cms::MessageTransformer* transformer)
 {
-    throw NotImplementedYet();
+    messageTransformer_ = transformer;
 }
 
 void QpidSession::unsubscribe(const std::string& name)

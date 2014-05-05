@@ -39,9 +39,10 @@ class QpidMessageConsumer :  public cms::MessageConsumer
   friend class QpidSession;
 
   QpidSession& session_;
-  qpid::messaging::Receiver receiver_;
+  cms::MessageTransformer* messageTransformer_;
   cms::MessageAvailableListener* availableListener_;
   cms::MessageListener* listener_;
+  qpid::messaging::Receiver receiver_;
 
 public:
     QpidMessageConsumer(QpidSession& session, const cms::Destination* destination);

@@ -123,3 +123,4 @@ install (TARGETS qpid-cms
 
 
 add_subdirectory(examples)
+add_subdirectory(tests)

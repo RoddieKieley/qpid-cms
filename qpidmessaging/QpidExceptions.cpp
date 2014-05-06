@@ -17,6 +17,27 @@
 
 #include "QpidExceptions.h"
 
+#include <qpid/messaging/exceptions.h>
+#include <cms/CMSException.h>
+#include <cms/CMSSecurityException.h>
+#include <cms/IllegalStateException.h>
+#include <cms/InvalidClientIdException.h>
+#include <cms/InvalidDestinationException.h>
+#include <cms/InvalidSelectorException.h>
+#include <cms/MessageEOFException.h>
+#include <cms/MessageFormatException.h>
+#include <cms/MessageNotReadableException.h>
+#include <cms/MessageNotWriteableException.h>
+#include <cms/ResourceAllocationException.h>
+#include <cms/TransactionInProgressException.h>
+#include <cms/TransactionRolledBackException.h>
+#include <cms/UnsupportedOperationException.h>
+#include <cms/XAException.h>
+
+#include <string>
+
+using std::string;
+
 namespace qpid {
 namespace cmsimpl {
 
@@ -24,6 +45,64 @@ NotImplementedYet::NotImplementedYet() :
     cms::UnsupportedOperationException("Qpid-cms does not implement this (yet)")
 {
 
+}
+
+void rethrowTranslatedException()
+{
+    try {
+        // rethrow current exception
+        throw;
+    } catch (messaging::InvalidOptionString& e) {
+        throw cms::CMSException("Received qpid::messaging::InvalidOptionString: "+string(e.what()));
+    } catch (messaging::KeyError& e) {
+        throw cms::CMSException("Received qpid::messaging::KeyError: "+string(e.what()));
+    } catch (messaging::AssertionFailed& e ) {
+        throw cms::CMSException("Received qpid::messaging::AssertionFailed: "+string(e.what()));
+    } catch (messaging::NotFound& e) {
+        throw cms::CMSException("Received qpid::messaging::NotFound: "+string(e.what()));
+    } catch (messaging::ResolutionError& e) {
+        throw cms::CMSException("Received qpid::messaging::ResolutionError: "+string(e.what()));
+    } catch (messaging::MalformedAddress& e) {
+        throw cms::CMSException("Received qpid::messaging::MalformedAddress: "+string(e.what()));
+    } catch (messaging::AddressError& e) {
+        throw cms::CMSException("Received qpid::messaging::AddressError: "+string(e.what()));
+    } catch (messaging::NoMessageAvailable& e) {
+        throw cms::CMSException("Received qpid::messaging::NoMessageAvailable: "+string(e.what()));
+    } catch (messaging::FetchError& e) {
+        throw cms::CMSException("Received qpid::messaging::FetchError: "+string(e.what()));
+    } catch (messaging::ReceiverError& e) {
+        throw cms::CMSException("Received qpid::messaging::ReceiverError: "+string(e.what()));
+    } catch (messaging::MessageRejected& e){
+        throw cms::CMSException("Received qpid::messaging::MessageRejected: "+string(e.what()));
+    } catch (messaging::TargetCapacityExceeded& e) {
+        throw cms::CMSException("Received qpid::messaging::TargetCapacityExceeded: "+string(e.what()));
+    } catch (messaging::SendError& e) {
+        throw cms::CMSException("Received qpid::messaging::SendError: "+string(e.what()));
+    } catch (messaging::SenderError& e) {
+        throw cms::CMSException("Received qpid::messaging::SenderError: "+string(e.what()));
+    } catch (messaging::LinkError& e) {
+        throw cms::CMSException("Received qpid::messaging::LinkError: "+string(e.what()));
+    } catch (messaging::SessionClosed& e) {
+        throw cms::CMSException("Received qpid::messaging::SessionClosed: "+string(e.what()));
+    } catch (messaging::TransactionAborted& e) {
+        throw cms::CMSException("Received qpid::messaging::TransactionAborted: "+string(e.what()));
+    } catch (messaging::TransactionError& e ) {
+        throw cms::CMSException("Received qpid::messaging::TransactionError: "+string(e.what()));
+    } catch (messaging::UnauthorizedAccess& e) {
+        throw cms::CMSException("Received qpid::messaging::UnauthorizedAccess: "+string(e.what()));
+    } catch (messaging::SessionError& e) {
+        throw cms::CMSException("Received qpid::messaging::SessionError: "+string(e.what()));
+    } catch (messaging::ConnectionError& e) {
+        throw cms::CMSException("Received qpid::messaging::ConnectionError: "+string(e.what()));
+    } catch (messaging::TransportFailure& e) {
+        throw cms::CMSException("Received qpid::messaging::TransportFailure: "+string(e.what()));
+    } catch (messaging::MessagingException& e) {
+        throw cms::CMSException("Received qpid::messaging::MessagingException: "+string(e.what()));
+    } catch (qpid::types::Exception& e) {
+        throw cms::CMSException("Received qpid::types::Exception: "+string(e.what()));
+    } catch (std::exception& e) {
+        throw cms::CMSException("Received std::exception: "+string(e.what()));
+    }
 }
 
 }

@@ -29,6 +29,10 @@ public:
     NotImplementedYet();
 };
 
+// Call this in the context of catching an exception in the qpid::types::Exception tree
+// It will rethrow a suitable cms::CMSException tree exception
+void rethrowTranslatedException();
+
 }
 }
 

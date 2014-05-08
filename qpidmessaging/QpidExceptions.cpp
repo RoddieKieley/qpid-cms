@@ -57,11 +57,11 @@ void rethrowTranslatedException()
     } catch (messaging::KeyError& e) {
         throw cms::CMSException("Received qpid::messaging::KeyError: "+string(e.what()));
     } catch (messaging::AssertionFailed& e ) {
-        throw cms::CMSException("Received qpid::messaging::AssertionFailed: "+string(e.what()));
+        throw cms::InvalidDestinationException("Received qpid::messaging::AssertionFailed: "+string(e.what()));
     } catch (messaging::NotFound& e) {
-        throw cms::CMSException("Received qpid::messaging::NotFound: "+string(e.what()));
+        throw cms::InvalidDestinationException("Received qpid::messaging::NotFound: "+string(e.what()));
     } catch (messaging::ResolutionError& e) {
-        throw cms::CMSException("Received qpid::messaging::ResolutionError: "+string(e.what()));
+        throw cms::InvalidDestinationException("Received qpid::messaging::ResolutionError: "+string(e.what()));
     } catch (messaging::MalformedAddress& e) {
         throw cms::CMSException("Received qpid::messaging::MalformedAddress: "+string(e.what()));
     } catch (messaging::AddressError& e) {

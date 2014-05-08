@@ -69,7 +69,8 @@ std::string QpidConnection::connectionOptions()
     return options;
 }
 
-QpidConnection::QpidConnection(const std::string& uri) :
+QpidConnection::QpidConnection(const std::string& uri)
+try :
     uri_(uri),
     exceptionListener_(nullptr),
     messageTransformer_(nullptr),
@@ -79,8 +80,12 @@ QpidConnection::QpidConnection(const std::string& uri) :
 {
     connection_.open();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+}
 
-QpidConnection::QpidConnection(const std::string& uri, const std::string& username, const std::string& password) :
+QpidConnection::QpidConnection(const std::string& uri, const std::string& username, const std::string& password)
+try :
     uri_(uri),
     username_(username),
     password_(password),
@@ -92,8 +97,12 @@ QpidConnection::QpidConnection(const std::string& uri, const std::string& userna
 {
     connection_.open();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+}
 
-QpidConnection::QpidConnection(const std::string& uri, const std::string& username, const std::string& password, const std::string& clientId) :
+QpidConnection::QpidConnection(const std::string& uri, const std::string& username, const std::string& password, const std::string& clientId)
+try :
     uri_(uri),
     username_(username),
     password_(password),
@@ -105,6 +114,9 @@ QpidConnection::QpidConnection(const std::string& uri, const std::string& userna
     connection_(connectionURL(), connectionOptions())
 {
     connection_.open();
+}
+catch (std::exception&) {
+    rethrowTranslatedException();
 }
 
 QpidConnection::~QpidConnection()
@@ -162,11 +174,15 @@ const cms::ConnectionMetaData* QpidConnection::getMetaData() const
 }
 
 void QpidConnection::close()
+try
 {
     for (auto&& i = sessions_.cbegin(); i!=sessions_.cend(); ++i) {
         (*i)->close();
     }
     connection_.close();
+}
+catch (std::exception&) {
+    rethrowTranslatedException();
 }
 
 void QpidConnection::start()

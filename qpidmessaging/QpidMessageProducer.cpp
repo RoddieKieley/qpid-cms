@@ -28,7 +28,8 @@
 namespace qpid{
 namespace cmsimpl {
 
-QpidMessageProducer::QpidMessageProducer(QpidSession& session, const cms::Destination* destination) :
+QpidMessageProducer::QpidMessageProducer(QpidSession& session, const cms::Destination* destination)
+try :
     sender_(session.session_.createSender(dynamic_cast<const QpidDestination*>(destination)->getAddress())),
     messageTransformer_(session.messageTransformer_),
     ttlDefault_(0),
@@ -37,6 +38,9 @@ QpidMessageProducer::QpidMessageProducer(QpidSession& session, const cms::Destin
     generateMessageID_(true),
     generateTimestamp_(true)
 {
+}
+catch (std::exception&){
+    rethrowTranslatedException();
 }
 
 QpidMessageProducer::~QpidMessageProducer()
@@ -129,6 +133,7 @@ void QpidMessageProducer::send(cms::Message* message, int deliveryMode, int prio
 }
 
 void QpidMessageProducer::send(cms::Message* message, int deliveryMode, int priority, long long int timeToLive)
+try
 {
     QpidMessage* qm = dynamic_cast<QpidMessage*>(message);
     if (!qm) throw cms::CMSException("Message not a QpidMessage");
@@ -141,6 +146,9 @@ void QpidMessageProducer::send(cms::Message* message, int deliveryMode, int prio
         qm->message_.setMessageId(qpid::types::Uuid(true).str());
     sender_.send(qm->message_);
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+}
 
 void QpidMessageProducer::send(cms::Message* message, cms::AsyncCallback* onComplete)
 {
@@ -148,6 +156,7 @@ void QpidMessageProducer::send(cms::Message* message, cms::AsyncCallback* onComp
 }
 
 void QpidMessageProducer::send(cms::Message* message)
+try
 {
     QpidMessage* qm = dynamic_cast<QpidMessage*>(message);
     if (!qm) throw cms::CMSException("Message not a QpidMessage");
@@ -156,10 +165,17 @@ void QpidMessageProducer::send(cms::Message* message)
         qm->message_.setMessageId(qpid::types::Uuid(true).str());
     sender_.send(qm->message_);
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+}
 
 void QpidMessageProducer::close()
+try
 {
     sender_.close();
+}
+catch (std::exception&) {
+    rethrowTranslatedException();
 }
 
 }

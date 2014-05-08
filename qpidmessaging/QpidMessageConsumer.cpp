@@ -25,14 +25,17 @@
 namespace qpid {
 namespace cmsimpl {
 
-QpidMessageConsumer::QpidMessageConsumer(QpidSession& session, const cms::Destination* destination) :
+QpidMessageConsumer::QpidMessageConsumer(QpidSession& session, const cms::Destination* destination)
+try :
   session_(session),
   messageTransformer_(session_.messageTransformer_),
   availableListener_(nullptr),
   listener_(nullptr),
   receiver_(session.session_.createReceiver(dynamic_cast<const QpidDestination*>(destination)->getAddress()))
 {
-
+}
+catch (std::exception&){
+    rethrowTranslatedException();
 }
 
 QpidMessageConsumer::~QpidMessageConsumer()

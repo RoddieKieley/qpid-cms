@@ -78,7 +78,8 @@ void QpidSession::delConsumerListener(const std::string& name)
     consumers_.erase(name);
 }
 
-QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode) :
+QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMode acknowledgeMode)
+try :
     connection_(connection),
     messageTransformer_(connection.messageTransformer_),
     acknowledgeMode_(acknowledgeMode),
@@ -87,6 +88,9 @@ QpidSession::QpidSession(QpidConnection& connection, cms::Session::AcknowledgeMo
              : connection.connection_.createSession()),
     state_(INIT)
 {
+}
+catch (std::exception&) {
+    rethrowTranslatedException();
 }
 
 QpidSession::~QpidSession()
@@ -211,22 +215,31 @@ cms::MessageConsumer* QpidSession::createConsumer(const cms::Destination* destin
 
 void QpidSession::recover()
 {
-
+    if ( isTransacted() ) throw cms::IllegalStateException();
 }
 
 void QpidSession::rollback()
+try
 {
     if ( isTransacted() ) session_.rollback();
     else throw cms::IllegalStateException();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+}
 
 void QpidSession::commit()
+try
 {
     if ( isTransacted() ) session_.commit();
     else throw cms::IllegalStateException();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+}
 
 void QpidSession::close()
+try
 {
     {
         std::lock_guard<std::mutex> lk(lock_);
@@ -240,8 +253,12 @@ void QpidSession::close()
     sessionThread_.join();
     state_ = STOPPED;
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+}
 
 void QpidSession::start()
+try
 {
     // Start up thread to service session
     std::lock_guard<std::mutex> lk(lock_);
@@ -254,6 +271,9 @@ void QpidSession::start()
     }
     sessionThread_ = std::thread(std::bind(&QpidSession::threadWorker, this));
     state_ = STARTED;
+}
+catch (std::exception&) {
+    rethrowTranslatedException();
 }
 
 void QpidSession::stop()

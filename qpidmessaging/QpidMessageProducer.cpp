@@ -136,6 +136,9 @@ void QpidMessageProducer::send(cms::Message* message, int deliveryMode, int prio
     qm->message_.setPriority(priority);
     qm->message_.setTtl(qpid::messaging::Duration(timeToLive));
     qm->message_.setDurable(deliveryMode==cms::DeliveryMode::PERSISTENT);
+    qm->userMessageId_.reset();
+    if (generateMessageID_)
+        qm->message_.setMessageId(qpid::types::Uuid(true).str());
     sender_.send(qm->message_);
 }
 
@@ -148,6 +151,9 @@ void QpidMessageProducer::send(cms::Message* message)
 {
     QpidMessage* qm = dynamic_cast<QpidMessage*>(message);
     if (!qm) throw cms::CMSException("Message not a QpidMessage");
+    qm->userMessageId_.reset();
+    if (generateMessageID_)
+        qm->message_.setMessageId(qpid::types::Uuid(true).str());
     sender_.send(qm->message_);
 }
 

@@ -135,7 +135,9 @@ public:
                 message->acknowledge();
             }
 
-            printf( "Message #%d Received: %s\n", count, text.c_str() );
+            string id = message->getCMSMessageID();
+
+            printf( "Message #%d(%s) Received: %s\n", count, id.c_str(), text.c_str() );
         } catch (CMSException& e) {
             e.printStackTrace();
         }

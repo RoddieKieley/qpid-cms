@@ -40,6 +40,7 @@ class QpidMessage :  virtual public cms::Message
     mutable qpid::messaging::Message message_;
     std::unique_ptr<cms::Destination> destination_;
     std::unique_ptr<cms::Destination> replyTo_;
+    std::unique_ptr<std::string> userMessageId_;
     mutable bool acked_;
 
 protected:

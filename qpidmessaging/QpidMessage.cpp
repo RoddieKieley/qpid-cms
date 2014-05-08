@@ -151,12 +151,17 @@ int QpidMessage::getCMSPriority() const
 
 void QpidMessage::setCMSMessageID(const std::string& id)
 {
-    message_.setMessageId(id);
+    userMessageId_ = std::unique_ptr<std::string>(new std::string(id));
 }
 
 std::string QpidMessage::getCMSMessageID() const
 {
-    return message_.getMessageId();
+    return
+        userMessageId_
+        ? *userMessageId_
+        : message_.getMessageId().empty()
+          ? message_.getMessageId()
+          : std::string("ID:")+message_.getMessageId();
 }
 
 void QpidMessage::setCMSExpiration(long long int expireTime)

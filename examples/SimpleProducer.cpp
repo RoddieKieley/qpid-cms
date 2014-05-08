@@ -90,6 +90,13 @@ public:
                 throw e;
             }
 
+            const ConnectionMetaData& metaData(*connection->getMetaData());
+            printf( "Using %s(v%d.%d.%d) CMS v%d.%d\n",
+                    metaData.getCMSProviderName().c_str(),
+                    metaData.getProviderMajorVersion(), metaData.getProviderMinorVersion(), metaData.getProviderPatchVersion(),
+                    metaData.getCMSMajorVersion(), metaData.getCMSMinorVersion()
+                  );
+
             // Create a Session
             if( clientAck ) {
                 session = connection->createSession( Session::CLIENT_ACKNOWLEDGE );

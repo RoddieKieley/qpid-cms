@@ -23,6 +23,22 @@
 namespace qpid {
 namespace cmsimpl {
 
+// Purely internal class to support cms::ConnectionMetaData
+static class QpidConnectionMetaData : public cms::ConnectionMetaData {
+    std::string getCMSVersion() const      { return "3.2"; }
+    int getCMSMajorVersion() const         { return 3; }
+    int getCMSMinorVersion() const         { return 2; }
+
+    std::string getCMSProviderName() const { return "Qpid-CMS"; }
+    std::string getProviderVersion() const { return "0.1.0"; }
+    int getProviderMajorVersion() const    { return 0; }
+    int getProviderMinorVersion() const    { return 1; }
+    int getProviderPatchVersion() const    { return 0; }
+
+    std::vector<std::string> getCMSXPropertyNames() const
+    { return {"JMSXNoSelectors", "JMSXNoXA"}; }
+} ConnectionMetaData;
+
 static bool DefaultUseAMQP10 = true;
 
 std::string QpidConnection::connectionURL()
@@ -142,7 +158,7 @@ cms::Session* QpidConnection::createSession()
 
 const cms::ConnectionMetaData* QpidConnection::getMetaData() const
 {
-    throw NotImplementedYet();
+    return &ConnectionMetaData;
 }
 
 void QpidConnection::close()

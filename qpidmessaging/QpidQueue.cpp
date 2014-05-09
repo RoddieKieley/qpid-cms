@@ -23,7 +23,7 @@ namespace qpid {
 namespace cmsimpl {
 
 QpidQueue::QpidQueue(const std::string& queueName) :
-    QpidDestination(queueName, "queue"),
+    QpidDestination(queueName, QpidDestination::QUEUE),
     queueName_(queueName)
 {
 }

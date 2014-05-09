@@ -16,11 +16,30 @@
  */
 
 #include "QpidDestination.h"
+#include "QpidQueue.h"
+#include "QpidTopic.h"
 
 #include <cms/Destination.h>
 
 namespace qpid {
 namespace cmsimpl {
+
+const std::string QpidDestination::TOPIC("topic");
+const std::string QpidDestination::QUEUE("queue");
+
+cms::Destination* QpidDestination::createDestination(const messaging::Address& address)
+{
+    std::string name(address.getName());
+    if ( !address.getSubject().empty() ) {
+        name +="/";
+        name += address.getSubject();
+    }
+
+    if ( address.getType()==QUEUE ) { return new QpidQueue(name); }
+    else if ( address.getType()==TOPIC ) { return new QpidTopic(name); }
+    // If we find no type in the address assume a queue
+    else return new QpidQueue(name);
+}
 
 QpidDestination::QpidDestination(const std::string& address, const std::string& type) :
     destination_(address, "", qpid::types::Variant::Map(), type)

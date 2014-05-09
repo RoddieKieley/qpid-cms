@@ -136,8 +136,24 @@ public:
             }
 
             string id = message->getCMSMessageID();
+            const cms::Destination* replyTo = message->getCMSReplyTo();
+            string replyType;
 
-            printf( "Message #%d(%s) Received: %s\n", count, id.c_str(), text.c_str() );
+            if (replyTo)
+                switch (replyTo->getDestinationType()) {
+                    case cms::Destination::TOPIC:
+                        replyType = "topic"; break;
+                    case cms::Destination::QUEUE:
+                        replyType = "queue"; break;
+                    case cms::Destination::TEMPORARY_TOPIC:
+                        replyType = "temporary_topic"; break;
+                    case cms::Destination::TEMPORARY_QUEUE:
+                        replyType = "temporary_queue"; break;
+                }
+            if ( replyType.empty() )
+                printf( "Message #%d(%s) Received: %s\n", count, id.c_str(), text.c_str() );
+            else
+                printf( "Message #%d(%s) ReplyTo Type: %s Received: %s\n", count, id.c_str(), replyType.c_str(), text.c_str() );
         } catch (CMSException& e) {
             e.printStackTrace();
         }

@@ -38,6 +38,8 @@ public:
     QpidDestination(const QpidDestination& destination);
     ~QpidDestination();
 
+    static cms::Destination* createDestination(const qpid::messaging::Address& address);
+
     QpidDestination& operator=(const QpidDestination& source);
 
     // Implementations that are common to all destinations
@@ -45,6 +47,9 @@ public:
     bool equals(const cms::Destination& other) const;
 
     qpid::messaging::Address getAddress() const;
+
+    static const std::string TOPIC;
+    static const std::string QUEUE;
 };
 
 }

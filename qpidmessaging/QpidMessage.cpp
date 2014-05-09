@@ -58,9 +58,9 @@ QpidMessage::QpidMessage(QpidSession& session) :
 QpidMessage::QpidMessage(QpidSession& session, const messaging::Message& qm) :
     session_(session),
     message_(qm),
+    replyTo_(QpidDestination::createDestination(qm.getReplyTo())),
     acked_(false)
     // TODO: where does destination_ come from?
-    // TODO: need to create replyTo_ from message_.getReplyTo()
 {
 }
 

@@ -1,14 +1,5 @@
 This List was initially copied from NOTES:
 
-These items are short term goals:
-- [ ] Test Code
-  - There seem to be no API level tests for CMS
-- [*] Properly support topics and queues.
-  - No special handling for Queues/Topics to ensure that the semantics are correct
-  we just use the name as is.
-- [ ] Audit/fix exception throwing to be sure we only throw cms exceptions
-  and that we throw in the correct circumstances.
-
 Missing features
 - Can't select AMQP 0-10 or 1.0 at the Connection level
   - Would need to do this in the connection URL.
@@ -39,9 +30,12 @@ Missing features
   - not clear how this maps to AMQP Messages (content type, etc.)
 
 Bigger features missing:
-* Any kind of test or example code
-  - beyond simple producer and consumer
+* Unit tests or much example code
+  - There is the beginnings of  unit tests
+  - There is a simple producer and consumer example copied and modified
+    from the ActiveMQ-CMS tree.
 * MessageTransformer callouts.
+  - The APIs to set the transformers are there. But no transformers are ever run.
 * XA Transactions (whole other connection factory).
 * Temporary queues/topics. Factories in session will try to create them but
   they currently just throw.

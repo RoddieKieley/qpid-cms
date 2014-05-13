@@ -1,1 +1,59 @@
- 
+
+Compiling Qpid-CMS
+==================
+
+Prerequisites:
+
+Qpid-CMS has some prerequites that need to be present before it can be built:
+
+It relies on the Qpid client library (qpid::messaging) for its underlying messaging
+API and the Qpid Proton library for the AMQP 1.0 protocol implementation.
+
+Minimum known working versions are:
+
+qpid-cpp 0.28 (0.26 is known to have bugs that will cause problems)
+qpid-proton 0.7
+
+In order to build Qpid-CMS you will require cmake:
+
+cmake 2.6
+
+In order to build the Unit tests you will require Boost Test
+
+Getting the source:
+
+You can find the source for qpid-cms in github:
+Get using this command:
+    git clone git@github.com:astitcher/qpid-cms.git
+
+This repository uses a git submodule to pull in what it needs from the activemq-cms git
+repository to set this up use these commands:
+    git submodule init
+    git submodule update
+
+Building from source:
+
+The simplest (and recommended) way to build qpid-cms is to use the same install prefix
+for qpid-cms as for qpid and qpid-proton.
+
+In this case follow the build instructions you will find with the qpid and qpid-proton
+source.
+
+Having done this create a directory set aside to build qpid-cms:
+    mkdir build
+
+Now run cmake in the directory pointing it at the unpacked source directory for qpid-cms
+and specifying the install prefix used for qpid and qpid-proton:
+    cmake <qpid-cms source> -DCMAKE_INSTALL_PREFIX=<install prefix used for qpid>
+
+This will configure the build, now you can build it with make:
+    make
+
+You can run the unit tests
+    ./tests/UnitTests
+
+There are small examples to examine and run in the examples directory.
+
+Assuming all goes well you can install the library in the same place as the qpid libraries:
+    sudo make install
+    [sudo is not needed if you are only installing in a non-system directory]

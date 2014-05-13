@@ -5,21 +5,18 @@ IMO the major piece to do here is sufficient test code - there is almost
 no useful test code in the ActiveMQ CMS code except for some fairly
 lightweight examples which all need modifying to work.
 
-I'd say that to get to something useful for others:
+I'd say that to get to something more useful for actual work:
 * We need to round out the message support more - with ByteMessage and
   probably MapMessage as this is well used I think.
 * Fix message destination handling - this may need changes to
   qpid::messaging.
-* Properly support topics and queues.
-* Audit/fix exception throwing to be sure we only throw cms exceptions
-  and that we throw in the correct circumstances.
 
 What's done:
 (Class by class)
 * ConnectionFactory
 - Finished
 * Connection
-- Finished except ConnectionMetaData;
+- Finished
 x No way to select 0-10 or 1.0 at runtime yet.
 * Session
 - Basic queue/topic and producer/consumer functionality
@@ -51,8 +48,8 @@ xxx Most consonant way to add it to the API would be to add an extension
 xx No selectors
 * Message
 -- Message common code (properties, send, acknowledge)
-xx destination and reply to not well handled
-xxx Cannot extract destination/reply to from a received message.
+xx destination not well handled
+xxx Cannot extract destination from a received message.
 -- TextMessage finished
 xx BytesMessage bare bones there
 xx StreamMessage nothing implemented
@@ -61,15 +58,12 @@ xx MapMessage nothing implemented
 xxx not clear how this maps to qpid API
 
 What features missing:
-* Any kind of test or example code
+* Much in the way of test or example code
 - beyond simple producer and consumer
 * MessageTransformer callouts.
-* Audit/translation of exceptions to make sure all thrown exceptions are cms::
 * XA Transactions (whole other connection factory).
 * Temporary queues/topics. Factories in session will try to create them but
   they currently just throw.
-* No special handling for Queues/Topics to ensure that the semantics are correct
-  we just use the name as is.
 * Enhanced Connection
 - This is used to get an interface to query destinations and to receive callbacks
   on destination events (creation/deletion)

@@ -243,7 +243,7 @@ try
 {
     {
         std::lock_guard<std::mutex> lk(lock_);
-        if (state_==STOPPED) return;
+        if (state_==STOPPED || state_==INIT) return;
         state_ = CLOSING;
     }
     // Closing underlying session will cause worker thread to exit
@@ -262,12 +262,18 @@ try
 {
     // Start up thread to service session
     std::lock_guard<std::mutex> lk(lock_);
-    if (state_==STARTED) return;
-    if (state_==STOPPED) {
+    switch (state_) {
+    case STARTED: return;
+    case INIT: break;
+    case STOPPED:
         session_ =
           qpid::messaging::Session(acknowledgeMode_==SESSION_TRANSACTED
             ? connection_.connection_.createTransactionalSession()
             : connection_.connection_.createSession());
+        break;
+    case CLOSING:
+        // TODO: This is really an error case
+        break;
     }
     sessionThread_ = std::thread(std::bind(&QpidSession::threadWorker, this));
     state_ = STARTED;

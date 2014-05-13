@@ -98,8 +98,12 @@ void rethrowTranslatedException()
         throw cms::CMSException("Received qpid::messaging::TransportFailure: "+string(e.what()));
     } catch (messaging::MessagingException& e) {
         throw cms::CMSException("Received qpid::messaging::MessagingException: "+string(e.what()));
+    } catch (qpid::types::InvalidConversion& e) {
+        throw cms::MessageFormatException("Received qpid::types::InvalidConversion: "+string(e.what()));
     } catch (qpid::types::Exception& e) {
         throw cms::CMSException("Received qpid::types::Exception: "+string(e.what()));
+    } catch (cms::CMSException&) {
+        throw;
     } catch (std::exception& e) {
         throw cms::CMSException("Received std::exception: "+string(e.what()));
     }

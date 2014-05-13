@@ -250,49 +250,97 @@ qpid::types::Variant QpidMessage::getProperty(const std::string& name) const
 {
     qpid::types::Variant::Map props = message_.getProperties();
     qpid::types::Variant::Map::const_iterator i=props.find(name);
-    if ( i==props.end() ) throw cms::CMSException();
+    if ( i==props.end() ) throw cms::CMSException("Non existant property: " + name);
     return i->second;
 }
 
 std::string QpidMessage::getStringProperty(const std::string& name) const
+try
 {
 
     return getProperty(name).asString();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+    // Can't really get here, but compiler can't always tell
+    return std::string();
+}
 
 short int QpidMessage::getShortProperty(const std::string& name) const
+try
 {
     return getProperty(name).asInt16();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+    // Can't really get here, but compiler can't always tell
+    return 0;
+}
 
 long long int QpidMessage::getLongProperty(const std::string& name) const
+try
 {
     return getProperty(name).asInt64();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+    // Can't really get here, but compiler can't always tell
+    return 0;
+}
 
 int QpidMessage::getIntProperty(const std::string& name) const
+try
 {
     return getProperty(name).asInt32();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+    // Can't really get here, but compiler can't always tell
+    return 0;
+}
 
 float QpidMessage::getFloatProperty(const std::string& name) const
+try
 {
     return getProperty(name).asFloat();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+    // Can't really get here, but compiler can't always tell
+    return 0;
+}
 
 double QpidMessage::getDoubleProperty(const std::string& name) const
+try
 {
     return getProperty(name).asDouble();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+    // Can't really get here, but compiler can't always tell
+    return 0;
+}
 
 unsigned char QpidMessage::getByteProperty(const std::string& name) const
+try
 {
     return getProperty(name).asUint8();
 }
+catch (std::exception&) {
+    rethrowTranslatedException();
+    // Can't really get here, but compiler can't always tell
+    return 0;
+}
 
 bool QpidMessage::getBooleanProperty(const std::string& name) const
+try
 {
     return getProperty(name).asBool();
+}
+catch (std::exception&) {
+    rethrowTranslatedException();
+    // Can't really get here, but compiler can't always tell
+    return false;
 }
 
 namespace {
@@ -304,11 +352,11 @@ struct TypeCorrespondance{
 } typeTranslation[] = {
     {qpid::types::VAR_VOID, cms::Message::NULL_TYPE},      // 0 This element is .begin()
     {qpid::types::VAR_BOOL, cms::Message::BOOLEAN_TYPE},   // 1
-    {qpid::types::VAR_UINT8, cms::Message::SHORT_TYPE},    // 2
+    {qpid::types::VAR_UINT8, cms::Message::BYTE_TYPE},     // 2
     {qpid::types::VAR_UINT16, cms::Message::INTEGER_TYPE}, // 3
     {qpid::types::VAR_UINT32, cms::Message::LONG_TYPE},    // 4
     {qpid::types::VAR_UINT64, cms::Message::LONG_TYPE},    // 5
-    {qpid::types::VAR_INT8, cms::Message::BYTE_TYPE},      // 6
+    {qpid::types::VAR_INT8, cms::Message::SHORT_TYPE},     // 6
     {qpid::types::VAR_INT16, cms::Message::SHORT_TYPE},    // 7
     {qpid::types::VAR_INT32, cms::Message::INTEGER_TYPE }, // 8
     {qpid::types::VAR_INT64, cms::Message::LONG_TYPE},     // 9
@@ -348,7 +396,8 @@ bool QpidMessage::propertyExists(const std::string& name) const
 std::vector< std::string > QpidMessage::getPropertyNames() const
 {
     qpid::types::Variant::Map props = message_.getProperties();
-    std::vector<std::string> r(props.size());
+    std::vector<std::string> r;
+    r.reserve(props.size());
     for (qpid::types::Variant::Map::const_iterator i = props.begin(); i!=props.end(); ++i) {
         r.push_back(i->first);
     }

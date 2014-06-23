@@ -27,7 +27,7 @@ Get using this command:
     git clone git@github.com:astitcher/qpid-cms.git
 
 This repository uses a git submodule to pull in what it needs from the activemq-cms git
-repository to set this up use these commands:
+repository to set this up use these commands from within the git repository directory:
     git submodule init
     git submodule update
 
@@ -49,7 +49,8 @@ and specifying the install prefix used for qpid and qpid-proton:
 This will configure the build, now you can build it with make:
     make
 
-You can run the unit tests
+You can run the unit tests. Note that you will need a running qpid broker with amqp 1.0 running
+before you can the unit tests can run - this is an unfortunate effect of the the CMS API design.
     ./tests/UnitTests
 
 There are small examples to examine and run in the examples directory.
